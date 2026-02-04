@@ -1,0 +1,1277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PLAY 11 | Elite Football Jersey Advertising</title>
+  <meta name="description" content="PLAY 11 is a football jersey studio built to make the full XI look legendary. 3D previews, cinematic motion, and brand systems that feel top-tier." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #05070d;
+      --bg-soft: #0b1020;
+      --ink: #f5f7ff;
+      --ink-soft: rgba(245, 247, 255, 0.72);
+      --ink-faint: rgba(245, 247, 255, 0.5);
+      --accent: #49ffb4;
+      --accent-2: #ff6b35;
+      --accent-3: #3f7cff;
+      --gold: #ffd166;
+      --glass: rgba(8, 12, 20, 0.6);
+      --stroke: rgba(255, 255, 255, 0.12);
+      --shadow: 0 30px 80px rgba(2, 6, 12, 0.7);
+      --radius: 22px;
+      --radius-lg: 32px;
+      --max: 1200px;
+      --kit-primary: #151f45;
+      --kit-secondary: #49ffb4;
+      --kit-accent: #ff6b35;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Sora", system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111a33 0%, #05070d 55%, #020305 100%);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(73, 255, 180, 0.15), transparent 45%),
+        radial-gradient(circle at 90% 20%, rgba(63, 124, 255, 0.18), transparent 50%),
+        linear-gradient(120deg, rgba(255, 255, 255, 0.05), transparent 40%),
+        repeating-linear-gradient(0deg, transparent 0 120px, rgba(73, 255, 180, 0.08) 120px 121px),
+        repeating-linear-gradient(90deg, transparent 0 48px, rgba(255, 255, 255, 0.05) 48px 49px);
+      opacity: 0.7;
+      z-index: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      width: min(100% - 48px, var(--max));
+      margin: 0 auto;
+    }
+
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0;
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      z-index: 10;
+    }
+
+    .cursor-glow {
+      position: fixed;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(73, 255, 180, 0.25), transparent 60%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      z-index: 0;
+      opacity: 0.7;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 8;
+      backdrop-filter: blur(20px);
+      background: rgba(4, 7, 12, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 1.9rem;
+      letter-spacing: 0.2em;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      color: #04130f;
+      box-shadow: 0 18px 40px rgba(73, 255, 180, 0.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 24px 50px rgba(73, 255, 180, 0.4);
+    }
+
+    .btn-ghost {
+      border-color: var(--stroke);
+      color: var(--ink);
+      background: rgba(6, 10, 18, 0.5);
+    }
+
+    .btn-ghost:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      font-size: 0.7rem;
+      color: var(--gold);
+    }
+
+    .hero {
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: center;
+      gap: 48px;
+    }
+
+    h1 {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(3.2rem, 8vw, 7rem);
+      line-height: 0.9;
+      letter-spacing: 0.12em;
+    }
+
+    .hero p {
+      margin: 18px 0 26px;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--ink-soft);
+      max-width: 560px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .hero-metrics {
+      margin-top: 30px;
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(8, 12, 20, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.9rem;
+      display: grid;
+      gap: 6px;
+    }
+
+    .metric span {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .hero-scene {
+      position: relative;
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+      perspective: 1600px;
+    }
+
+    .hero-photo {
+      position: absolute;
+      right: -40px;
+      bottom: -10px;
+      width: min(260px, 45vw);
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 28px 60px rgba(0, 0, 0, 0.55);
+      transform: rotateY(-12deg) rotateZ(2deg);
+      z-index: 1;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.05) contrast(1.08);
+    }
+
+    .hero-photo figcaption {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(6, 10, 18, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .jersey-3d {
+      width: min(380px, 80vw);
+      aspect-ratio: 3 / 4;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: float 7s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    .jersey-layer {
+      position: absolute;
+      inset: 0;
+      border-radius: 34px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: linear-gradient(140deg, #1c2b5b, #0f172d 60%, #0a1123 100%);
+      clip-path: polygon(12% 0%, 32% 0%, 36% 12%, 64% 12%, 68% 0%, 88% 0%, 100% 18%, 90% 24%, 90% 100%, 10% 100%, 10% 24%, 0% 18%);
+      box-shadow: var(--shadow);
+    }
+
+    .jersey-layer:nth-child(1) {
+      transform: translateZ(0px);
+    }
+
+    .jersey-layer:nth-child(2) {
+      transform: translateZ(24px);
+      background: linear-gradient(120deg, rgba(73, 255, 180, 0.25), rgba(63, 124, 255, 0.1));
+      opacity: 0.9;
+    }
+
+    .jersey-layer:nth-child(3) {
+      transform: translateZ(48px);
+      background: linear-gradient(120deg, rgba(255, 107, 53, 0.2), rgba(255, 255, 255, 0.08));
+      mix-blend-mode: screen;
+    }
+
+    .jersey-number {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(5rem, 12vw, 10rem);
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.85);
+      transform: translateZ(70px);
+      text-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .jersey-plate {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(6, 10, 18, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.8rem;
+      transform: translateZ(80px);
+    }
+
+    .orbit {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      top: 40px;
+      right: 0;
+      transform: rotateX(65deg) rotateZ(0deg);
+      animation: spin 10s linear infinite;
+      pointer-events: none;
+    }
+
+    .orbit::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 50%;
+      border: 1px dashed rgba(73, 255, 180, 0.4);
+    }
+
+    .light-sweep {
+      position: absolute;
+      width: 520px;
+      height: 180px;
+      background: linear-gradient(120deg, transparent, rgba(73, 255, 180, 0.22), transparent);
+      top: 40%;
+      left: -40%;
+      transform: rotate(-10deg);
+      animation: sweep 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .ticker {
+      margin: 60px 0 10px;
+      overflow: hidden;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(6, 10, 18, 0.6);
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 40px;
+      padding: 18px 0;
+      animation: marquee 16s linear infinite;
+      font-family: "Bebas Neue", sans-serif;
+      letter-spacing: 0.35em;
+      font-size: 1.4rem;
+    }
+
+    .section {
+      padding: 90px 0;
+    }
+
+    .section h2 {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(2.3rem, 4vw, 3.8rem);
+      letter-spacing: 0.12em;
+      margin: 14px 0 18px;
+    }
+
+    .section p {
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    .grid {
+      display: grid;
+      gap: 22px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      margin-top: 28px;
+    }
+
+    .media-grid {
+      margin-top: 32px;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .media-card {
+      position: relative;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(7, 11, 18, 0.7);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
+      min-height: 240px;
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
+    }
+
+    .media-card:hover {
+      transform: translateY(-6px) scale(1.02);
+    }
+
+    .media-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.02);
+      transition: transform 0.4s ease;
+    }
+
+    .media-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .media-card.contain {
+      background: #f1f4ff;
+    }
+
+    .media-card.contain img {
+      object-fit: contain;
+      padding: 18px;
+    }
+
+    .media-card figcaption {
+      position: absolute;
+      left: 14px;
+      bottom: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(6, 10, 18, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--ink);
+    }
+
+    .card {
+      padding: 24px;
+      border-radius: var(--radius);
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease, border 0.3s ease;
+      min-height: 210px;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(8, 12, 20, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--ink-faint);
+    }
+
+    .modules {
+      margin-top: 32px;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+
+    .module {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(6, 10, 18, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.85rem;
+      display: grid;
+      gap: 6px;
+    }
+
+    .module span {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .lab-grid {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: center;
+    }
+
+    .lab-panel {
+      position: relative;
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      background: linear-gradient(160deg, rgba(12, 18, 34, 0.9), rgba(6, 10, 18, 0.8));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+    }
+
+    .lab-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 10%, rgba(73, 255, 180, 0.2), transparent 55%),
+        radial-gradient(circle at 80% 80%, rgba(255, 107, 53, 0.2), transparent 50%);
+      opacity: 0.9;
+    }
+
+    .lab-panel .tag {
+      margin-bottom: 14px;
+    }
+
+    .stats {
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: rgba(8, 12, 20, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.9rem;
+    }
+
+    .stat span {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .kits-grid {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: center;
+    }
+
+    .kit-preview {
+      position: relative;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(140deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+      padding: 26px;
+      min-height: 320px;
+      transform-style: preserve-3d;
+    }
+
+    .kit-jersey {
+      width: min(320px, 80vw);
+      margin: 0 auto;
+      aspect-ratio: 3 / 4;
+      border-radius: 28px;
+      background: linear-gradient(140deg, var(--kit-primary), #0b1224 60%);
+      clip-path: polygon(12% 0%, 32% 0%, 36% 12%, 64% 12%, 68% 0%, 88% 0%, 100% 18%, 90% 24%, 90% 100%, 10% 100%, 10% 24%, 0% 18%);
+      position: relative;
+      box-shadow: var(--shadow);
+      transform: translateZ(24px);
+    }
+
+    .kit-jersey::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, transparent 0%, rgba(73, 255, 180, 0.35) 46%, rgba(73, 255, 180, 0.55) 50%, rgba(73, 255, 180, 0.35) 54%, transparent 100%),
+        linear-gradient(160deg, rgba(255, 255, 255, 0.16), transparent 60%);
+      opacity: 0.7;
+      mix-blend-mode: screen;
+    }
+
+    .kit-jersey::after {
+      content: "11";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(4rem, 10vw, 7rem);
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.85);
+      text-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .kit-stripe {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 38%;
+      height: 16%;
+      background: linear-gradient(90deg, transparent 0%, var(--kit-secondary) 25%, var(--kit-secondary) 75%, transparent 100%);
+      opacity: 0.75;
+    }
+
+    .kit-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .swatch {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      color: var(--ink);
+      background: rgba(8, 12, 20, 0.5);
+      cursor: pointer;
+      transition: transform 0.2s ease, border 0.2s ease;
+    }
+
+    .swatch:hover,
+    .swatch.active {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .signal {
+      position: relative;
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      background: linear-gradient(140deg, rgba(10, 16, 30, 0.9), rgba(5, 8, 15, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .signal-grid {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      align-items: center;
+    }
+
+    .pitch-map {
+      position: relative;
+      height: 320px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #0c1a12, #0a1410);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .pitch-map img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.82;
+      filter: saturate(1.1);
+      z-index: 0;
+    }
+
+    .pitch-map::before {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      border: 1px solid rgba(73, 255, 180, 0.25);
+      border-radius: 16px;
+      z-index: 1;
+    }
+
+    .pitch-map::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, transparent 0%, rgba(73, 255, 180, 0.1) 50%, transparent 100%),
+        radial-gradient(circle at center, rgba(73, 255, 180, 0.2), transparent 55%);
+      opacity: 0.7;
+      mix-blend-mode: screen;
+      z-index: 1;
+    }
+
+    .pitch-node {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(73, 255, 180, 0.7);
+      z-index: 2;
+    }
+
+    .pitch-node.one { top: 25%; left: 20%; }
+    .pitch-node.two { top: 30%; right: 22%; background: var(--accent-2); }
+    .pitch-node.three { bottom: 28%; left: 45%; background: var(--accent-3); }
+    .pitch-node.four { bottom: 22%; right: 30%; }
+
+    .brand-wall {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      margin-top: 24px;
+      color: var(--ink-faint);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+
+    .cta {
+      padding: 90px 0 110px;
+    }
+
+    .cta-box {
+      padding: 40px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(140deg, rgba(73, 255, 180, 0.18), rgba(255, 107, 53, 0.14));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: grid;
+      gap: 18px;
+      justify-items: start;
+    }
+
+    .form {
+      display: grid;
+      gap: 14px;
+      width: min(100%, 480px);
+    }
+
+    .input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(10, 14, 22, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: var(--ink);
+      font-size: 0.95rem;
+    }
+
+    .footer {
+      padding: 40px 0 70px;
+      color: var(--ink-faint);
+      font-size: 0.85rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: rotateY(-14deg) rotateX(8deg) translateY(0px); }
+      50% { transform: rotateY(12deg) rotateX(-6deg) translateY(-10px); }
+    }
+
+    @keyframes spin {
+      from { transform: rotateX(65deg) rotateZ(0deg); }
+      to { transform: rotateX(65deg) rotateZ(360deg); }
+    }
+
+    @keyframes sweep {
+      0% { transform: translateX(-40%) rotate(-10deg); opacity: 0; }
+      50% { opacity: 0.85; }
+      100% { transform: translateX(80%) rotate(-10deg); opacity: 0; }
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .hero { padding-top: 90px; }
+      .ticker-track { font-size: 1.1rem; letter-spacing: 0.18em; }
+      .hero-photo { right: -20px; width: 200px; opacity: 0.65; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-photo {
+        right: -6px;
+        bottom: 10px;
+        width: 160px;
+        transform: rotateY(-8deg);
+      }
+    }
+
+    @media (pointer: coarse) {
+      .cursor-glow { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="page">
+    <header>
+      <div class="container nav">
+        <div class="logo">PLAY <span>11</span></div>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#playbook">Playbook</a>
+          <a href="#lab">3D Lab</a>
+          <a href="#kits">Kits</a>
+          <a href="#signal">Signal</a>
+          <a href="#lookbook">Lookbook</a>
+        </nav>
+        <a class="btn btn-ghost" href="#lookbook">Request the Lookbook</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">Elite Football Identity Studio</div>
+            <h1>PLAY 11<br />THE FULL XI EFFECT</h1>
+            <p>
+              PLAY 11 turns clubs into cultural signals. We craft jerseys, launches, and motion systems that make every
+              player look elite. If a top brand offered 1.9 million for an advertising site, this is what they expect.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#playbook">Open the XI Playbook</a>
+              <a class="btn btn-ghost" href="#lab">Experience the 3D Lab</a>
+            </div>
+            <div class="hero-metrics">
+              <div class="metric"><span>11</span> identity modules</div>
+              <div class="metric"><span>60fps</span> motion system</div>
+              <div class="metric"><span>3D</span> jersey depth layers</div>
+            </div>
+          </div>
+        <div class="hero-scene">
+          <div class="orbit" aria-hidden="true"></div>
+          <div class="light-sweep" aria-hidden="true"></div>
+          <figure class="hero-photo reveal">
+            <img src="images/ronaldo-celebration.jpg" alt="Forward celebrating after scoring in a red kit" />
+            <figcaption>Matchday Pulse</figcaption>
+          </figure>
+          <div class="jersey-3d" aria-label="3D jersey preview" data-tilt>
+            <div class="jersey-layer"></div>
+            <div class="jersey-layer"></div>
+            <div class="jersey-layer"></div>
+            <div class="jersey-number">11</div>
+              <div class="jersey-plate">PLAY 11 SIGNATURE</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span>PLAY 11</span>
+          <span>FULL XI</span>
+          <span>PLAY 11</span>
+          <span>FULL XI</span>
+          <span>PLAY 11</span>
+          <span>FULL XI</span>
+          <span>PLAY 11</span>
+          <span>FULL XI</span>
+        </div>
+      </section>
+
+      <section class="section" id="playbook">
+        <div class="container">
+          <div class="eyebrow">The XI Playbook</div>
+          <h2>Every kit, asset, and launch aligned to the same XI logic.</h2>
+          <p>
+            We build a connected system so every player, kit, and campaign feels like part of one top-tier story.
+            The Play 11 framework makes the brand feel elite from the tunnel to the timeline.
+          </p>
+          <div class="grid">
+            <article class="card reveal" data-tilt>
+              <div class="tag">01. Collar Code</div>
+              <h3>Signature neckline geometry</h3>
+              <p>Every jersey shares a recognizable collar angle to anchor the club identity across all kits.</p>
+            </article>
+            <article class="card reveal" data-tilt>
+              <div class="tag">02. Panel Logic</div>
+              <h3>Eleven performance zones</h3>
+              <p>Panel seams follow sprint zones and flex points so motion looks premium on the pitch.</p>
+            </article>
+            <article class="card reveal" data-tilt>
+              <div class="tag">03. Stadium Lines</div>
+              <h3>Pitch inspired textures</h3>
+              <p>Micro lines echo stadium markings and light sweeps for broadcast-ready detail.</p>
+            </article>
+            <article class="card reveal" data-tilt>
+              <div class="tag">04. Number 11 Core</div>
+              <h3>Iconic XI marks</h3>
+              <p>The 11 symbol anchors crest, social, and launch assets for instant recognition.</p>
+            </article>
+            <article class="card reveal" data-tilt>
+              <div class="tag">05. Motion Framework</div>
+              <h3>90-minute energy arc</h3>
+              <p>Animated gradients and lighting cues match the match rhythm: build, burst, reset.</p>
+            </article>
+            <article class="card reveal" data-tilt>
+              <div class="tag">06. Campaign Velocity</div>
+              <h3>Launch-ready assets</h3>
+              <p>Social kits, hero visuals, and press packs built to feel like a global release.</p>
+            </article>
+          </div>
+          <div class="modules">
+            <div class="module"><span>07</span> Captain band system</div>
+            <div class="module"><span>08</span> Keeper kit mapping</div>
+            <div class="module"><span>09</span> Sponsor lockups</div>
+            <div class="module"><span>10</span> Stadium takeover</div>
+            <div class="module"><span>11</span> Social motion suite</div>
+          </div>
+          <div class="media-grid">
+            <figure class="media-card contain reveal" data-tilt>
+              <img src="images/juventus-kit.png" alt="Black and white kit shown from front and back" />
+              <figcaption>Dual View</figcaption>
+            </figure>
+            <figure class="media-card reveal" data-tilt>
+              <img src="images/ronaldo-back-black.jpg" alt="Black jersey back with Ronaldo number 7" />
+              <figcaption>Iconic Back</figcaption>
+            </figure>
+            <figure class="media-card reveal" data-tilt>
+              <img src="images/ronaldo-collage.jpg" alt="Custom concept jersey with bold color blocks" />
+              <figcaption>Concept Collage</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="lab">
+        <div class="container lab-grid">
+          <div class="lab-panel reveal">
+            <div class="tag">3D Launch System</div>
+            <h2>Depth, orbit, and cinematic clarity.</h2>
+            <p>
+              The PLAY 11 lab pairs 3D layering, orbiting light rings, and 60fps motion loops to make every kit feel alive.
+              This is the kind of presentation top-tier brands expect when they invest big.
+            </p>
+            <div class="stats">
+              <div class="stat"><div>Render layers</div><span>05+</span></div>
+              <div class="stat"><div>Motion templates</div><span>18</span></div>
+              <div class="stat"><div>Launch assets</div><span>30+</span></div>
+            </div>
+          </div>
+          <div class="grid">
+            <article class="card reveal">
+              <h3>Orbit Highlights</h3>
+              <p>Rotating light arcs reveal texture and make every panel look premium.</p>
+            </article>
+            <article class="card reveal">
+              <h3>Player Intro Cards</h3>
+              <p>3D tilt cards designed for social reveals, aligned to the XI system.</p>
+            </article>
+            <article class="card reveal">
+              <h3>Matchday Pulse</h3>
+              <p>Motion curves matched to matchday energy so every frame feels like kickoff.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="kits">
+        <div class="container kits-grid">
+          <div>
+            <div class="eyebrow">Kit Concepts</div>
+            <h2>Colorways that keep the XI aligned.</h2>
+            <p>
+              Explore connected kits without a cart or checkout. Every colorway shares the Play 11 geometry,
+              so the squad looks unified from tunnel walk to final whistle.
+            </p>
+            <div class="kit-controls" role="tablist" aria-label="Kit colorways">
+              <button class="swatch active" data-scheme="home" role="tab">Home Pulse</button>
+              <button class="swatch" data-scheme="away" role="tab">Away Frost</button>
+              <button class="swatch" data-scheme="third" role="tab">Third Blaze</button>
+            </div>
+          </div>
+          <div class="kit-preview" data-tilt>
+            <div class="kit-jersey">
+              <div class="kit-stripe"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="signal">
+        <div class="container signal">
+          <div class="signal-grid">
+            <div>
+              <div class="eyebrow">Stadium Signal</div>
+              <h2>The XI broadcast moment.</h2>
+              <p>
+                PLAY 11 extends beyond the kit. We create a stadium-to-screen signal with pitch graphics, tunnel visuals,
+                and social countdowns that make the club feel global.
+              </p>
+              <div class="brand-wall">
+                <div>Launch Film</div>
+                <div>Press Pack</div>
+                <div>Matchday Posters</div>
+                <div>Social Motion</div>
+                <div>Stadium Wrap</div>
+                <div>Player Cards</div>
+              </div>
+            </div>
+            <div class="pitch-map">
+              <img src="images/pitch-map.png" alt="Pitch map showing the full XI positions" />
+              <div class="pitch-node one"></div>
+              <div class="pitch-node two"></div>
+              <div class="pitch-node three"></div>
+              <div class="pitch-node four"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="lookbook">
+        <div class="container">
+          <div class="eyebrow">Lookbook Request</div>
+          <h2>Bring PLAY 11 to your club.</h2>
+          <p>
+            Tell us about your team and we will build a custom lookbook with kit concepts, 3D previews,
+            and launch-ready assets. No cart. Just a premium presentation.
+          </p>
+          <div class="cta-box reveal">
+            <div class="form">
+              <input class="input" type="text" placeholder="Club or academy name" aria-label="Club name" />
+              <input class="input" type="email" placeholder="Email for the lookbook" aria-label="Email" />
+              <input class="input" type="text" placeholder="Kit vision or color direction" aria-label="Kit direction" />
+            </div>
+            <a class="btn btn-primary" href="#top">Request PLAY 11 Concepts</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        PLAY 11 - Elite football jersey identity studio built for the full XI.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const progress = document.querySelector(".progress");
+    const navLinks = document.querySelectorAll(".nav-links a");
+    const sections = Array.from(document.querySelectorAll("section[id]"));
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+    const tiltCards = document.querySelectorAll("[data-tilt]");
+    const tiltMax = 12;
+
+    tiltCards.forEach((card) => {
+      card.addEventListener("mousemove", (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        const rotateX = (-y * tiltMax).toFixed(2);
+        const rotateY = (x * tiltMax).toFixed(2);
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "rotateX(0deg) rotateY(0deg)";
+      });
+    });
+
+    const schemes = {
+      home: { primary: "#151f45", secondary: "#49ffb4", accent: "#ff6b35" },
+      away: { primary: "#e8edf6", secondary: "#1d2b3a", accent: "#49ffb4" },
+      third: { primary: "#2a0f18", secondary: "#ff6b35", accent: "#ffd166" },
+    };
+
+    const swatches = document.querySelectorAll(".swatch");
+    swatches.forEach((button) => {
+      button.addEventListener("click", () => {
+        const key = button.dataset.scheme;
+        const scheme = schemes[key];
+        document.documentElement.style.setProperty("--kit-primary", scheme.primary);
+        document.documentElement.style.setProperty("--kit-secondary", scheme.secondary);
+        document.documentElement.style.setProperty("--kit-accent", scheme.accent);
+        swatches.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+      });
+    });
+
+    let latestKnownScroll = 0;
+    let ticking = false;
+
+    function onScroll() {
+      latestKnownScroll = window.scrollY;
+      if (!ticking) {
+        window.requestAnimationFrame(updateOnScroll);
+        ticking = true;
+      }
+    }
+
+    function updateOnScroll() {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progressRatio = docHeight > 0 ? latestKnownScroll / docHeight : 0;
+      progress.style.width = `${progressRatio * 100}%`;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const id = section.getAttribute("id");
+        if (rect.top <= 120 && rect.bottom >= 120) {
+          navLinks.forEach((link) => link.classList.toggle("active", link.getAttribute("href") === `#${id}`));
+        }
+      });
+
+      ticking = false;
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    const cursor = document.querySelector(".cursor-glow");
+    let cursorX = window.innerWidth / 2;
+    let cursorY = window.innerHeight / 2;
+    let targetX = cursorX;
+    let targetY = cursorY;
+
+    window.addEventListener("mousemove", (event) => {
+      targetX = event.clientX;
+      targetY = event.clientY;
+    });
+
+    function animateCursor() {
+      cursorX += (targetX - cursorX) * 0.12;
+      cursorY += (targetY - cursorY) * 0.12;
+      cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+      window.requestAnimationFrame(animateCursor);
+    }
+
+    if (cursor) {
+      animateCursor();
+    }
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const pointerFine = window.matchMedia("(pointer: fine)").matches;
+    const smoothScrollRoot = document.documentElement;
+
+    if (!prefersReduced && pointerFine) {
+      let currentScroll = window.scrollY;
+      let targetScroll = window.scrollY;
+      let isAnimating = false;
+
+      function easeScroll() {
+        currentScroll += (targetScroll - currentScroll) * 0.08;
+        if (Math.abs(targetScroll - currentScroll) < 0.5) {
+          currentScroll = targetScroll;
+        }
+        window.scrollTo(0, currentScroll);
+        if (currentScroll !== targetScroll) {
+          window.requestAnimationFrame(easeScroll);
+        } else {
+          isAnimating = false;
+        }
+      }
+
+      window.addEventListener(
+        "wheel",
+        (event) => {
+          event.preventDefault();
+          targetScroll += event.deltaY;
+          targetScroll = Math.max(0, Math.min(targetScroll, smoothScrollRoot.scrollHeight - window.innerHeight));
+          if (!isAnimating) {
+            isAnimating = true;
+            window.requestAnimationFrame(easeScroll);
+          }
+        },
+        { passive: false }
+      );
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const targetId = link.getAttribute("href");
+        if (!targetId || targetId.length <= 1) return;
+        const target = document.querySelector(targetId);
+        if (!target) return;
+        event.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: prefersReduced ? "auto" : "smooth" });
+      });
+    });
+  </script>
+</body>
+</html>
