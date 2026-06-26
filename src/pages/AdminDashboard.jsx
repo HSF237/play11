@@ -14,6 +14,7 @@ const EMPTY = {
   name: '',
   club: '',
   category: 'Club',
+  sleeve: 'Half Sleeve',
   price: '',
   images: '',
   description: '',
@@ -70,6 +71,7 @@ export default function AdminDashboard() {
       name: form.name,
       club: form.club,
       category: form.category,
+      sleeve: form.sleeve || 'Half Sleeve',
       price: Number(form.price) || 0,
       images,
       image: images[0] || '',
@@ -100,6 +102,7 @@ export default function AdminDashboard() {
       name: p.name || '',
       club: p.club || '',
       category: p.category || 'Club',
+      sleeve: p.sleeve || 'Half Sleeve',
       price: p.price ?? '',
       images: (p.images && p.images.length ? p.images : [p.image].filter(Boolean)).join('\n'),
       description: p.description || '',
@@ -164,6 +167,12 @@ export default function AdminDashboard() {
                   <option>Retro</option><option>Limited</option>
                 </select>
               </div>
+            </div>
+            <div className="field">
+              <label>Sleeve type</label>
+              <select name="sleeve" value={form.sleeve} onChange={update}>
+                <option>Half Sleeve</option><option>Five Sleeve</option><option>Full Sleeve</option>
+              </select>
             </div>
             <div className="field-row">
               <div className="field">

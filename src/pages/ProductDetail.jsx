@@ -44,7 +44,8 @@ export default function ProductDetail() {
     )
   }
 
-  const sizes = product.sizes?.length ? product.sizes : ['S', 'M', 'L', 'XL']
+  const ALL_SIZES = ['S', 'M', 'L', 'XL', 'XXL']
+  const available = new Set(product.sizes?.length ? product.sizes : ALL_SIZES)
   const gallery = (product.images && product.images.length ? product.images : [product.image]).filter(Boolean)
   const FALLBACK =
     'data:image/svg+xml;utf8,' +
@@ -65,7 +66,7 @@ export default function ProductDetail() {
       </div>
 
       <div className="pdp__grid">
-        <div className="pdp__gallery">
+        <div className="pdp__gallery" data-reveal>
           <div className="pdp__media">
             {product.badge && <span className="card__badge">{product.badge}</span>}
             <img
@@ -90,7 +91,7 @@ export default function ProductDetail() {
           )}
         </div>
 
-        <div className="pdp__info">
+        <div className="pdp__info" data-reveal>
           <span className="pdp__club">{product.club || product.category}</span>
           <h1 className="pdp__name">{product.name}</h1>
           <div className="pdp__price">{inr(product.price)}</div>
@@ -99,15 +100,21 @@ export default function ProductDetail() {
           <div className="pdp__sizes">
             <label>Select Size</label>
             <div className="pdp__size-row">
-              {sizes.map((s) => (
-                <button
-                  key={s}
-                  className={`size-btn ${size === s ? 'size-btn--active' : ''}`}
-                  onClick={() => setSize(s)}
-                >
-                  {s}
-                </button>
-              ))}
+              {ALL_SIZES.map((s) => {
+                const out = !available.has(s)
+                return (
+                  <button
+                    key={s}
+                    type="button"
+                    disabled={out}
+                    title={out ? 'Out of stock' : ''}
+                    className={`size-btn ${size === s ? 'size-btn--active' : ''} ${out ? 'size-btn--out' : ''}`}
+                    onClick={() => !out && setSize(s)}
+                  >
+                    {s}
+                  </button>
+                )
+              })}
             </div>
           </div>
 

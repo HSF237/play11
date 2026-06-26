@@ -9,6 +9,7 @@ const seedProducts = [
     club: 'Real Madrid',
     price: 1499,
     category: 'Club',
+    sleeve: 'Half Sleeve',
     image:
       'https://images.unsplash.com/photo-1577471488278-16eec37ffcc2?auto=format&fit=crop&w=800&q=80',
     description:
@@ -23,6 +24,7 @@ const seedProducts = [
     club: 'FC Barcelona',
     price: 1599,
     category: 'Club',
+    sleeve: 'Half Sleeve',
     image:
       'https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?auto=format&fit=crop&w=800&q=80',
     description:
@@ -37,6 +39,7 @@ const seedProducts = [
     club: 'Argentina',
     price: 1799,
     category: 'National',
+    sleeve: 'Full Sleeve',
     image:
       'https://images.unsplash.com/photo-1670002375787-c4f33d7a9d59?auto=format&fit=crop&w=800&q=80',
     description:
@@ -51,6 +54,7 @@ const seedProducts = [
     club: 'Manchester United',
     price: 1399,
     category: 'Club',
+    sleeve: 'Half Sleeve',
     image:
       'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=800&q=80',
     description:
@@ -64,6 +68,7 @@ const seedProducts = [
     club: 'Manchester City',
     price: 1449,
     category: 'Club',
+    sleeve: 'Full Sleeve',
     image:
       'https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=800&q=80',
     description:
@@ -76,6 +81,7 @@ const seedProducts = [
     club: 'France',
     price: 1749,
     category: 'National',
+    sleeve: 'Half Sleeve',
     image:
       'https://images.unsplash.com/photo-1602197416893-9e6c0e2b8b3a?auto=format&fit=crop&w=800&q=80',
     description:
@@ -85,15 +91,17 @@ const seedProducts = [
   },
   {
     id: 'demo-7',
-    name: 'Reds Anfield Home 25/26',
+    name: 'Reds Anfield Retro 2005',
     club: 'Liverpool',
     price: 1349,
-    category: 'Club',
+    category: 'Retro',
+    sleeve: 'Full Sleeve',
     image:
       'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80',
     description:
-      "You'll never walk alone. The bold red home kit with a refined modern silhouette.",
+      "You'll never walk alone. A retro tribute to the legendary Istanbul night — bold red, classic cut.",
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    badge: 'Retro',
   },
   {
     id: 'demo-8',
@@ -101,6 +109,7 @@ const seedProducts = [
     club: 'Brazil',
     price: 1899,
     category: 'National',
+    sleeve: 'Half Sleeve',
     image:
       'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=800&q=80',
     description:

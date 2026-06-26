@@ -20,7 +20,7 @@ export const STORE = {
 // Builds the pre-filled WhatsApp order message and returns a wa.me link.
 export function buildWhatsAppOrderLink(form, items, subtotal) {
   const lines = []
-  lines.push('*New Play11 Order* 🟡⚽')
+  lines.push('*NEW PLAY11 ORDER* ⚽')
   lines.push('')
   lines.push('*Items:*')
   items.forEach((i) => {

@@ -20,13 +20,80 @@ function ScrollToTop() {
   return null
 }
 
+// Top scroll-progress bar — buttery, rAF-throttled, transform-only.
+function useScrollProgress() {
+  useEffect(() => {
+    const bar = document.getElementById('scrollProgress')
+    if (!bar) return
+    let raf = 0
+    const onScroll = () => {
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        const doc = document.documentElement
+        const max = doc.scrollHeight - doc.clientHeight
+        const p = max > 0 ? doc.scrollTop / max : 0
+        bar.style.transform = `scaleX(${p})`
+        raf = 0
+      })
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [])
+}
+
+// Reveal-on-scroll for any [data-reveal] element. Re-runs on route change and
+// watches for async-loaded content (e.g. products) via a MutationObserver, so
+// nothing is ever left stuck invisible.
+function useReveal(pathname) {
+  useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduce || !('IntersectionObserver' in window)) {
+      document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-visible'))
+      return
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible')
+            io.unobserve(e.target)
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -8% 0px' }
+    )
+    const observeAll = () =>
+      document.querySelectorAll('[data-reveal]:not(.is-visible)').forEach((el) => io.observe(el))
+
+    observeAll()
+    // Catch elements rendered after async data loads.
+    const mo = new MutationObserver(() => observeAll())
+    mo.observe(document.body, { childList: true, subtree: true })
+    const t = setTimeout(observeAll, 400)
+
+    return () => {
+      io.disconnect()
+      mo.disconnect()
+      clearTimeout(t)
+    }
+  }, [pathname])
+}
+
 export default function App() {
   const location = useLocation()
   const isAdmin = location.pathname.startsWith('/admin')
 
+  useScrollProgress()
+  useReveal(location.pathname)
+
   return (
     <div className="app-shell">
       <ScrollToTop />
+      {!isAdmin && <div className="scroll-progress" id="scrollProgress" aria-hidden="true" />}
       {!isAdmin && <Navbar />}
       <main className="app-main">
         <Routes>

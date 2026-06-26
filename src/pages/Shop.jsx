@@ -2,10 +2,14 @@ import { useEffect, useMemo, useState } from 'react'
 import ProductCard from '../components/ProductCard.jsx'
 import { fetchProducts } from '../services/productService.js'
 
+const CATEGORIES = ['All', 'Club', 'National', 'Retro', 'Limited']
+const SLEEVES = ['All', 'Half Sleeve', 'Five Sleeve', 'Full Sleeve']
+
 export default function Shop() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState('All')
+  const [sleeve, setSleeve] = useState('All')
   const [sort, setSort] = useState('featured')
   const [search, setSearch] = useState('')
 
@@ -15,14 +19,10 @@ export default function Shop() {
       .finally(() => setLoading(false))
   }, [])
 
-  const categories = useMemo(() => {
-    const set = new Set(products.map((p) => p.category).filter(Boolean))
-    return ['All', ...set]
-  }, [products])
-
   const visible = useMemo(() => {
     let list = [...products]
     if (category !== 'All') list = list.filter((p) => p.category === category)
+    if (sleeve !== 'All') list = list.filter((p) => (p.sleeve || 'Half Sleeve') === sleeve)
     if (search.trim()) {
       const q = search.toLowerCase()
       list = list.filter(
@@ -39,7 +39,7 @@ export default function Shop() {
 
   return (
     <div className="shop">
-      <header className="shop__hero">
+      <header className="shop__hero" data-reveal>
         <span className="section__eyebrow">The Collection</span>
         <h1>Shop Jerseys</h1>
         <p>Authentic club & national team kits. Find your legend.</p>
@@ -47,7 +47,7 @@ export default function Shop() {
 
       <div className="shop__toolbar">
         <div className="shop__filters">
-          {categories.map((c) => (
+          {CATEGORIES.map((c) => (
             <button
               key={c}
               className={`chip ${category === c ? 'chip--active' : ''}`}
@@ -77,6 +77,19 @@ export default function Shop() {
         </div>
       </div>
 
+      <div className="shop__sleeves">
+        <span className="shop__sleeves-label">Sleeve:</span>
+        {SLEEVES.map((s) => (
+          <button
+            key={s}
+            className={`chip chip--sm ${sleeve === s ? 'chip--active' : ''}`}
+            onClick={() => setSleeve(s)}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+
       {loading ? (
         <div className="shop__loading">
           <div className="spinner" />
@@ -87,7 +100,7 @@ export default function Shop() {
           <p>No jerseys match your search.</p>
         </div>
       ) : (
-        <div className="grid grid--4">
+        <div className="grid grid--4" data-reveal>
           {visible.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
