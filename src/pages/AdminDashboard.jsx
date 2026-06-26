@@ -195,9 +195,16 @@ export default function AdminDashboard() {
               <textarea name="images" rows="3" value={form.images} onChange={update} required
                 placeholder={'https://…/front.jpg\nhttps://…/back.jpg\nhttps://…/detail.jpg'} />
               <small className="field__hint">
-                Paste image links (free — no upload needed). First image is the
-                main photo; the rest show as gallery thumbnails.
+                Use the <b>DIRECT image link</b> — it ends in <b>.jpg / .png</b>
+                (on ImgBB it starts with <b>i.ibb.co</b>). A page link like
+                <i> ibb.co/abc123</i> will NOT show. First link = main photo.
               </small>
+              {previewImages.some((u) => !/\.(jpe?g|png|webp|gif|avif)(\?|#|$)/i.test(u)) && (
+                <div className="admin__imgwarn">
+                  ⚠ One of these isn't a direct image link (must end in .jpg/.png).
+                  On ImgBB: open the photo → <b>Embed codes → Direct link</b> → copy.
+                </div>
+              )}
             </div>
             <div className="field-row">
               <div className="field">

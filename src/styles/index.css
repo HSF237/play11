@@ -512,6 +512,7 @@ input, select, textarea { font-family: inherit; }
 }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); }
 .field__hint { display: block; color: var(--muted-2); font-size: 0.78rem; margin-top: 0.4rem; }
+.admin__imgwarn { margin-top: 0.5rem; padding: 0.5rem 0.7rem; border-radius: 8px; font-size: 0.78rem; color: #f0a99c; background: rgba(224,83,61,0.12); border: 1px solid rgba(224,83,61,0.35); }
 .field-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .checkbox { display: flex; align-items: center; gap: 0.6rem; color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0 1.2rem; cursor: pointer; }
 .checkbox input { width: auto; }
