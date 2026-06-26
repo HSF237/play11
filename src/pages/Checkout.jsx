@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { inr } from '../utils/format.js'
-import { createOrder } from '../services/orderService.js'
 import { buildWhatsAppOrderLink, STORE } from '../storeConfig.js'
 
 export default function Checkout() {
@@ -19,32 +18,18 @@ export default function Checkout() {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
   }
 
-  async function placeOrder(e) {
+  function placeOrder(e) {
     e.preventDefault()
     setBusy(true)
-    // Build the WhatsApp link BEFORE any await — some mobile browsers block
-    // window.open if it isn't tied directly to the tap.
+    // Send the order straight to Play11 on WhatsApp.
     const waLink = buildWhatsAppOrderLink(form, items, subtotal)
     const wa = window.open(waLink, '_blank')
-    try {
-      await createOrder({
-        customer: { ...form },
-        items: items.map(({ key, id, name, price, size, qty, image }) => ({
-          key, id, name, price, size, qty, image,
-        })),
-        subtotal,
-        channel: 'whatsapp',
-      })
-      setSnapshot({ form: { ...form }, items: [...items], subtotal, waLink })
-      // Fallback if the popup was blocked: redirect this tab to WhatsApp.
-      if (!wa) window.location.href = waLink
-      setPlaced(true)
-      clear()
-    } catch (err) {
-      alert('Could not place order: ' + err.message)
-    } finally {
-      setBusy(false)
-    }
+    setSnapshot({ form: { ...form }, items: [...items], subtotal, waLink })
+    // Fallback if the popup was blocked: redirect this tab to WhatsApp.
+    if (!wa) window.location.href = waLink
+    setPlaced(true)
+    clear()
+    setBusy(false)
   }
 
   if (placed) {
