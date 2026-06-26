@@ -18,64 +18,82 @@
         position: fixed; inset: 0; z-index: 9999;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
         background:
-          radial-gradient(circle at 50% 42%, rgba(200,162,74,0.18), transparent 60%),
+          radial-gradient(circle at 50% 40%, rgba(200,162,74,0.20), transparent 60%),
           #0a0a0b;
-        font-family: 'Anton', Impact, 'Arial Black', sans-serif;
-        transition: opacity 0.6s ease, visibility 0.6s ease;
+        font-family: 'Archivo Black', Impact, 'Arial Black', sans-serif;
+        transition: opacity 0.7s ease, visibility 0.7s ease;
         overflow: hidden;
       }
       #p11-splash.hide { opacity: 0; visibility: hidden; }
+      /* faint moving grid */
+      #p11-splash::before {
+        content: ''; position: absolute; inset: -2px;
+        background-image:
+          linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+        background-size: 54px 54px;
+        mask-image: radial-gradient(circle at 50% 45%, black, transparent 70%);
+        -webkit-mask-image: radial-gradient(circle at 50% 45%, black, transparent 70%);
+        animation: p11Grid 8s linear infinite;
+      }
+      @keyframes p11Grid { to { background-position: 54px 54px; } }
+      /* breathing glow */
+      .p11-glow {
+        position: absolute; width: 520px; height: 520px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(200,162,74,0.22), transparent 65%);
+        filter: blur(20px); animation: p11Glow 2.6s ease-in-out infinite;
+      }
+      @keyframes p11Glow { 0%,100% { transform: scale(0.9); opacity: 0.7; } 50% { transform: scale(1.08); opacity: 1; } }
+      .p11-stage { position: relative; z-index: 2; text-align: center; }
       .p11-word {
         font-family: 'Archivo Black', Impact, sans-serif;
-        font-size: clamp(2.6rem, 12vw, 4.6rem); line-height: 1; letter-spacing: -0.02em;
-        color: #f4f4f6; position: relative;
-        opacity: 0; transform: translateY(18px);
-        animation: p11WordIn 0.9s cubic-bezier(0.22,0.61,0.36,1) 0.1s forwards;
+        font-size: clamp(2.8rem, 13vw, 5rem); line-height: 1; letter-spacing: -0.02em;
+        color: #f4f4f6; position: relative; display: inline-block;
+        opacity: 0; transform: translateY(22px) scale(0.96);
+        animation: p11WordIn 1s cubic-bezier(0.22,0.61,0.36,1) 0.15s forwards;
       }
       .p11-word b {
         font-weight: inherit;
         background: linear-gradient(135deg, #e0c486, #c8a24a 55%, #fff 130%);
         -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
       }
-      /* sheen sweep across the wordmark */
       .p11-word::after {
         content: ''; position: absolute; inset: 0;
-        background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+        background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.45) 50%, transparent 65%);
         -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-        transform: translateX(-120%); animation: p11Sheen 1.6s ease-in-out 0.9s infinite;
+        transform: translateX(-120%); animation: p11Sheen 2.2s ease-in-out 1s infinite;
       }
       @keyframes p11WordIn { to { opacity: 1; transform: none; } }
-      @keyframes p11Sheen { to { transform: translateX(120%); } }
-      .p11-line {
-        width: 0; height: 2px; margin-top: 1.1rem;
-        background: linear-gradient(90deg, transparent, #c8a24a, transparent);
-        animation: p11Line 0.8s ease 0.5s forwards;
-      }
-      @keyframes p11Line { to { width: 200px; } }
+      @keyframes p11Sheen { 0% { transform: translateX(-120%);} 60%,100% { transform: translateX(120%);} }
       .p11-tag {
-        margin-top: 1rem; font-family: 'Inter', Arial, sans-serif; font-weight: 500;
-        font-size: 0.72rem; letter-spacing: 0.42em; color: #9a9da8; text-transform: uppercase;
-        opacity: 0; animation: p11TagIn 0.8s ease 0.7s forwards;
+        margin-top: 1.1rem; font-family: 'Inter', Arial, sans-serif; font-weight: 500;
+        font-size: 0.72rem; letter-spacing: 0.46em; color: #b9bcc6; text-transform: uppercase;
+        opacity: 0; transform: translateY(8px); animation: p11TagIn 0.8s ease 0.7s forwards;
       }
-      @keyframes p11TagIn { to { opacity: 1; } }
-      .p11-bar { position: absolute; bottom: 12%; width: 180px; height: 2px; border-radius: 2px; background: rgba(255,255,255,0.08); overflow: hidden; }
+      @keyframes p11TagIn { to { opacity: 1; transform: none; } }
+      /* determinate loading bar that fills over the splash duration */
+      .p11-bar {
+        position: relative; z-index: 2; margin-top: 2rem; width: 220px; height: 3px;
+        border-radius: 3px; background: rgba(255,255,255,0.09); overflow: hidden;
+        opacity: 0; animation: p11TagIn 0.6s ease 0.6s forwards;
+      }
       .p11-bar span {
-        display: block; height: 100%; width: 40%; border-radius: 2px;
+        display: block; height: 100%; width: 0; border-radius: 3px;
         background: linear-gradient(90deg, #c8a24a, #e0c486);
-        animation: p11Load 1.1s ease-in-out infinite;
+        box-shadow: 0 0 12px rgba(200,162,74,0.65);
+        animation: p11Fill 2.3s cubic-bezier(0.4,0,0.2,1) 0.5s forwards;
       }
-      @keyframes p11Load {
-        0% { transform: translateX(-130%); }
-        100% { transform: translateX(360%); }
-      }
+      @keyframes p11Fill { to { width: 100%; } }
     </style>
   </head>
   <body>
     <!-- Branded loading screen, removed once the app mounts -->
     <div id="p11-splash">
-      <div class="p11-word">PLAY<b>11</b></div>
-      <div class="p11-line"></div>
-      <div class="p11-tag">Wear The Legend</div>
+      <div class="p11-glow"></div>
+      <div class="p11-stage">
+        <div class="p11-word">PLAY<b>11</b></div>
+        <div class="p11-tag">Wear The Legend</div>
+      </div>
       <div class="p11-bar"><span></span></div>
     </div>
 

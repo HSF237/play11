@@ -5,5 +5,5 @@ export function inr(value) {
 }
 
 // Free delivery threshold (₹) and flat delivery fee (₹) — all-India.
-export const FREE_DELIVERY_OVER = 2999
+export const FREE_DELIVERY_OVER = 999
 export const DELIVERY_FEE = 79

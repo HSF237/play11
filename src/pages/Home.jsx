@@ -49,7 +49,7 @@ export default function Home() {
         <div className="hero__content">
           <div className="hero__left">
             <span className="hero__pill">
-              <span className="hero__pill-dot" /> Free delivery all-India over ₹2,999 · COD available
+              <span className="hero__pill-dot" /> Free delivery all-India above ₹999 · COD available
             </span>
             <h1 className="hero__title">
               WEAR THE
@@ -208,7 +208,7 @@ export default function Home() {
       <section className="cta-band" data-reveal>
         <span className="cta-band__eyebrow">Your kit is waiting</span>
         <h2>Wear the legend.</h2>
-        <p>Authentic football kits, delivered across India. Free delivery over ₹2,999.</p>
+        <p>Authentic football kits, delivered across India. Free delivery above ₹999.</p>
         <Link to="/shop" className="btn btn--primary btn--lg">Shop Now</Link>
       </section>
     </div>

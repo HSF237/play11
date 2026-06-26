@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 // Hide the branded splash once the app has mounted (min. on-screen time so the
 // loading screen is actually seen, then a smooth fade-out).
-const SPLASH_MIN_MS = 1600
+const SPLASH_MIN_MS = 2600
 const start = performance.now()
 function hideSplash() {
   const el = document.getElementById('p11-splash')

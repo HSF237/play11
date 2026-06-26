@@ -274,8 +274,8 @@ input, select, textarea { font-family: inherit; }
   display: block;
 }
 .card:hover { transform: translateY(-6px); border-color: rgba(200,162,74,0.4); box-shadow: var(--shadow); }
-.card__media { position: relative; aspect-ratio: 4/5; overflow: hidden; background: #0e0f13; }
-.card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.card__media { position: relative; aspect-ratio: 4/5; overflow: hidden; background: #ffffff; }
+.card__media img { width: 100%; height: 100%; object-fit: contain; padding: 0.5rem; box-sizing: border-box; transition: transform 0.5s ease; }
 .card:hover .card__media img { transform: scale(1.06); }
 .card__badge {
   position: absolute; top: 12px; left: 12px; z-index: 2;
@@ -424,11 +424,11 @@ input, select, textarea { font-family: inherit; }
 .pdp__crumbs a:hover { color: var(--gold); }
 .pdp__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; }
 .pdp__gallery { display: flex; flex-direction: column; gap: 0.8rem; }
-.pdp__media { position: relative; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 4/5; background: #0e0f13; }
-.pdp__media img { width: 100%; height: 100%; object-fit: cover; }
+.pdp__media { position: relative; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 4/5; background: #ffffff; }
+.pdp__media img { width: 100%; height: 100%; object-fit: contain; padding: 0.8rem; box-sizing: border-box; }
 .pdp__thumbs { display: flex; gap: 0.6rem; flex-wrap: wrap; }
-.pdp__thumb { width: 68px; height: 82px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); padding: 0; transition: border-color 0.2s; background: #0e0f13; }
-.pdp__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.pdp__thumb { width: 68px; height: 82px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); padding: 0; transition: border-color 0.2s; background: #fff; }
+.pdp__thumb img { width: 100%; height: 100%; object-fit: contain; }
 .pdp__thumb.is-active { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
 .pdp__club { color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; }
 .pdp__name { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; margin: 0.5rem 0; }
