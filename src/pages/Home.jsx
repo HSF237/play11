@@ -28,12 +28,6 @@ const CATEGORIES = [
   },
 ]
 
-const TESTIMONIALS = [
-  { q: 'The quality is unreal — feels exactly like the stadium kit. Reached Kochi in 3 days.', n: 'Arjun M.', c: 'Kochi' },
-  { q: 'Best jersey plug in India, no debate. The Madrid kit is pure heat.', n: 'Sneha R.', c: 'Bengaluru' },
-  { q: 'Ordered the Argentina kit, COD was smooth. Play11 is the real deal.', n: 'Faisal K.', c: 'Kannur' },
-]
-
 export default function Home() {
   const [featured, setFeatured] = useState([])
 
@@ -76,8 +70,8 @@ export default function Home() {
               <a href="#categories" className="btn btn--ghost btn--lg">Browse Collections</a>
             </div>
             <div className="hero__stats">
-              <div><strong>120+</strong><span>Jersey designs</span></div>
-              <div><strong>50k+</strong><span>Fans across India</span></div>
+              <div><strong>130+</strong><span>Kits & jerseys</span></div>
+              <div><strong>All&nbsp;India</strong><span>Fast delivery</span></div>
               <div><strong>100%</strong><span>Authentic</span></div>
             </div>
           </div>
@@ -94,7 +88,7 @@ export default function Home() {
             </div>
             <span className="hero__chip hero__chip--1">✦ Authentic</span>
             <span className="hero__chip hero__chip--2">⚡ Fast India delivery</span>
-            <span className="hero__chip hero__chip--3">★ 4.9/5 fans</span>
+            <span className="hero__chip hero__chip--3">⚽ COD available</span>
           </div>
         </div>
 
@@ -210,33 +204,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= TESTIMONIALS ================= */}
-      <section className="section">
-        <div className="section__head section__head--center" data-reveal>
-          <div>
-            <span className="section__eyebrow">Fans across India</span>
-            <h2 className="section__title">Loved by the faithful</h2>
-          </div>
-        </div>
-        <div className="testimonials" data-reveal>
-          {TESTIMONIALS.map((t) => (
-            <figure className="testimonial" key={t.n}>
-              <div className="testimonial__stars">★★★★★</div>
-              <blockquote>“{t.q}”</blockquote>
-              <figcaption>
-                <strong>{t.n}</strong>
-                <span>{t.c}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
-
       {/* ================= CTA ================= */}
       <section className="cta-band" data-reveal>
         <span className="cta-band__eyebrow">Your kit is waiting</span>
         <h2>Wear the legend.</h2>
-        <p>Join thousands of fans across India who trust Play11. Free delivery over ₹2,999.</p>
+        <p>Authentic football kits, delivered across India. Free delivery over ₹2,999.</p>
         <Link to="/shop" className="btn btn--primary btn--lg">Shop Now</Link>
       </section>
     </div>
