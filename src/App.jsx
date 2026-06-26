@@ -20,6 +20,43 @@ function ScrollToTop() {
   return null
 }
 
+// Buttery inertia smooth-scroll via Lenis (loaded from CDN so no reinstall).
+// Degrades gracefully to native scroll if the CDN is unavailable, and stays
+// native on touch devices so mobile is never broken.
+function useSmoothScroll() {
+  useEffect(() => {
+    let lenis
+    let rafId
+    let stopped = false
+    import('https://cdn.jsdelivr.net/npm/lenis@1.1.14/+esm')
+      .then((mod) => {
+        if (stopped) return
+        const Lenis = mod.default || mod.Lenis
+        lenis = new Lenis({
+          duration: 1.15,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          lerp: 0.09,
+          wheelMultiplier: 1,
+          anchors: true,
+        })
+        const raf = (time) => {
+          lenis.raf(time)
+          rafId = requestAnimationFrame(raf)
+        }
+        rafId = requestAnimationFrame(raf)
+        window.__lenis = lenis
+      })
+      .catch(() => {})
+    return () => {
+      stopped = true
+      if (rafId) cancelAnimationFrame(rafId)
+      if (lenis) lenis.destroy()
+      window.__lenis = null
+    }
+  }, [])
+}
+
 // Top scroll-progress bar — buttery, rAF-throttled, transform-only.
 function useScrollProgress() {
   useEffect(() => {
@@ -50,8 +87,7 @@ function useScrollProgress() {
 // nothing is ever left stuck invisible.
 function useReveal(pathname) {
   useEffect(() => {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce || !('IntersectionObserver' in window)) {
+    if (!('IntersectionObserver' in window)) {
       document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-visible'))
       return
     }
@@ -87,6 +123,7 @@ export default function App() {
   const location = useLocation()
   const isAdmin = location.pathname.startsWith('/admin')
 
+  useSmoothScroll()
   useScrollProgress()
   useReveal(location.pathname)
 

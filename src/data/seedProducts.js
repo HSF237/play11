@@ -1,6 +1,17 @@
 // Sample jerseys used in DEMO MODE (before Firebase is connected) and as a
 // fallback if Firestore has no products yet. Once Nashid adds real products in
-// the admin portal, those replace these automatically.
+// the admin portal (with real photos), those replace these automatically.
+
+const IMG = {
+  ronaldo:
+    'https://www.shutterstock.com/editorial/image-editorial/OfT1I6w8NfTeU4y8NzYxOA==/cristiano-ronaldo-real-madrid-points-440nw-9140847av.jpg',
+  neymar:
+    'https://cached.imagescaler.hbpl.co.uk/resize/scaleWidth/743/cached.offlinehbpl.hbpl.co.uk/news/OMC/NeymarNike-20140611105309134.jpg',
+  retro: 'https://wallpaperaccess.com/full/11022590.jpg',
+  bicycle: 'https://pbs.twimg.com/media/DeYCKikVQAIfrpm.jpg',
+  beckham:
+    'https://media.cnn.com/api/v1/images/stellar/prod/170810160912-david-beckham.jpg?q=w_3260,h_4763,x_0,y_0,c_fill',
+}
 
 const seedProducts = [
   {
@@ -10,8 +21,7 @@ const seedProducts = [
     price: 1499,
     category: 'Club',
     sleeve: 'Half Sleeve',
-    image:
-      'https://images.unsplash.com/photo-1577471488278-16eec37ffcc2?auto=format&fit=crop&w=800&q=80',
+    image: IMG.ronaldo,
     description:
       'Match-grade home kit with moisture-wicking AeroWeave fabric and heat-pressed crest. Worn by legends, built for the modern game.',
     sizes: ['S', 'M', 'L', 'XL'],
@@ -25,8 +35,7 @@ const seedProducts = [
     price: 1599,
     category: 'Club',
     sleeve: 'Half Sleeve',
-    image:
-      'https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?auto=format&fit=crop&w=800&q=80',
+    image: IMG.bicycle,
     description:
       'Iconic stripes reimagined with a tailored athletic cut and breathable mesh ventilation zones.',
     sizes: ['S', 'M', 'L', 'XL'],
@@ -40,8 +49,7 @@ const seedProducts = [
     price: 1799,
     category: 'National',
     sleeve: 'Full Sleeve',
-    image:
-      'https://images.unsplash.com/photo-1670002375787-c4f33d7a9d59?auto=format&fit=crop&w=800&q=80',
+    image: IMG.neymar,
     description:
       'Champions of the world. Premium national team jersey with embroidered three-star crest.',
     sizes: ['M', 'L', 'XL', 'XXL'],
@@ -55,8 +63,7 @@ const seedProducts = [
     price: 1399,
     category: 'Club',
     sleeve: 'Half Sleeve',
-    image:
-      'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=800&q=80',
+    image: IMG.beckham,
     description:
       'Classic red with a contemporary fit. Lightweight, durable, and ready for matchday.',
     sizes: ['S', 'M', 'L', 'XL'],
@@ -69,8 +76,7 @@ const seedProducts = [
     price: 1449,
     category: 'Club',
     sleeve: 'Full Sleeve',
-    image:
-      'https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=800&q=80',
+    image: IMG.beckham,
     description:
       'Engineered for speed. The sky-blue pro kit with laser-cut ventilation and a streamlined collar.',
     sizes: ['S', 'M', 'L'],
@@ -82,8 +88,7 @@ const seedProducts = [
     price: 1749,
     category: 'National',
     sleeve: 'Half Sleeve',
-    image:
-      'https://images.unsplash.com/photo-1602197416893-9e6c0e2b8b3a?auto=format&fit=crop&w=800&q=80',
+    image: IMG.bicycle,
     description:
       'Deep navy national jersey with a golden crest and tonal detailing. Elegance meets performance.',
     sizes: ['M', 'L', 'XL'],
@@ -96,8 +101,7 @@ const seedProducts = [
     price: 1349,
     category: 'Retro',
     sleeve: 'Full Sleeve',
-    image:
-      'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80',
+    image: IMG.retro,
     description:
       "You'll never walk alone. A retro tribute to the legendary Istanbul night — bold red, classic cut.",
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
@@ -110,8 +114,7 @@ const seedProducts = [
     price: 1899,
     category: 'National',
     sleeve: 'Half Sleeve',
-    image:
-      'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=800&q=80',
+    image: IMG.neymar,
     description:
       'The legendary canary yellow. Premium national jersey crafted for samba flair and elite comfort.',
     sizes: ['M', 'L', 'XL'],

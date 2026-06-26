@@ -18,63 +18,62 @@
         position: fixed; inset: 0; z-index: 9999;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
         background:
-          radial-gradient(circle at 50% 38%, rgba(200,162,74,0.16), transparent 55%),
+          radial-gradient(circle at 50% 42%, rgba(200,162,74,0.18), transparent 60%),
           #0a0a0b;
         font-family: 'Anton', Impact, 'Arial Black', sans-serif;
         transition: opacity 0.6s ease, visibility 0.6s ease;
+        overflow: hidden;
       }
       #p11-splash.hide { opacity: 0; visibility: hidden; }
-      .p11-emblem { position: relative; width: 132px; height: 132px; display: grid; place-items: center; }
-      .p11-ring {
-        position: absolute; inset: 0; border-radius: 50%;
-        border: 2px solid rgba(200,162,74,0.18);
-        border-top-color: #c8a24a; border-right-color: #e0c486;
-        animation: p11spin 1s linear infinite;
-      }
-      .p11-ring.two {
-        inset: 14px; border-width: 1px; border-top-color: transparent;
-        border-left-color: rgba(200,162,74,0.5); animation-duration: 1.6s; animation-direction: reverse;
-      }
-      @keyframes p11spin { to { transform: rotate(360deg); } }
-      .p11-num {
-        font-size: 54px; line-height: 1; letter-spacing: 2px;
-        background: linear-gradient(135deg, #e0c486, #c8a24a 60%, #fff 130%);
-        -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-        animation: p11pulse 1.6s ease-in-out infinite;
-      }
-      @keyframes p11pulse { 0%,100% { opacity: 0.85; } 50% { opacity: 1; } }
       .p11-word {
-        margin-top: 1.6rem; font-size: 2.4rem; letter-spacing: 0.14em; color: #f4f4f6;
+        font-size: clamp(3rem, 14vw, 5.5rem); line-height: 1; letter-spacing: 0.04em;
+        color: #f4f4f6; position: relative;
+        opacity: 0; transform: translateY(18px);
+        animation: p11WordIn 0.9s cubic-bezier(0.22,0.61,0.36,1) 0.1s forwards;
       }
-      .p11-word b { color: #c8a24a; font-weight: inherit; }
+      .p11-word b {
+        font-weight: inherit;
+        background: linear-gradient(135deg, #e0c486, #c8a24a 55%, #fff 130%);
+        -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      }
+      /* sheen sweep across the wordmark */
+      .p11-word::after {
+        content: ''; position: absolute; inset: 0;
+        background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+        -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+        transform: translateX(-120%); animation: p11Sheen 1.6s ease-in-out 0.9s infinite;
+      }
+      @keyframes p11WordIn { to { opacity: 1; transform: none; } }
+      @keyframes p11Sheen { to { transform: translateX(120%); } }
+      .p11-line {
+        width: 0; height: 2px; margin-top: 1.1rem;
+        background: linear-gradient(90deg, transparent, #c8a24a, transparent);
+        animation: p11Line 0.8s ease 0.5s forwards;
+      }
+      @keyframes p11Line { to { width: 200px; } }
       .p11-tag {
-        margin-top: 0.5rem; font-family: 'Inter', Arial, sans-serif; font-weight: 500;
+        margin-top: 1rem; font-family: 'Inter', Arial, sans-serif; font-weight: 500;
         font-size: 0.72rem; letter-spacing: 0.42em; color: #9a9da8; text-transform: uppercase;
-        animation: p11fade 2s ease-in-out infinite;
+        opacity: 0; animation: p11TagIn 0.8s ease 0.7s forwards;
       }
-      @keyframes p11fade { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
-      .p11-bar { margin-top: 2.2rem; width: 200px; height: 3px; border-radius: 3px; background: rgba(255,255,255,0.08); overflow: hidden; }
+      @keyframes p11TagIn { to { opacity: 1; } }
+      .p11-bar { position: absolute; bottom: 12%; width: 180px; height: 2px; border-radius: 2px; background: rgba(255,255,255,0.08); overflow: hidden; }
       .p11-bar span {
-        display: block; height: 100%; width: 40%; border-radius: 3px;
+        display: block; height: 100%; width: 40%; border-radius: 2px;
         background: linear-gradient(90deg, #c8a24a, #e0c486);
-        animation: p11load 1.2s ease-in-out infinite;
+        animation: p11Load 1.1s ease-in-out infinite;
       }
-      @keyframes p11load {
-        0% { transform: translateX(-120%); width: 40%; }
-        50% { width: 70%; }
-        100% { transform: translateX(360%); width: 40%; }
+      @keyframes p11Load {
+        0% { transform: translateX(-130%); }
+        100% { transform: translateX(360%); }
       }
     </style>
   </head>
   <body>
     <!-- Branded loading screen, removed once the app mounts -->
     <div id="p11-splash">
-      <div class="p11-emblem">
-        <div class="p11-ring"></div>
-        <div class="p11-ring two"></div>
-        <div class="p11-num">11</div>
-      </div>
       <div class="p11-word">PLAY<b>11</b></div>
+      <div class="p11-line"></div>
       <div class="p11-tag">Wear The Legend</div>
       <div class="p11-bar"><span></span></div>
     </div>

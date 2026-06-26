@@ -55,7 +55,7 @@ export default function Home() {
         <div className="hero__content">
           <div className="hero__left">
             <span className="hero__pill">
-              <span className="hero__flag">🇮🇳</span> Free delivery across India over ₹2,999 · COD available
+              <span className="hero__pill-dot" /> Free delivery all-India over ₹2,999 · COD available
             </span>
             <h1 className="hero__title">
               WEAR THE
