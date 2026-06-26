@@ -95,6 +95,9 @@ export default function ProductDetail() {
           <span className="pdp__club">{product.club || product.category}</span>
           <h1 className="pdp__name">{product.name}</h1>
           <div className="pdp__price">{inr(product.price)}</div>
+          {product.limited && (
+            <div className="pdp__limited">🔥 Limited piece — only {product.stockLeft || 1} left in stock</div>
+          )}
           <p className="pdp__desc">{product.description}</p>
 
           <div className="pdp__sizes">

@@ -23,6 +23,8 @@ const EMPTY = {
   badge: '',
   available: true,
   featured: false,
+  limited: false,
+  stockLeft: '',
 }
 
 function imagesToArray(str) {
@@ -81,6 +83,8 @@ export default function AdminDashboard() {
       badge: form.badge || null,
       available: !!form.available,
       featured: !!form.featured,
+      limited: !!form.limited,
+      stockLeft: form.limited ? (Number(form.stockLeft) || 1) : null,
     }
     try {
       if (editingId) {
@@ -111,6 +115,8 @@ export default function AdminDashboard() {
       badge: p.badge || '',
       available: p.available !== false,
       featured: !!p.featured,
+      limited: !!p.limited,
+      stockLeft: p.stockLeft ?? '',
     })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -216,6 +222,16 @@ export default function AdminDashboard() {
               <input type="checkbox" name="featured" checked={form.featured} onChange={update} />
               Show on homepage (Featured)
             </label>
+            <label className="checkbox">
+              <input type="checkbox" name="limited" checked={form.limited} onChange={update} />
+              Limited piece — show "Only X left"
+            </label>
+            {form.limited && (
+              <div className="field" style={{ maxWidth: '160px' }}>
+                <label>Pieces left</label>
+                <input name="stockLeft" type="number" min="1" value={form.stockLeft} onChange={update} placeholder="1" />
+              </div>
+            )}
 
             {previewImages.length > 0 && (
               <div className="admin__preview">

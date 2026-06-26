@@ -5,7 +5,11 @@ export default function ProductCard({ product }) {
   return (
     <Link to={`/product/${product.id}`} className="card">
       <div className="card__media">
-        {product.badge && <span className="card__badge">{product.badge}</span>}
+        {product.limited ? (
+          <span className="card__badge card__badge--limited">🔥 Only {product.stockLeft || 1} left</span>
+        ) : product.badge ? (
+          <span className="card__badge">{product.badge}</span>
+        ) : null}
         <img
           src={(product.images && product.images[0]) || product.image}
           alt={product.name}

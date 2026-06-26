@@ -54,6 +54,8 @@ const seedProducts = [
       'Champions of the world. Premium national team jersey with embroidered three-star crest.',
     sizes: ['M', 'L', 'XL', 'XXL'],
     badge: 'Limited',
+    limited: true,
+    stockLeft: 1,
     featured: true,
   },
   {
