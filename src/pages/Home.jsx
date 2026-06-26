@@ -104,7 +104,7 @@ export default function Home() {
             <div className="hero__ring hero__ring--2" />
             <div className="hero__jersey">
               <img
-                src="public/1.jpg"
+                src="https://media.cnn.com/api/v1/images/stellar/prod/170810160912-david-beckham.jpg?q=w_3260,h_4763,x_0,y_0,c_fill"
                 alt=""
                 onError={(e) => (e.currentTarget.style.display = 'none')}
               />
