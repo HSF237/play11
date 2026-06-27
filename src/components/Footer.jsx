@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
+import Logo from './Logo.jsx'
 
 export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer__grid">
         <div className="footer__brand">
-          <div className="footer__logo">PLAY<span>11</span></div>
+          <div className="footer__logo"><Logo size={30} /> PLAY<span>11</span></div>
           <p>Premium authentic football jerseys. Wear the legend, own the moment.</p>
         </div>
 

@@ -120,7 +120,7 @@ export default function Checkout() {
           <h2>Your order</h2>
           {items.map((i) => (
             <div className="checkout-line" key={i.key}>
-              <span>{i.qty}× {i.name} <em>({i.size})</em></span>
+              <span>{i.qty}× {i.name} <em>({i.size}{i.sleeve ? `, ${i.sleeve}` : ''})</em></span>
               <span>{inr(i.price * i.qty)}</span>
             </div>
           ))}

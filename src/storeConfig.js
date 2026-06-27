@@ -24,7 +24,7 @@ export function buildWhatsAppOrderLink(form, items, subtotal) {
   lines.push('')
   lines.push('*Items:*')
   items.forEach((i) => {
-    lines.push(`• ${i.qty}× ${i.name} (Size ${i.size}) — ₹${(i.price * i.qty).toLocaleString('en-IN')}`)
+    lines.push(`• ${i.qty}× ${i.name} (Size ${i.size}${i.sleeve ? ', ' + i.sleeve : ''}) — ₹${(i.price * i.qty).toLocaleString('en-IN')}`)
   })
   lines.push('')
   lines.push(`*Items total:* ₹${Number(subtotal).toLocaleString('en-IN')}`)

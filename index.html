@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Inter:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Montserrat:wght@800;900&family=Inter:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -45,9 +45,15 @@
       }
       @keyframes p11Glow { 0%,100% { transform: scale(0.9); opacity: 0.7; } 50% { transform: scale(1.08); opacity: 1; } }
       .p11-stage { position: relative; z-index: 2; text-align: center; }
+      .p11-mark {
+        display: block; margin: 0 auto 0.9rem;
+        opacity: 0; transform: translateY(14px) scale(0.85);
+        animation: p11WordIn 0.9s cubic-bezier(0.22,0.61,0.36,1) forwards;
+        filter: drop-shadow(0 6px 18px rgba(200,162,74,0.35));
+      }
       .p11-word {
-        font-family: 'Archivo Black', Impact, sans-serif;
-        font-size: clamp(2.8rem, 13vw, 5rem); line-height: 1; letter-spacing: -0.02em;
+        font-family: 'Montserrat', 'Archivo Black', sans-serif; font-weight: 900;
+        font-size: clamp(2.8rem, 13vw, 5rem); line-height: 1; letter-spacing: -0.03em;
         color: #f4f4f6; position: relative; display: inline-block;
         opacity: 0; transform: translateY(22px) scale(0.96);
         animation: p11WordIn 1s cubic-bezier(0.22,0.61,0.36,1) 0.15s forwards;
@@ -91,6 +97,20 @@
     <div id="p11-splash">
       <div class="p11-glow"></div>
       <div class="p11-stage">
+        <svg class="p11-mark" width="70" height="70" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="sp11" x1="6" y1="8" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#e6cd92"/><stop offset="0.55" stop-color="#c8a24a"/><stop offset="1" stop-color="#9c7a2e"/>
+            </linearGradient>
+          </defs>
+          <path d="M24 9 L12 14 L4 24 L10 33 L18 27 L18 57 L46 57 L46 27 L54 33 L60 24 L52 14 L40 9 L32 16 Z" fill="url(#sp11)" stroke="url(#sp11)" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M9 22 L15 29" stroke="#101116" stroke-width="2.3" stroke-linecap="round"/>
+          <path d="M55 22 L49 29" stroke="#101116" stroke-width="2.3" stroke-linecap="round"/>
+          <rect x="26.4" y="37" width="3.7" height="15" rx="1.2" fill="#101116"/>
+          <rect x="33.9" y="37" width="3.7" height="15" rx="1.2" fill="#101116"/>
+          <path d="M26.4 38.5 L24 40" stroke="#101116" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M33.9 38.5 L31.5 40" stroke="#101116" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
         <div class="p11-word">PLAY<b>11</b></div>
         <div class="p11-tag">Wear The Legend</div>
       </div>

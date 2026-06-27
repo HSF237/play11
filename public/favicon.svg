@@ -1,5 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#0a0a0a"/>
-  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
-    font-family="Arial Black, Arial, sans-serif" font-size="26" font-weight="900" fill="#c8a24a">11</text>
+  <defs>
+    <linearGradient id="f" x1="6" y1="8" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e6cd92"/><stop offset="0.55" stop-color="#c8a24a"/><stop offset="1" stop-color="#9c7a2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0a0a0b"/>
+  <g transform="translate(0,1) scale(0.92) translate(2.6,2.6)">
+    <path d="M24 9 L12 14 L4 24 L10 33 L18 27 L18 57 L46 57 L46 27 L54 33 L60 24 L52 14 L40 9 L32 16 Z" fill="url(#f)" stroke="url(#f)" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M9 22 L15 29" stroke="#0a0a0b" stroke-width="2.3" stroke-linecap="round"/>
+    <path d="M55 22 L49 29" stroke="#0a0a0b" stroke-width="2.3" stroke-linecap="round"/>
+    <rect x="26.4" y="37" width="3.7" height="15" rx="1.2" fill="#0a0a0b"/>
+    <rect x="33.9" y="37" width="3.7" height="15" rx="1.2" fill="#0a0a0b"/>
+  </g>
 </svg>

@@ -15,8 +15,8 @@ function loadInitial() {
 function reducer(state, action) {
   switch (action.type) {
     case 'ADD': {
-      const { product, size, qty } = action
-      const key = `${product.id}__${size}`
+      const { product, size, sleeve, qty } = action
+      const key = `${product.id}__${size}__${sleeve || ''}`
       const existing = state.find((i) => i.key === key)
       if (existing) {
         return state.map((i) =>
@@ -32,6 +32,7 @@ function reducer(state, action) {
           price: Number(product.price) || 0,
           image: product.image,
           size,
+          sleeve: sleeve || '',
           qty,
         },
       ]
@@ -65,8 +66,8 @@ export function CartProvider({ children }) {
       items,
       count,
       subtotal,
-      addItem: (product, size, qty = 1) =>
-        dispatch({ type: 'ADD', product, size, qty }),
+      addItem: (product, size, qty = 1, sleeve = '') =>
+        dispatch({ type: 'ADD', product, size, sleeve, qty }),
       removeItem: (key) => dispatch({ type: 'REMOVE', key }),
       setQty: (key, qty) => dispatch({ type: 'SET_QTY', key, qty }),
       clear: () => dispatch({ type: 'CLEAR' }),

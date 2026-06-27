@@ -35,7 +35,7 @@ export default function Cart() {
               />
               <div className="cart-item__info">
                 <h3>{i.name}</h3>
-                <span className="cart-item__size">Size: {i.size}</span>
+                <span className="cart-item__size">Size: {i.size}{i.sleeve ? ` · ${i.sleeve}` : ''}</span>
                 <span className="cart-item__price">{inr(i.price)}</span>
               </div>
               <div className="cart-item__controls">

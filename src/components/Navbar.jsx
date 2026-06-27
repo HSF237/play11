@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
+import Logo from './Logo.jsx'
 
 export default function Navbar() {
   const { count } = useCart()
@@ -18,6 +19,7 @@ export default function Navbar() {
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__inner">
         <Link to="/" className="navbar__logo" onClick={() => setOpen(false)}>
+          <Logo size={34} />
           <span className="navbar__logo-word">PLAY<span>11</span></span>
         </Link>
 

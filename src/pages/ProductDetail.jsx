@@ -11,6 +11,7 @@ export default function ProductDetail() {
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
   const [size, setSize] = useState('')
+  const [sleeve, setSleeve] = useState('Half Sleeve')
   const [qty, setQty] = useState(1)
   const [added, setAdded] = useState(false)
   const [activeImg, setActiveImg] = useState(0)
@@ -22,6 +23,7 @@ export default function ProductDetail() {
       .then((p) => {
         setProduct(p)
         if (p?.sizes?.length) setSize(p.sizes[0])
+        if (p?.sleeve) setSleeve(p.sleeve)
       })
       .finally(() => setLoading(false))
   }, [id])
@@ -45,6 +47,7 @@ export default function ProductDetail() {
   }
 
   const ALL_SIZES = ['S', 'M', 'L', 'XL', 'XXL']
+  const SLEEVES = ['Half Sleeve', 'Five Sleeve', 'Full Sleeve']
   const available = new Set(product.sizes?.length ? product.sizes : ALL_SIZES)
   const gallery = (product.images && product.images.length ? product.images : [product.image]).filter(Boolean)
   const FALLBACK =
@@ -54,7 +57,7 @@ export default function ProductDetail() {
     )
 
   function handleAdd() {
-    addItem(product, size, qty)
+    addItem(product, size, qty, sleeve)
     setAdded(true)
     setTimeout(() => setAdded(false), 1800)
   }
@@ -121,6 +124,22 @@ export default function ProductDetail() {
             </div>
           </div>
 
+          <div className="pdp__sizes">
+            <label>Select Sleeve</label>
+            <div className="pdp__size-row">
+              {SLEEVES.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  className={`size-btn sleeve-btn ${sleeve === s ? 'size-btn--active' : ''}`}
+                  onClick={() => setSleeve(s)}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="pdp__qty">
             <label>Quantity</label>
             <div className="qty-stepper">
@@ -137,7 +156,7 @@ export default function ProductDetail() {
             <button
               className="btn btn--ghost btn--lg"
               onClick={() => {
-                addItem(product, size, qty)
+                addItem(product, size, qty, sleeve)
                 navigate('/cart')
               }}
             >
