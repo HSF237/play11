@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ProductCard from '../components/ProductCard.jsx'
 import { fetchProducts } from '../services/productService.js'
+import { HERO_IMAGE, STORY_IMAGE } from '../storeConfig.js'
 
 const CATEGORIES = [
   {
@@ -81,14 +82,11 @@ export default function Home() {
             <div className="hero__ring hero__ring--2" />
             <div className="hero__jersey">
               <img
-                src="https://media.cnn.com/api/v1/images/stellar/prod/170810160912-david-beckham.jpg?q=w_3260,h_4763,x_0,y_0,c_fill"
+                src={HERO_IMAGE}
                 alt=""
                 onError={(e) => (e.currentTarget.style.display = 'none')}
               />
             </div>
-            <span className="hero__chip hero__chip--1">✦ Authentic</span>
-            <span className="hero__chip hero__chip--2">⚡ Fast India delivery</span>
-            <span className="hero__chip hero__chip--3">⚽ COD available</span>
           </div>
         </div>
 
@@ -180,7 +178,7 @@ export default function Home() {
         <div className="story__inner">
           <div className="story__media" data-reveal>
             <img
-              src="https://images.unsplash.com/photo-1760885985017-af7a49dcfb48?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src={STORY_IMAGE}
               alt="Football stadium"
               onError={(e) => (e.currentTarget.style.display = 'none')}
             />

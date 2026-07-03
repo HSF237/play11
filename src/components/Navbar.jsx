@@ -19,8 +19,7 @@ export default function Navbar() {
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__inner">
         <Link to="/" className="navbar__logo" onClick={() => setOpen(false)}>
-          <Logo size={34} />
-          <span className="navbar__logo-word">PLAY<span>11</span></span>
+          <Logo />
         </Link>
 
         <nav className={`navbar__links ${open ? 'is-open' : ''}`}>

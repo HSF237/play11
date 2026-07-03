@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { fetchProductById } from '../services/productService.js'
 import { useCart } from '../context/CartContext.jsx'
 import { inr } from '../utils/format.js'
+import { stockInfo } from '../utils/stock.js'
 
 export default function ProductDetail() {
   const { id } = useParams()
@@ -48,6 +49,7 @@ export default function ProductDetail() {
 
   const ALL_SIZES = ['S', 'M', 'L', 'XL', 'XXL']
   const SLEEVES = ['Half Sleeve', 'Five Sleeve', 'Full Sleeve']
+  const stock = stockInfo(product)
   const available = new Set(product.sizes?.length ? product.sizes : ALL_SIZES)
   const gallery = (product.images && product.images.length ? product.images : [product.image]).filter(Boolean)
   const FALLBACK =
@@ -98,9 +100,13 @@ export default function ProductDetail() {
           <span className="pdp__club">{product.club || product.category}</span>
           <h1 className="pdp__name">{product.name}</h1>
           <div className="pdp__price">{inr(product.price)}</div>
-          {product.limited && (
-            <div className="pdp__limited">⚠️ Limited piece — only {product.stockLeft || 1} left in stock</div>
-          )}
+          {stock.soldOut ? (
+            <div className="pdp__limited pdp__limited--sold">● Sold out — currently unavailable</div>
+          ) : stock.low ? (
+            <div className="pdp__limited">
+              ⚠️ {stock.count === 1 ? 'Last piece — only 1 left in stock' : `Hurry — only ${stock.count} left in stock`}
+            </div>
+          ) : null}
           <p className="pdp__desc">{product.description}</p>
 
           <div className="pdp__sizes">
@@ -150,11 +156,12 @@ export default function ProductDetail() {
           </div>
 
           <div className="pdp__actions">
-            <button className="btn btn--primary btn--lg" onClick={handleAdd}>
-              {added ? '✓ Added to Cart' : 'Add to Cart'}
+            <button className="btn btn--primary btn--lg" onClick={handleAdd} disabled={stock.soldOut}>
+              {stock.soldOut ? 'Sold Out' : added ? '✓ Added to Cart' : 'Add to Cart'}
             </button>
             <button
               className="btn btn--ghost btn--lg"
+              disabled={stock.soldOut}
               onClick={() => {
                 addItem(product, size, qty, sleeve)
                 navigate('/cart')

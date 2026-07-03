@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer__grid">
         <div className="footer__brand">
-          <div className="footer__logo"><Logo size={30} /> PLAY<span>11</span></div>
+          <div className="footer__logo"><Logo /></div>
           <p>Premium authentic football jerseys. Wear the legend, own the moment.</p>
         </div>
 

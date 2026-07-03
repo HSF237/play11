@@ -9,6 +9,7 @@ import {
 } from '../services/productService.js'
 import { isFirebaseConfigured } from '../firebase.js'
 import { inr } from '../utils/format.js'
+import { stockInfo } from '../utils/stock.js'
 
 const EMPTY = {
   name: '',
@@ -23,8 +24,7 @@ const EMPTY = {
   badge: '',
   available: true,
   featured: false,
-  limited: false,
-  stockLeft: '',
+  stock: '',
 }
 
 function imagesToArray(str) {
@@ -83,8 +83,7 @@ export default function AdminDashboard() {
       badge: form.badge || null,
       available: !!form.available,
       featured: !!form.featured,
-      limited: !!form.limited,
-      stockLeft: form.limited ? (Number(form.stockLeft) || 1) : null,
+      stock: form.stock === '' ? null : Math.max(0, Math.floor(Number(form.stock) || 0)),
     }
     try {
       if (editingId) {
@@ -115,10 +114,23 @@ export default function AdminDashboard() {
       badge: p.badge || '',
       available: p.available !== false,
       featured: !!p.featured,
-      limited: !!p.limited,
-      stockLeft: p.stockLeft ?? '',
+      stock: p.stock ?? p.stockLeft ?? '',
     })
     window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  // Quick stock adjust from the product list (− after a confirmed sale, + to restock).
+  async function adjustStock(p, delta) {
+    const info = stockInfo(p)
+    const base = info.tracked ? info.count : 0
+    const next = Math.max(0, base + delta)
+    setProducts((list) => list.map((x) => (x.id === p.id ? { ...x, stock: next } : x)))
+    try {
+      await updateProduct(p.id, { stock: next })
+    } catch (err) {
+      flash(err.message)
+      loadProducts()
+    }
   }
   async function handleDelete(id) {
     if (!window.confirm('Delete this jersey?')) return
@@ -221,24 +233,24 @@ export default function AdminDashboard() {
               <textarea name="description" rows="3" value={form.description} onChange={update}
                 placeholder="Match-grade fabric, heat-pressed crest, tailored fit…" />
             </div>
+            <div className="field" style={{ maxWidth: '260px' }}>
+              <label>Stock — pieces in stock</label>
+              <input name="stock" type="number" min="0" value={form.stock} onChange={update} placeholder="e.g. 10" />
+              <small className="field__hint">
+                Leave <b>blank</b> for unlimited. Enter a number and the store
+                auto-shows <b>“Only N left”</b> → <b>“Last piece!”</b> → <b>“Sold out”</b>.
+                After each confirmed WhatsApp sale, just tap <b>−</b> on the jersey
+                in the list below.
+              </small>
+            </div>
             <label className="checkbox">
               <input type="checkbox" name="available" checked={form.available} onChange={update} />
-              In stock / available
+              Available for sale (uncheck to force “Sold out”)
             </label>
             <label className="checkbox">
               <input type="checkbox" name="featured" checked={form.featured} onChange={update} />
               Show on homepage (Featured)
             </label>
-            <label className="checkbox">
-              <input type="checkbox" name="limited" checked={form.limited} onChange={update} />
-              Limited piece — show "Only X left"
-            </label>
-            {form.limited && (
-              <div className="field" style={{ maxWidth: '160px' }}>
-                <label>Pieces left</label>
-                <input name="stockLeft" type="number" min="1" value={form.stockLeft} onChange={update} placeholder="1" />
-              </div>
-            )}
 
             {previewImages.length > 0 && (
               <div className="admin__preview">
@@ -268,20 +280,35 @@ export default function AdminDashboard() {
             <div className="shop__loading"><div className="spinner" /></div>
           ) : (
             <div className="admin__list">
-              {products.map((p) => (
+              {products.map((p) => {
+                const s = stockInfo(p)
+                return (
                 <div className="admin-row" key={p.id}>
                   <img src={(p.images && p.images[0]) || p.image} alt={p.name}
                     onError={(e) => (e.currentTarget.style.opacity = 0.2)} />
                   <div className="admin-row__info">
                     <strong>{p.name}</strong>
-                    <span>{p.club} · {p.category} · {inr(p.price)}{p.available === false ? ' · Out of stock' : ''}</span>
+                    <span>{p.club} · {p.category} · {inr(p.price)}</span>
+                    <span className={`admin-row__stockline ${s.soldOut ? 'is-sold' : s.low ? 'is-low' : ''}`}>
+                      {s.tracked ? (s.soldOut ? 'Sold out' : s.badge || `${s.count} in stock`) : 'Stock: unlimited'}
+                    </span>
+                  </div>
+                  <div className="admin-row__stock" title="Adjust stock">
+                    <button type="button" className="stock-btn" onClick={() => adjustStock(p, -1)}
+                      disabled={s.tracked && s.count <= 0} aria-label="Reduce stock by one">−</button>
+                    <span className={`stock-count ${s.soldOut ? 'is-sold' : s.low ? 'is-low' : ''}`}>
+                      {s.tracked ? s.count : '∞'}
+                    </span>
+                    <button type="button" className="stock-btn" onClick={() => adjustStock(p, 1)}
+                      aria-label="Add one to stock">+</button>
                   </div>
                   <div className="admin-row__actions">
                     <button className="btn btn--sm btn--ghost" onClick={() => startEdit(p)}>Edit</button>
                     <button className="btn btn--sm btn--danger" onClick={() => handleDelete(p.id)}>Delete</button>
                   </div>
                 </div>
-              ))}
+                )
+              })}
             </div>
           )}
         </section>

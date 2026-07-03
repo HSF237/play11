@@ -1,12 +1,16 @@
 import { Link } from 'react-router-dom'
 import { inr } from '../utils/format.js'
+import { stockInfo } from '../utils/stock.js'
 
 export default function ProductCard({ product }) {
+  const stock = stockInfo(product)
   return (
-    <Link to={`/product/${product.id}`} className="card">
+    <Link to={`/product/${product.id}`} className={`card ${stock.soldOut ? 'card--sold' : ''}`}>
       <div className="card__media">
-        {product.limited ? (
-          <span className="card__badge card__badge--limited">⚠️ Only {product.stockLeft || 1} left</span>
+        {stock.badge ? (
+          <span className={`card__badge card__badge--${stock.variant}`}>
+            {stock.variant === 'low' ? '⚠️ ' : ''}{stock.badge}
+          </span>
         ) : product.badge ? (
           <span className="card__badge">{product.badge}</span>
         ) : null}
