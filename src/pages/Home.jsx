@@ -29,6 +29,54 @@ const CATEGORIES = [
   },
 ]
 
+const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round', strokeLinejoin: 'round' }
+const BADGES = [
+  {
+    title: 'Fast Delivery',
+    sub: 'Shipped fast, all-India',
+    icon: (
+      <svg viewBox="0 0 24 24" {...S}>
+        <path d="M3 6.5h10.5v9H3z" />
+        <path d="M13.5 9.5H17l3.5 3v3h-7z" />
+        <circle cx="7" cy="18" r="1.7" />
+        <circle cx="17.3" cy="18" r="1.7" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Secure Payment',
+    sub: 'COD & safe checkout',
+    icon: (
+      <svg viewBox="0 0 24 24" {...S}>
+        <path d="M12 3l7 3v5.2c0 4.4-3 7.4-7 8.8-4-1.4-7-4.4-7-8.8V6z" />
+        <path d="M9 12l2.1 2.1L15.2 10" />
+      </svg>
+    ),
+  },
+  {
+    title: 'High-Quality Jerseys',
+    sub: 'Match-grade fabric',
+    icon: (
+      <svg viewBox="0 0 24 24" {...S}>
+        <circle cx="12" cy="9.5" r="5.5" />
+        <path d="M12 6.6l1 2 2.2.3-1.6 1.5.4 2.2-2-1.1-2 1.1.4-2.2-1.6-1.5 2.2-.3z" />
+        <path d="M8.4 14.6 7 21l5-2.6L17 21l-1.4-6.4" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Embroidery Jerseys',
+    sub: 'Premium stitched crests',
+    icon: (
+      <svg viewBox="0 0 24 24" {...S}>
+        <path d="M8.5 4 4.5 7l2 3.2 2-1.4V20h6V8.8l2 1.4 2-3.2-4-3-3 2-3-2z" />
+        <path d="M10.4 12.5h3.2" strokeDasharray="1.3 1.3" />
+        <path d="M10.4 15h3.2" strokeDasharray="1.3 1.3" />
+      </svg>
+    ),
+  },
+]
+
 export default function Home() {
   const [featured, setFeatured] = useState([])
 
@@ -104,6 +152,21 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {/* ================= TRUST BADGES ================= */}
+      <section className="trustbar">
+        <div className="trustbar__inner" data-reveal>
+          {BADGES.map((b) => (
+            <div className="trust" key={b.title}>
+              <span className="trust__icon">{b.icon}</span>
+              <div className="trust__text">
+                <strong>{b.title}</strong>
+                <span>{b.sub}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* ================= CATEGORIES (BENTO) ================= */}
       <section className="section" id="categories">
