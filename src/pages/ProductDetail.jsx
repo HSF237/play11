@@ -12,7 +12,6 @@ export default function ProductDetail() {
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
   const [size, setSize] = useState('')
-  const [sleeve, setSleeve] = useState('Half Sleeve')
   const [qty, setQty] = useState(1)
   const [added, setAdded] = useState(false)
   const [activeImg, setActiveImg] = useState(0)
@@ -24,7 +23,6 @@ export default function ProductDetail() {
       .then((p) => {
         setProduct(p)
         if (p?.sizes?.length) setSize(p.sizes[0])
-        if (p?.sleeve) setSleeve(p.sleeve)
       })
       .finally(() => setLoading(false))
   }, [id])
@@ -48,7 +46,7 @@ export default function ProductDetail() {
   }
 
   const ALL_SIZES = ['S', 'M', 'L', 'XL', 'XXL']
-  const SLEEVES = ['Half Sleeve', 'Five Sleeve', 'Full Sleeve']
+  const sleeve = product.sleeve || 'Half Sleeve'
   const stock = stockInfo(product)
   const available = new Set(product.sizes?.length ? product.sizes : ALL_SIZES)
   const gallery = (product.images && product.images.length ? product.images : [product.image]).filter(Boolean)
@@ -130,20 +128,9 @@ export default function ProductDetail() {
             </div>
           </div>
 
-          <div className="pdp__sizes">
-            <label>Select Sleeve</label>
-            <div className="pdp__size-row">
-              {SLEEVES.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  className={`size-btn sleeve-btn ${sleeve === s ? 'size-btn--active' : ''}`}
-                  onClick={() => setSleeve(s)}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
+          <div className="pdp__meta">
+            <span className="pdp__meta-label">Sleeve</span>
+            <span className="pdp__meta-value">{sleeve}</span>
           </div>
 
           <div className="pdp__qty">
