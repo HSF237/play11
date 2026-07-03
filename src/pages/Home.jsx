@@ -126,8 +126,6 @@ export default function Home() {
           </div>
 
           <div className="hero__right" aria-hidden="true">
-            <div className="hero__ring" />
-            <div className="hero__ring hero__ring--2" />
             <div className="hero__jersey">
               <img
                 src={HERO_IMAGE}
