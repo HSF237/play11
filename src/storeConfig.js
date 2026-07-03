@@ -10,9 +10,8 @@ export const ADMIN_EMAILS = [
 // HOMEPAGE IMAGES — change these links to swap the photos on the home page.
 // Use a DIRECT image link (ends in .jpg / .png / .webp).
 // ====================================================================
-export const HERO_IMAGE = '/team11-hero.png'
-export const STORY_IMAGE =
-  'https://images.unsplash.com/photo-1760885985017-af7a49dcfb48?fm=jpg&q=60&w=3000&auto=format&fit=crop'
+export const HERO_IMAGE = '/team11-hero.jpg'
+export const STORY_IMAGE = '/story-cr7.jpg'
 
 // Play11 store contact config — edit here if the number/details change.
 export const STORE = {
