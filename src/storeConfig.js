@@ -10,8 +10,7 @@ export const ADMIN_EMAILS = [
 // HOMEPAGE IMAGES — change these links to swap the photos on the home page.
 // Use a DIRECT image link (ends in .jpg / .png / .webp).
 // ====================================================================
-export const HERO_IMAGE =
-  'https://media.cnn.com/api/v1/images/stellar/prod/170810160912-david-beckham.jpg?q=w_3260,h_4763,x_0,y_0,c_fill'
+export const HERO_IMAGE = '/team11-hero.png'
 export const STORY_IMAGE =
   'https://images.unsplash.com/photo-1760885985017-af7a49dcfb48?fm=jpg&q=60&w=3000&auto=format&fit=crop'
 
