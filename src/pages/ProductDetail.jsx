@@ -174,8 +174,8 @@ export default function ProductDetail() {
           <ul className="pdp__perks">
             <li>✓ 100% authentic, match-grade quality</li>
             <li>✓ Fast delivery across India</li>
-            <li>✓ Cash on Delivery available</li>
-            <li>✓ 14-day easy returns</li>
+            <li>✓ Secure, protected checkout</li>
+            <li>✓ Dedicated WhatsApp support</li>
           </ul>
         </div>
       </div>

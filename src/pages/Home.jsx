@@ -45,7 +45,7 @@ const BADGES = [
   },
   {
     title: 'Secure Payment',
-    sub: 'COD & safe checkout',
+    sub: 'Safe, protected checkout',
     icon: (
       <svg viewBox="0 0 24 24" {...S}>
         <path d="M12 3l7 3v5.2c0 4.4-3 7.4-7 8.8-4-1.4-7-4.4-7-8.8V6z" />
@@ -98,7 +98,7 @@ export default function Home() {
         <div className="hero__content">
           <div className="hero__left">
             <span className="hero__pill">
-              <span className="hero__pill-dot" /> Free delivery all-India above ₹999 · COD available
+              <span className="hero__pill-dot" /> Free delivery all-India above ₹999
             </span>
             <h1 className="hero__title">
               WEAR THE
@@ -226,12 +226,17 @@ export default function Home() {
           <div className="feature" data-reveal>
             <div className="feature__icon">⚡</div>
             <h3>Fast Delivery — All India</h3>
-            <p>Shipped pan-India and packed with care. Cash on Delivery available everywhere.</p>
+            <p>Shipped pan-India and packed with care, delivered right to your door.</p>
           </div>
           <div className="feature" data-reveal>
-            <div className="feature__icon">♻</div>
-            <h3>Easy Returns</h3>
-            <p>Not the right fit? Simple, hassle-free exchanges within 14 days.</p>
+            <div className="feature__icon">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 11.5a8 8 0 0 1-11.6 7.1L4 20l1.4-5.4A8 8 0 1 1 21 11.5z" />
+                <path d="M8.5 12h.01M12 12h.01M15.5 12h.01" />
+              </svg>
+            </div>
+            <h3>Dedicated Support</h3>
+            <p>Real humans on WhatsApp — quick help before and after you buy.</p>
           </div>
         </div>
       </section>
