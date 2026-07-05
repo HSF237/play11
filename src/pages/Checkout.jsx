@@ -81,8 +81,8 @@ export default function Checkout() {
               <input name="phone" required value={form.phone} onChange={update} placeholder="+91 …" />
             </div>
             <div className="field">
-              <label>Email</label>
-              <input type="email" name="email" value={form.email} onChange={update} />
+              <label>Email <span className="field-opt">(optional)</span></label>
+              <input type="email" name="email" value={form.email} onChange={update} placeholder="Optional" />
             </div>
           </div>
           <div className="field">

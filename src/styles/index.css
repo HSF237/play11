@@ -209,7 +209,8 @@ input, select, textarea { font-family: inherit; }
 .hero__cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
 .hero__stats { display: flex; gap: 2.6rem; flex-wrap: wrap; }
 .hero__stats div { display: flex; flex-direction: column; }
-.hero__stats strong { font-family: var(--font-display); font-size: 2.4rem; color: var(--text); }
+.hero__stats strong { font-family: var(--font-display); font-size: 2.4rem; color: var(--text); letter-spacing: 0.04em; }
+.field-opt { color: var(--muted-2); font-weight: 400; font-size: 0.82em; }
 .hero__stats span { color: var(--muted-2); font-size: 0.85rem; letter-spacing: 0.05em; }
 
 /* Hero right — floating jersey + rings + chips */
@@ -266,7 +267,7 @@ input, select, textarea { font-family: inherit; }
   display: block; font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase;
   color: var(--gold); margin-bottom: 0.6rem;
 }
-.section__title { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1; letter-spacing: -0.01em; }
+.section__title { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1; letter-spacing: 0.03em; }
 .section__link { color: var(--muted); font-weight: 600; transition: color 0.2s; }
 .section__link:hover { color: var(--gold); }
 
@@ -779,7 +780,7 @@ input, select, textarea { font-family: inherit; }
   background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.42) 50%, rgba(0,0,0,0.96) 100%);
 }
 .bento__tag { font-size: 0.75rem; color: var(--gold-soft); letter-spacing: 0.05em; text-transform: uppercase; text-shadow: 0 1px 8px rgba(0,0,0,0.98), 0 0 3px rgba(0,0,0,0.9); }
-.bento__overlay h3 { font-family: var(--font-display); font-size: 1.7rem; letter-spacing: 0.02em; margin: 0.2rem 0; color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,0.95), 0 1px 4px rgba(0,0,0,0.98); }
+.bento__overlay h3 { font-family: var(--font-display); font-size: 1.7rem; letter-spacing: 0.08em; margin: 0.2rem 0; color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,0.95), 0 1px 4px rgba(0,0,0,0.98); }
 .bento__cta { font-size: 0.85rem; color: var(--muted); opacity: 0; transform: translateY(8px); transition: 0.3s; }
 .bento__tile:hover .bento__cta { opacity: 1; transform: none; color: var(--gold); }
 
