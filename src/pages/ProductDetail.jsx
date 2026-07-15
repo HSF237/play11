@@ -4,6 +4,26 @@ import { fetchProductById } from '../services/productService.js'
 import { useCart } from '../context/CartContext.jsx'
 import { inr } from '../utils/format.js'
 import { stockInfo } from '../utils/stock.js'
+import ProductCard from '../components/ProductCard.jsx'
+
+const RECENT_KEY = 'play11_recent'
+
+function trackRecent(product) {
+  try {
+    const prev = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]')
+    const mini = {
+      id: product.id,
+      name: product.name,
+      club: product.club,
+      price: product.price,
+      category: product.category,
+      badge: product.badge,
+      image: (product.images && product.images[0]) || product.image,
+    }
+    const next = [mini, ...prev.filter((p) => p.id !== product.id)].slice(0, 5)
+    localStorage.setItem(RECENT_KEY, JSON.stringify(next))
+  } catch {}
+}
 
 export default function ProductDetail() {
   const { id } = useParams()
@@ -15,14 +35,20 @@ export default function ProductDetail() {
   const [qty, setQty] = useState(1)
   const [added, setAdded] = useState(false)
   const [activeImg, setActiveImg] = useState(0)
+  const [recentlyViewed, setRecentlyViewed] = useState([])
 
   useEffect(() => {
     setLoading(true)
     setActiveImg(0)
+    try {
+      const items = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]')
+      setRecentlyViewed(items.filter((p) => p.id !== id).slice(0, 4))
+    } catch {}
     fetchProductById(id)
       .then((p) => {
         setProduct(p)
         if (p?.sizes?.length) setSize(p.sizes[0])
+        if (p) trackRecent(p)
       })
       .finally(() => setLoading(false))
   }, [id])
@@ -166,6 +192,17 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
+
+      {recentlyViewed.length > 0 && (
+        <section className="pdp__recent" data-reveal>
+          <p className="pdp__recent-title">Recently Viewed</p>
+          <div className="grid grid--4">
+            {recentlyViewed.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   )
 }

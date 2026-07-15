@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
+import WhatsAppBubble from './components/WhatsAppBubble.jsx'
 import Home from './pages/Home.jsx'
 import Shop from './pages/Shop.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
@@ -152,6 +153,7 @@ export default function App() {
         </Routes>
       </main>
       {!isAdmin && <Footer />}
+      {!isAdmin && <WhatsAppBubble />}
     </div>
   )
 }

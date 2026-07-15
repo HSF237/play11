@@ -954,3 +954,80 @@ input, select, textarea { font-family: inherit; }
   /* Touch devices: show the price clearly, drop the hover-only overlay */
   .card__overlay { display: none; }
 }
+
+/* ===================== WISHLIST HEART ===================== */
+.card__wish {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(10, 10, 11, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: color 0.18s, border-color 0.18s, background 0.18s, transform 0.15s;
+  color: var(--muted);
+  cursor: pointer;
+}
+.card__wish:hover {
+  color: #e85d4a;
+  border-color: rgba(232, 93, 74, 0.4);
+  transform: scale(1.1);
+}
+.card__wish.is-wished {
+  color: #e85d4a;
+  border-color: rgba(232, 93, 74, 0.35);
+  background: rgba(232, 93, 74, 0.14);
+}
+
+/* ===================== WHATSAPP BUBBLE ===================== */
+.wa-bubble {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 950;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35), 0 2px 8px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
+.wa-bubble:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.55), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+@media (max-width: 760px) {
+  .wa-bubble {
+    bottom: 6rem;
+    right: 1rem;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* ===================== RECENTLY VIEWED ===================== */
+.pdp__recent {
+  margin-top: 3rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--line);
+}
+.pdp__recent-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
