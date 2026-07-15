@@ -6,52 +6,46 @@ import { HERO_IMAGE, STORY_IMAGE } from '../storeConfig.js'
 
 const REVIEWS = [
   {
-    name: 'Arjun Menon',
+    name: 'Nashid',
+    location: 'Payyanur',
+    avatar: 'NA',
+    rating: 5,
+    text: 'Best jersey store I have found online. The quality is genuinely good — fabric is thick and the print does not fade after washing. Delivery was fast too. Highly recommend Play11!',
+  },
+  {
+    name: 'Hassan',
+    location: 'Kannur',
+    avatar: 'HA',
+    rating: 5,
+    text: 'Ordered a jersey and it came in 4 days. The stitching and crest quality is really good for the price. WhatsApp response was quick whenever I had questions. Will order again.',
+  },
+  {
+    name: 'Fadi',
     location: 'Kozhikode',
-    avatar: 'AM',
+    avatar: 'FA',
     rating: 5,
-    jersey: 'Real Madrid Home Kit',
-    text: 'Jersey quality is unbelievable for the price. Fabric feels exactly like the ones they sell in malls for 3x the cost. Delivered in 3 days — really fast. Ordered another one already!',
+    text: 'Wore the jersey to a match and got so many compliments. Everyone thought it was an original store-bought one. Play11 jersey feel thanne different aanu. Super happy with it!',
   },
   {
-    name: 'Rahul Krishnan',
-    location: 'Thrissur',
-    avatar: 'RK',
+    name: 'Samad',
+    location: 'Malappuram',
+    avatar: 'SM',
     rating: 5,
-    jersey: 'Argentina National Kit',
-    text: 'Got the Argentina World Cup jersey. The crest stitching is perfect and the colour is spot on. WhatsApp support was very helpful when I had a size doubt. 100% recommend Play11.',
+    text: 'Got two jerseys as gifts for my friends. Both of them loved it. The packaging was clean and the jerseys fit perfectly. No issues at all — smooth ordering through WhatsApp.',
   },
   {
-    name: 'Siddharth Nair',
-    location: 'Thiruvananthapuram',
+    name: 'Sanah',
+    location: 'Kochi',
     avatar: 'SN',
     rating: 5,
-    jersey: 'FC Barcelona Kit',
-    text: 'Bought the Barça jersey as a gift for my brother. He was shocked at the quality — thought I paid a lot more. Packaging was neat and arrived well before the estimated date.',
+    text: 'Great experience from start to finish. The jersey looks exactly like the photos, colour is vibrant and the fabric is comfortable. Delivery was on time. 100% will order again!',
   },
   {
-    name: 'Mohammed Ashiq',
-    location: 'Malappuram',
-    avatar: 'MA',
+    name: 'Yadunandh',
+    location: 'Thrissur',
+    avatar: 'YN',
     rating: 5,
-    jersey: 'Brazil Home Kit',
-    text: 'Play11 jersey feel thanne different aanu. Wore it to a match and everyone asked where I got it from. Will definitely order again. Fast delivery and great customer service.',
-  },
-  {
-    name: 'Vishnu Prakash',
-    location: 'Kannur',
-    avatar: 'VP',
-    rating: 5,
-    jersey: 'Manchester United Kit',
-    text: 'Third jersey I\'ve ordered from Play11. Never disappointed. The Man United away kit fits perfectly — true to size. Trust this store completely for football jerseys.',
-  },
-  {
-    name: 'Aakash Dev',
-    location: 'Kochi',
-    avatar: 'AD',
-    rating: 5,
-    jersey: 'Liverpool Retro Kit',
-    text: 'The retro Liverpool jersey is stunning. Print quality, fabric, stitching — everything is top class. Arrived in 4 days all the way to Kochi. Very happy with the purchase.',
+    text: 'This is my third order from Play11. Never disappointed even once. The quality is consistent and the team is always helpful on WhatsApp. Best place for football jerseys in Kerala.',
   },
 ]
 
@@ -342,7 +336,6 @@ export default function Home() {
                 </div>
                 <div className="review__stars">{'★'.repeat(r.rating)}</div>
               </div>
-              <p className="review__jersey">Bought: {r.jersey}</p>
               <p className="review__text">"{r.text}"</p>
             </div>
           ))}

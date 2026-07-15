@@ -7,10 +7,17 @@ export default function ProductCard({ product }) {
   const stock = stockInfo(product)
   const { toggle, has } = useWishlist()
   const wished = has(product.id)
+  const discount =
+    product.originalPrice && product.originalPrice > product.price
+      ? Math.round((1 - product.price / product.originalPrice) * 100)
+      : 0
 
   return (
     <Link to={`/product/${product.id}`} className={`card ${stock.soldOut ? 'card--sold' : ''}`}>
       <div className="card__media">
+        {discount > 0 && (
+          <span className="card__discount-badge">-{discount}%</span>
+        )}
         {stock.badge ? (
           <span className={`card__badge card__badge--${stock.variant}`}>
             {stock.variant === 'low' ? '⚠️ ' : ''}{stock.badge}
@@ -50,7 +57,12 @@ export default function ProductCard({ product }) {
       <div className="card__body">
         <span className="card__club">{product.club || product.category}</span>
         <h3 className="card__name">{product.name}</h3>
-        <span className="card__price">{inr(product.price)}</span>
+        <div className="card__price-row">
+          <span className="card__price">{inr(product.price)}</span>
+          {discount > 0 && (
+            <span className="card__original-price">{inr(product.originalPrice)}</span>
+          )}
+        </div>
       </div>
     </Link>
   )

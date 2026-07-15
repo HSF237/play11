@@ -18,6 +18,7 @@ const EMPTY = {
   category: 'Regular',
   sleeve: 'Half Sleeve',
   price: '',
+  originalPrice: '',
   images: '',
   description: '',
   sizes: 'S, M, L, XL',
@@ -77,6 +78,7 @@ export default function AdminDashboard() {
       category: form.category || 'Regular',
       sleeve: form.sleeve || 'Half Sleeve',
       price: Number(form.price) || 0,
+      originalPrice: form.originalPrice !== '' ? Number(form.originalPrice) : null,
       images,
       image: images[0] || '',
       description: form.description,
@@ -116,6 +118,7 @@ export default function AdminDashboard() {
       category: resolvedStyle,
       sleeve: p.sleeve || 'Half Sleeve',
       price: p.price ?? '',
+      originalPrice: p.originalPrice ?? '',
       images: (p.images && p.images.length ? p.images : [p.image].filter(Boolean)).join('\n'),
       description: p.description || '',
       sizes: Array.isArray(p.sizes) ? p.sizes.join(', ') : 'S, M, L, XL',
@@ -211,8 +214,12 @@ export default function AdminDashboard() {
             </div>
             <div className="field-row">
               <div className="field">
-                <label>Price (₹) *</label>
-                <input name="price" type="number" step="1" value={form.price} onChange={update} required placeholder="1499" />
+                <label>Sale Price (₹) *</label>
+                <input name="price" type="number" step="1" value={form.price} onChange={update} required placeholder="1299" />
+              </div>
+              <div className="field">
+                <label>Original Price (₹) <span className="field-opt">for strikethrough</span></label>
+                <input name="originalPrice" type="number" step="1" value={form.originalPrice} onChange={update} placeholder="1799" />
               </div>
               <div className="field">
                 <label>Badge (optional)</label>

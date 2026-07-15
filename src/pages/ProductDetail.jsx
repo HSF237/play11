@@ -73,6 +73,10 @@ export default function ProductDetail() {
 
   const ALL_SIZES = ['S', 'M', 'L', 'XL', 'XXL']
   const sleeve = product.sleeve || 'Half Sleeve'
+  const discount =
+    product.originalPrice && product.originalPrice > product.price
+      ? Math.round((1 - product.price / product.originalPrice) * 100)
+      : 0
   const stock = stockInfo(product)
   const available = new Set(product.sizes?.length ? product.sizes : ALL_SIZES)
   const gallery = (product.images && product.images.length ? product.images : [product.image]).filter(Boolean)
@@ -123,7 +127,15 @@ export default function ProductDetail() {
         <div className="pdp__info" data-reveal>
           <span className="pdp__club">{product.club || product.category}</span>
           <h1 className="pdp__name">{product.name}</h1>
-          <div className="pdp__price">{inr(product.price)}</div>
+          <div className="pdp__price">
+            {inr(product.price)}
+            {discount > 0 && (
+              <>
+                <span className="pdp__original-price">{inr(product.originalPrice)}</span>
+                <span className="pdp__discount-badge">-{discount}% OFF</span>
+              </>
+            )}
+          </div>
           {stock.soldOut ? (
             <div className="pdp__limited pdp__limited--sold">● Sold out — currently unavailable</div>
           ) : stock.low ? (
