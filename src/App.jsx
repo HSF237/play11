@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
 import WhatsAppBubble from './components/WhatsAppBubble.jsx'
+import AiChat from './components/AiChat.jsx'
 import Home from './pages/Home.jsx'
 import Shop from './pages/Shop.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
@@ -154,6 +155,7 @@ export default function App() {
       </main>
       {!isAdmin && <Footer />}
       {!isAdmin && <WhatsAppBubble />}
+      {!isAdmin && <AiChat />}
     </div>
   )
 }

@@ -2,13 +2,15 @@ import { useEffect, useMemo, useState } from 'react'
 import ProductCard from '../components/ProductCard.jsx'
 import { fetchProducts } from '../services/productService.js'
 
-const CATEGORIES = ['All', 'Club', 'National', 'Retro', 'Limited']
+const TYPES = ['All', 'Club', 'National']
+const STYLES = ['All', 'Retro', 'Limited']
 const SLEEVES = ['All', 'Half Sleeve', 'Five Sleeve', 'Full Sleeve']
 
 export default function Shop() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
-  const [category, setCategory] = useState('All')
+  const [type, setType] = useState('All')
+  const [style, setStyle] = useState('All')
   const [sleeve, setSleeve] = useState('All')
   const [sort, setSort] = useState('featured')
   const [search, setSearch] = useState('')
@@ -21,8 +23,22 @@ export default function Shop() {
 
   const visible = useMemo(() => {
     let list = [...products]
-    if (category !== 'All') list = list.filter((p) => p.category === category)
+
+    if (type !== 'All') {
+      list = list.filter((p) => {
+        // New products have an explicit `type` field
+        if (p.type) return p.type === type
+        // Old products: category was 'Club' or 'National'
+        return p.category === type
+      })
+    }
+
+    if (style !== 'All') {
+      list = list.filter((p) => p.category === style)
+    }
+
     if (sleeve !== 'All') list = list.filter((p) => (p.sleeve || 'Half Sleeve') === sleeve)
+
     if (search.trim()) {
       const q = search.toLowerCase()
       list = list.filter(
@@ -35,7 +51,7 @@ export default function Shop() {
     if (sort === 'price-high') list.sort((a, b) => b.price - a.price)
     if (sort === 'name') list.sort((a, b) => a.name.localeCompare(b.name))
     return list
-  }, [products, category, sleeve, sort, search])
+  }, [products, type, style, sleeve, sort, search])
 
   return (
     <div className="shop">
@@ -47,13 +63,13 @@ export default function Shop() {
 
       <div className="shop__toolbar">
         <div className="shop__filters">
-          {CATEGORIES.map((c) => (
+          {TYPES.map((t) => (
             <button
-              key={c}
-              className={`chip ${category === c ? 'chip--active' : ''}`}
-              onClick={() => setCategory(c)}
+              key={t}
+              className={`chip ${type === t ? 'chip--active' : ''}`}
+              onClick={() => setType(t)}
             >
-              {c}
+              {t}
             </button>
           ))}
         </div>
@@ -78,7 +94,17 @@ export default function Shop() {
       </div>
 
       <div className="shop__sleeves">
-        <span className="shop__sleeves-label">Sleeve:</span>
+        <span className="shop__sleeves-label">Style:</span>
+        {STYLES.map((s) => (
+          <button
+            key={s}
+            className={`chip chip--sm ${style === s ? 'chip--active' : ''}`}
+            onClick={() => setStyle(s)}
+          >
+            {s}
+          </button>
+        ))}
+        <span className="shop__sleeves-label shop__sleeves-label--sep">Sleeve:</span>
         {SLEEVES.map((s) => (
           <button
             key={s}

@@ -4,6 +4,57 @@ import ProductCard from '../components/ProductCard.jsx'
 import { fetchProducts } from '../services/productService.js'
 import { HERO_IMAGE, STORY_IMAGE } from '../storeConfig.js'
 
+const REVIEWS = [
+  {
+    name: 'Arjun Menon',
+    location: 'Kozhikode',
+    avatar: 'AM',
+    rating: 5,
+    jersey: 'Real Madrid Home Kit',
+    text: 'Jersey quality is unbelievable for the price. Fabric feels exactly like the ones they sell in malls for 3x the cost. Delivered in 3 days — really fast. Ordered another one already!',
+  },
+  {
+    name: 'Rahul Krishnan',
+    location: 'Thrissur',
+    avatar: 'RK',
+    rating: 5,
+    jersey: 'Argentina National Kit',
+    text: 'Got the Argentina World Cup jersey. The crest stitching is perfect and the colour is spot on. WhatsApp support was very helpful when I had a size doubt. 100% recommend Play11.',
+  },
+  {
+    name: 'Siddharth Nair',
+    location: 'Thiruvananthapuram',
+    avatar: 'SN',
+    rating: 5,
+    jersey: 'FC Barcelona Kit',
+    text: 'Bought the Barça jersey as a gift for my brother. He was shocked at the quality — thought I paid a lot more. Packaging was neat and arrived well before the estimated date.',
+  },
+  {
+    name: 'Mohammed Ashiq',
+    location: 'Malappuram',
+    avatar: 'MA',
+    rating: 5,
+    jersey: 'Brazil Home Kit',
+    text: 'Play11 jersey feel thanne different aanu. Wore it to a match and everyone asked where I got it from. Will definitely order again. Fast delivery and great customer service.',
+  },
+  {
+    name: 'Vishnu Prakash',
+    location: 'Kannur',
+    avatar: 'VP',
+    rating: 5,
+    jersey: 'Manchester United Kit',
+    text: 'Third jersey I\'ve ordered from Play11. Never disappointed. The Man United away kit fits perfectly — true to size. Trust this store completely for football jerseys.',
+  },
+  {
+    name: 'Aakash Dev',
+    location: 'Kochi',
+    avatar: 'AD',
+    rating: 5,
+    jersey: 'Liverpool Retro Kit',
+    text: 'The retro Liverpool jersey is stunning. Print quality, fabric, stitching — everything is top class. Arrived in 4 days all the way to Kochi. Very happy with the purchase.',
+  },
+]
+
 const CATEGORIES = [
   {
     name: 'Club Kits',
@@ -264,6 +315,37 @@ export default function Home() {
             </p>
             <Link to="/shop" className="btn btn--primary">Explore the Collection</Link>
           </div>
+        </div>
+      </section>
+
+      {/* ================= REVIEWS ================= */}
+      <section className="section" id="reviews">
+        <div className="section__head" data-reveal>
+          <div>
+            <span className="section__eyebrow">What fans say</span>
+            <h2 className="section__title">Real Reviews</h2>
+          </div>
+          <div className="reviews__summary">
+            <span className="reviews__stars">★★★★★</span>
+            <strong>5.0</strong>
+            <span className="reviews__count">· {REVIEWS.length} reviews</span>
+          </div>
+        </div>
+        <div className="reviews__grid" data-reveal>
+          {REVIEWS.map((r) => (
+            <div className="review" key={r.name}>
+              <div className="review__top">
+                <div className="review__avatar">{r.avatar}</div>
+                <div>
+                  <strong className="review__name">{r.name}</strong>
+                  <span className="review__loc">{r.location}</span>
+                </div>
+                <div className="review__stars">{'★'.repeat(r.rating)}</div>
+              </div>
+              <p className="review__jersey">Bought: {r.jersey}</p>
+              <p className="review__text">"{r.text}"</p>
+            </div>
+          ))}
         </div>
       </section>
 

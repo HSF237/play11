@@ -14,7 +14,8 @@ import { stockInfo } from '../utils/stock.js'
 const EMPTY = {
   name: '',
   club: '',
-  category: 'Club',
+  type: 'Club',
+  category: 'Regular',
   sleeve: 'Half Sleeve',
   price: '',
   images: '',
@@ -72,7 +73,8 @@ export default function AdminDashboard() {
     const payload = {
       name: form.name,
       club: form.club,
-      category: form.category,
+      type: form.type || 'Club',
+      category: form.category || 'Regular',
       sleeve: form.sleeve || 'Half Sleeve',
       price: Number(form.price) || 0,
       images,
@@ -101,10 +103,17 @@ export default function AdminDashboard() {
   }
   function startEdit(p) {
     setEditingId(p.id)
+    // Handle old products: category was 'Club'/'National', new products have a `type` field
+    const legacyType = !p.type && (p.category === 'Club' || p.category === 'National') ? p.category : null
+    const resolvedType = p.type || legacyType || 'Club'
+    const resolvedStyle = p.type
+      ? (p.category || 'Regular')
+      : (p.category === 'Retro' || p.category === 'Limited' ? p.category : 'Regular')
     setForm({
       name: p.name || '',
       club: p.club || '',
-      category: p.category || 'Club',
+      type: resolvedType,
+      category: resolvedStyle,
       sleeve: p.sleeve || 'Half Sleeve',
       price: p.price ?? '',
       images: (p.images && p.images.length ? p.images : [p.image].filter(Boolean)).join('\n'),
@@ -179,10 +188,18 @@ export default function AdminDashboard() {
                 <input name="club" value={form.club} onChange={update} placeholder="Real Madrid" />
               </div>
               <div className="field">
-                <label>Category</label>
+                <label>Type</label>
+                <select name="type" value={form.type} onChange={update}>
+                  <option value="Club">Club</option>
+                  <option value="National">National</option>
+                </select>
+              </div>
+              <div className="field">
+                <label>Style</label>
                 <select name="category" value={form.category} onChange={update}>
-                  <option>Club</option><option>National</option>
-                  <option>Retro</option><option>Limited</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Retro">Retro</option>
+                  <option value="Limited">Limited</option>
                 </select>
               </div>
             </div>
