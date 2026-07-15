@@ -175,6 +175,8 @@ export default function ProductDetail() {
             <li>✓ Dedicated WhatsApp support</li>
           </ul>
 
+          <div className="pdp__bar-spacer" aria-hidden="true" />
+
           <div className="pdp__actions">
             <button className="btn btn--primary btn--lg" onClick={handleAdd} disabled={stock.soldOut}>
               {stock.soldOut ? 'Sold Out' : added ? '✓ Added to Cart' : 'Add to Cart'}
