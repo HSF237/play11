@@ -978,8 +978,8 @@ input, select, textarea { font-family: inherit; }
 /* ===================== AI CHATBOT ===================== */
 .aichat__trigger {
   position: fixed;
-  bottom: 2rem;
-  left: 2rem;
+  bottom: 5.5rem;
+  right: 2rem;
   z-index: 950;
   display: flex;
   flex-direction: column;
@@ -1014,7 +1014,7 @@ input, select, textarea { font-family: inherit; }
 .aichat__panel {
   position: fixed;
   bottom: 1.5rem;
-  left: 1.5rem;
+  right: 1.5rem;
   z-index: 960;
   width: 320px;
   max-height: 520px;
@@ -1123,7 +1123,7 @@ input, select, textarea { font-family: inherit; }
 }
 
 @media (max-width: 760px) {
-  .aichat__trigger { bottom: 6.5rem; left: 1rem; }
+  .aichat__trigger { bottom: 10rem; right: 1rem; }
   .aichat__trigger img { width: 54px; height: 54px; }
   .aichat__panel {
     bottom: 0; left: 0; right: 0;
