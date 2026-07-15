@@ -142,6 +142,13 @@ export default function ProductDetail() {
             </div>
           </div>
 
+          <ul className="pdp__perks">
+            <li>✓ 100% authentic, match-grade quality</li>
+            <li>✓ Fast delivery across India</li>
+            <li>✓ Secure, protected checkout</li>
+            <li>✓ Dedicated WhatsApp support</li>
+          </ul>
+
           <div className="pdp__actions">
             <button className="btn btn--primary btn--lg" onClick={handleAdd} disabled={stock.soldOut}>
               {stock.soldOut ? 'Sold Out' : added ? '✓ Added to Cart' : 'Add to Cart'}
@@ -157,13 +164,6 @@ export default function ProductDetail() {
               Buy Now
             </button>
           </div>
-
-          <ul className="pdp__perks">
-            <li>✓ 100% authentic, match-grade quality</li>
-            <li>✓ Fast delivery across India</li>
-            <li>✓ Secure, protected checkout</li>
-            <li>✓ Dedicated WhatsApp support</li>
-          </ul>
         </div>
       </div>
     </div>

@@ -447,7 +447,7 @@ input, select, textarea { font-family: inherit; }
 .shop__filters { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 .chip {
   padding: 0.5rem 1.1rem; border-radius: 999px; border: 1px solid var(--line);
-  color: var(--muted); font-size: 0.9rem; transition: 0.2s;
+  color: var(--muted); font-size: 0.9rem; transition: 0.2s; cursor: pointer;
 }
 .chip:hover { color: var(--text); border-color: var(--muted-2); }
 .chip--active { background: var(--gold); color: #15110a; border-color: var(--gold); font-weight: 600; }
@@ -880,7 +880,7 @@ input, select, textarea { font-family: inherit; }
   .cta-band { padding: 4rem 1.2rem; }
 
   /* Sticky buy bar on the product page */
-  .pdp { padding-bottom: 7rem; }
+  .pdp { padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px)); }
   .pdp__actions {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
     margin: 0; padding: 0.7rem 1rem calc(0.7rem + env(safe-area-inset-bottom, 0));

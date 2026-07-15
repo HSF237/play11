@@ -193,7 +193,6 @@ export default function Home() {
       <section className="section section--tight">
         <div className="section__head" data-reveal>
           <div>
-            <span className="section__eyebrow">Handpicked</span>
             <h2 className="section__title">Featured Jerseys</h2>
           </div>
           <Link to="/shop" className="section__link">View all →</Link>

@@ -35,7 +35,7 @@ export default function Shop() {
     if (sort === 'price-high') list.sort((a, b) => b.price - a.price)
     if (sort === 'name') list.sort((a, b) => a.name.localeCompare(b.name))
     return list
-  }, [products, category, sort, search])
+  }, [products, category, sleeve, sort, search])
 
   return (
     <div className="shop">
