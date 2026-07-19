@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
+import { STORE } from '../storeConfig.js'
 import Logo from './Logo.jsx'
 
 export default function Navbar() {
@@ -41,21 +42,35 @@ export default function Navbar() {
         </Link>
 
         <nav className={`navbar__links ${open ? 'is-open' : ''}`}>
-          <NavLink to="/" end onClick={() => setOpen(false)}>Home</NavLink>
+          {!user && (
+            <NavLink to="/" end onClick={() => setOpen(false)}>Home</NavLink>
+          )}
           <NavLink to="/shop" onClick={() => setOpen(false)}>Shop</NavLink>
-          <a
-            href="/#story"
-            onClick={(e) => {
-              e.preventDefault()
-              setOpen(false)
-              navigate('/#story')
-              if (window.location.pathname === '/') {
-                document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' })
-              }
-            }}
-          >
-            Story
-          </a>
+          {!user && (
+            <a
+              href="/#story"
+              onClick={(e) => {
+                e.preventDefault()
+                setOpen(false)
+                navigate('/#story')
+                if (window.location.pathname === '/') {
+                  document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' })
+                }
+              }}
+            >
+              Story
+            </a>
+          )}
+          {user && (
+            <a
+              href={`https://wa.me/${STORE.whatsapp}`}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setOpen(false)}
+            >
+              Contact
+            </a>
+          )}
           {isAdmin && (
             <NavLink to="/admin" onClick={() => setOpen(false)} className="navbar__admin-link">
               Admin
@@ -82,7 +97,7 @@ export default function Navbar() {
             ) : (
               <button
                 className="navbar__avatar navbar__avatar--guest"
-                onClick={loginWithGoogle}
+                onClick={() => loginWithGoogle().then(() => navigate('/shop')).catch(() => {})}
                 aria-label="Sign in"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
