@@ -66,8 +66,12 @@ export default function Checkout() {
   async function handlePayment(e) {
     e.preventDefault()
     const cleaned = utr.trim().replace(/\s/g, '')
-    if (cleaned.length < 12) {
-      setUtrError('Please enter a valid UTR / transaction reference number (min 12 digits).')
+    if (!/^\d{12,}$/.test(cleaned)) {
+      setUtrError('UTR must be numbers only (no letters or spaces). Check your UPI app for the 12-digit reference.')
+      return
+    }
+    if (/^(\d)\1+$/.test(cleaned)) {
+      setUtrError('This doesn\'t look like a real UTR. Please copy the exact reference number from your UPI app.')
       return
     }
     setUtrError('')
@@ -159,7 +163,7 @@ export default function Checkout() {
                   maxLength={30}
                 />
                 <small className="field__hint">
-                  After paying, your UPI app shows a reference/UTR number — enter it here so we can confirm your payment.
+                  After paying, your UPI app shows a 12-digit number called UTR or Reference ID — copy and paste it here exactly. Numbers only, no letters.
                 </small>
                 {utrError && <p className="pay-box__error">{utrError}</p>}
               </div>
