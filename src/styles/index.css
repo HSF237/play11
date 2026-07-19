@@ -628,6 +628,53 @@ input, select, textarea { font-family: inherit; }
 }
 .checkout-signin__back:hover { color: var(--text); }
 
+/* ===================== MY ORDERS ===================== */
+.my-orders { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+.my-orders__title { font-family: var(--font-display); font-size: 2rem; margin-bottom: 2rem; }
+.my-orders__title span { color: var(--muted); font-size: 1.2rem; }
+.my-orders--loading, .my-orders--empty {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 60vh; gap: 1rem; text-align: center;
+}
+.my-orders__empty-icon { font-size: 3rem; }
+.my-orders--empty h2 { font-size: 1.4rem; }
+.my-orders--empty p { color: var(--muted); }
+.my-orders__list { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.order-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 1rem; padding: 1.25rem 1.5rem;
+  display: flex; flex-direction: column; gap: 0.85rem;
+}
+.order-card__head {
+  display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
+}
+.order-card__date { font-size: 0.82rem; color: var(--muted); display: block; }
+.order-card__id { font-size: 0.78rem; color: var(--muted-2); }
+.order-card__status {
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 0.25rem 0.7rem; border-radius: 2rem;
+}
+.order-card__items { display: flex; flex-direction: column; gap: 0.4rem; border-top: 1px solid var(--border); padding-top: 0.85rem; }
+.order-card__item {
+  display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem;
+}
+.order-card__qty { color: var(--gold); font-weight: 700; min-width: 1.5rem; }
+.order-card__name { flex: 1; }
+.order-card__size { color: var(--muted-2); font-size: 0.8rem; }
+.order-card__price { font-weight: 600; }
+.order-card__foot {
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid var(--border); padding-top: 0.85rem;
+  font-size: 0.88rem;
+}
+.order-card__addr { color: var(--muted); }
+.order-card__total { font-weight: 700; font-size: 1rem; color: var(--gold); }
+.order-card__note { font-size: 0.82rem; color: var(--muted); background: rgba(255,255,255,0.03); border-radius: 0.5rem; padding: 0.5rem 0.75rem; }
+
+/* ===================== WISHLIST PAGE ===================== */
+.wishlist-page { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
 /* ---------- Fields ---------- */
 .field { margin-bottom: 1.1rem; }
 .field label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.4rem; }

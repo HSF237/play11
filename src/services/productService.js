@@ -10,6 +10,7 @@ import {
   updateDoc,
   deleteDoc,
   query,
+  where,
   orderBy,
   serverTimestamp,
 } from 'firebase/firestore'
@@ -71,6 +72,22 @@ export async function deleteProduct(id) {
     throw new Error('Connect Firebase to delete products (see src/firebase.js).')
   }
   await deleteDoc(doc(db, COLLECTION, id))
+}
+
+export async function fetchOrdersByUser(userId) {
+  if (!isFirebaseConfigured) return []
+  try {
+    const q = query(
+      collection(db, 'orders'),
+      where('userId', '==', userId),
+      orderBy('createdAt', 'desc')
+    )
+    const snap = await getDocs(q)
+    return snap.docs.map((d) => ({ id: d.id, ...d.data() }))
+  } catch (err) {
+    console.warn('fetchOrdersByUser failed:', err.message)
+    return []
+  }
 }
 
 export async function saveOrder(orderData) {

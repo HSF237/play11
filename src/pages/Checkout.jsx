@@ -70,7 +70,7 @@ export default function Checkout() {
     setUtrError('')
     setBusy(true)
     try {
-      await saveOrder({ form, items, subtotal, utr: cleaned })
+      await saveOrder({ form, items, subtotal, utr: cleaned, userId: user?.uid, userEmail: user?.email })
       await sendNtfy(form, items, subtotal, cleaned)
       clear()
       setStep(STEP_SUCCESS)

@@ -109,6 +109,12 @@ export default function Navbar() {
             {userMenu && user && (
               <div className="navbar__user-menu">
                 <p className="navbar__user-name">{user.displayName || user.email}</p>
+                <Link to="/my-orders" className="navbar__user-item" onClick={() => setUserMenu(false)}>
+                  📦 My Orders
+                </Link>
+                <Link to="/wishlist" className="navbar__user-item" onClick={() => setUserMenu(false)}>
+                  🤍 Wishlist
+                </Link>
                 {isAdmin && (
                   <Link to="/admin" className="navbar__user-item" onClick={() => setUserMenu(false)}>
                     ⚙️ Admin Dashboard

@@ -13,6 +13,8 @@ import Checkout from './pages/Checkout.jsx'
 import AdminLogin from './pages/AdminLogin.jsx'
 import AdminDashboard from './pages/AdminDashboard.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import MyOrders from './pages/MyOrders.jsx'
+import WishlistPage from './pages/WishlistPage.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 function ScrollToTop() {
@@ -143,6 +145,8 @@ export default function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/my-orders" element={<MyOrders />} />
+          <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route
             path="/admin"
