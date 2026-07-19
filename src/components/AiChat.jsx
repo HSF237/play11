@@ -255,10 +255,16 @@ const FLOWS = {
 
 export default function AiChat() {
   const [open, setOpen] = useState(false)
+  const [showHint, setShowHint] = useState(true)
   const [node, setNode] = useState('start')
   const [history, setHistory] = useState([])
   const bodyRef = useRef(null)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowHint(false), 10000)
+    return () => clearTimeout(t)
+  }, [])
 
   const current = FLOWS[node]
 
@@ -285,7 +291,7 @@ export default function AiChat() {
 
   return (
     <>
-      {!open && (
+      {!open && showHint && (
         <div className="aichat__bubble-hint">
           Hey! I'm your Play11 guide 👋
         </div>
