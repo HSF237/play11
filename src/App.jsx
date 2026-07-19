@@ -1,10 +1,11 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
 import WhatsAppBubble from './components/WhatsAppBubble.jsx'
 import AiChat from './components/AiChat.jsx'
 import Home from './pages/Home.jsx'
+import { useAuth } from './context/AuthContext.jsx'
 import Shop from './pages/Shop.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
 import Cart from './pages/Cart.jsx'
@@ -124,6 +125,7 @@ function useReveal(pathname) {
 export default function App() {
   const location = useLocation()
   const isAdmin = location.pathname.startsWith('/admin')
+  const { user } = useAuth()
 
   useSmoothScroll()
   useScrollProgress()
@@ -136,7 +138,7 @@ export default function App() {
       {!isAdmin && <Navbar />}
       <main className="app-main">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={user ? <Navigate to="/shop" replace /> : <Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
