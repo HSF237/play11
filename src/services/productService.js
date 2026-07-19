@@ -77,13 +77,11 @@ export async function deleteProduct(id) {
 export async function fetchOrdersByUser(userId) {
   if (!isFirebaseConfigured) return []
   try {
-    const q = query(
-      collection(db, 'orders'),
-      where('userId', '==', userId),
-      orderBy('createdAt', 'desc')
-    )
+    const q = query(collection(db, 'orders'), where('userId', '==', userId))
     const snap = await getDocs(q)
-    return snap.docs.map((d) => ({ id: d.id, ...d.data() }))
+    return snap.docs
+      .map((d) => ({ id: d.id, ...d.data() }))
+      .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0))
   } catch (err) {
     console.warn('fetchOrdersByUser failed:', err.message)
     return []
