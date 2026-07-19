@@ -124,6 +124,41 @@ input, select, textarea { font-family: inherit; }
 }
 .navbar__mobile-cart { display: none; }
 .navbar__actions { display: flex; align-items: center; gap: 1.1rem; }
+
+/* ── Navbar user avatar + dropdown ── */
+.navbar__admin-link { color: var(--gold) !important; font-weight: 700; }
+.navbar__user { position: relative; }
+.navbar__avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--gold); color: #1a1405;
+  font-size: 0.78rem; font-weight: 700;
+  border: 2px solid var(--gold);
+  cursor: pointer; overflow: hidden;
+  display: grid; place-items: center; padding: 0;
+}
+.navbar__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.navbar__user-menu {
+  position: absolute; top: calc(100% + 10px); right: 0;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 0.75rem; min-width: 200px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35); z-index: 200;
+  overflow: hidden; padding: 0.5rem 0;
+}
+.navbar__user-name {
+  padding: 0.6rem 1rem 0.5rem;
+  font-size: 0.8rem; color: var(--muted);
+  border-bottom: 1px solid var(--border); margin: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.navbar__user-item {
+  display: block; width: 100%; text-align: left;
+  padding: 0.6rem 1rem; font-size: 0.88rem;
+  color: var(--text); background: none; border: none;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.15s;
+}
+.navbar__user-item:hover { background: rgba(255,255,255,0.06); }
+.navbar__user-item--out { color: #f87171; }
 .navbar__cart { position: relative; color: var(--text); display: flex; }
 .navbar__cart-badge {
   position: absolute; top: -8px; right: -10px;
@@ -570,6 +605,26 @@ input, select, textarea { font-family: inherit; }
 .checkout-success p { color: var(--muted); margin-bottom: 2rem; }
 .checkout-success__actions { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
 .checkout__wa-hint { text-align: center; color: var(--muted-2); font-size: 0.82rem; margin-top: 0.7rem; }
+
+/* ── Checkout sign-in gate ── */
+.checkout-signin {
+  display: grid; place-items: center;
+  min-height: 70vh; padding: 2rem 1.5rem;
+}
+.checkout-signin__card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 1.25rem; padding: 2.5rem 2rem;
+  max-width: 400px; width: 100%; text-align: center;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+}
+.checkout-signin__icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.checkout-signin__card h2 { font-size: 1.4rem; margin-bottom: 0.6rem; }
+.checkout-signin__card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.75rem; }
+.checkout-signin__back {
+  display: block; margin-top: 1.1rem;
+  font-size: 0.85rem; color: var(--muted); text-decoration: none;
+}
+.checkout-signin__back:hover { color: var(--text); }
 
 /* ---------- Fields ---------- */
 .field { margin-bottom: 1.1rem; }
