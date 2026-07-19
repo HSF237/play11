@@ -11,30 +11,20 @@ const STEP_PAYMENT  = 'payment'
 const STEP_SUCCESS  = 'success'
 
 async function sendNtfy(form, items, subtotal, utr) {
-  const lines = [
-    `Customer: ${form.name}`,
-    `Phone: ${form.phone}`,
-    form.email ? `Email: ${form.email}` : null,
-    `Address: ${form.address}, ${form.city}, ${form.state} - ${form.pincode}`,
-    ``,
-    `Items:`,
-    ...items.map((i) => `• ${i.qty}× ${i.name} (${i.size}${i.sleeve ? ', ' + i.sleeve : ''}) — ₹${(i.price * i.qty).toLocaleString('en-IN')}`),
-    ``,
-    `Total: ₹${Number(subtotal).toLocaleString('en-IN')}`,
-    `UPI UTR: ${utr}`,
-  ].filter((l) => l !== null)
+  const itemSummary = items.map((i) => `${i.qty}x ${i.name} (${i.size})`).join(', ')
+  const msg = `${form.name} | ${form.phone} | Rs.${subtotal} | UTR: ${utr} | ${itemSummary} | ${form.address}, ${form.city} ${form.pincode}`
 
   try {
-    await fetch(`https://ntfy.sh/${STORE.ntfyTopic}`, {
+    const res = await fetch(`https://ntfy.sh/${STORE.ntfyTopic}`, {
       method: 'POST',
       headers: {
-        Title: '🛍️ New Play11 Order!',
+        Title: 'New Play11 Order!',
         Priority: 'high',
         Tags: 'shopping,football',
-        'Content-Type': 'text/plain',
       },
-      body: lines.join('\n'),
+      body: msg,
     })
+    if (!res.ok) console.warn('ntfy response:', res.status, await res.text())
   } catch (e) {
     console.warn('ntfy notification failed:', e)
   }
