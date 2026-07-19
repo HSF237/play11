@@ -62,14 +62,18 @@ export default function Navbar() {
             </a>
           )}
           {user && (
-            <a
-              href={`https://wa.me/${STORE.whatsapp}`}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => setOpen(false)}
-            >
-              Contact
-            </a>
+            <>
+              <NavLink to="/my-orders" onClick={() => setOpen(false)}>My Orders</NavLink>
+              <NavLink to="/wishlist" onClick={() => setOpen(false)}>Wishlist</NavLink>
+              <a
+                href={`https://wa.me/${STORE.whatsapp}`}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => setOpen(false)}
+              >
+                Contact
+              </a>
+            </>
           )}
           {isAdmin && (
             <NavLink to="/admin" onClick={() => setOpen(false)} className="navbar__admin-link">
