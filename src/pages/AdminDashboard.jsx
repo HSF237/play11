@@ -63,14 +63,17 @@ export default function AdminDashboard() {
     setLoadingO(false)
   }
 
-  async function confirmOrder(order) {
-    // Mark as confirmed in Firestore
+  async function setOrderStatus(orderId, status) {
     try {
-      await updateDoc(doc(db, 'orders', order.id), { status: 'confirmed' })
-      setOrders((prev) => prev.map((o) => o.id === order.id ? { ...o, status: 'confirmed' } : o))
+      await updateDoc(doc(db, 'orders', orderId), { status })
+      setOrders((prev) => prev.map((o) => o.id === orderId ? { ...o, status } : o))
     } catch (e) {
-      console.warn('confirmOrder failed:', e.message)
+      console.warn('setOrderStatus failed:', e.message)
     }
+  }
+
+  async function confirmOrder(order) {
+    await setOrderStatus(order.id, 'confirmed')
     // Draft WhatsApp message to customer
     const itemLines = order.items?.map(
       (i) => `• ${i.qty}× ${i.name} (${i.size}${i.sleeve ? ', ' + i.sleeve : ''})`
@@ -278,24 +281,34 @@ export default function AdminDashboard() {
                   </div>
                   <div className="admin-order-card__right">
                     <strong className="admin-order-card__total">₹{order.subtotal}</strong>
-                    {isPending ? (
-                      <div className="admin-order-card__confirm-box">
-                        <p className="admin-order-card__confirm-q">Did you receive ₹{order.subtotal} from {order.form?.name}?</p>
-                        <button
-                          className="btn btn--primary btn--sm"
-                          onClick={() => confirmOrder(order)}
-                        >
-                          ✅ Yes — Send Confirmation on WhatsApp
+                    <div className="admin-order-card__confirm-box">
+                      {isPending && (
+                        <>
+                          <p className="admin-order-card__confirm-q">Did you receive ₹{order.subtotal} from {order.form?.name}?</p>
+                          <button className="btn btn--primary btn--sm" onClick={() => confirmOrder(order)}>
+                            ✅ Yes — Send Confirmation on WhatsApp
+                          </button>
+                        </>
+                      )}
+                      {order.status === 'confirmed' && (
+                        <button className="btn btn--sm admin-order-card__ship-btn" onClick={() => setOrderStatus(order.id, 'shipped')}>
+                          🚚 Mark as Shipped
                         </button>
-                      </div>
-                    ) : (
-                      <button
-                        className="btn btn--ghost btn--sm"
-                        onClick={() => confirmOrder(order)}
-                      >
-                        💬 Resend WhatsApp
-                      </button>
-                    )}
+                      )}
+                      {order.status === 'shipped' && (
+                        <button className="btn btn--sm admin-order-card__deliver-btn" onClick={() => setOrderStatus(order.id, 'delivered')}>
+                          ✅ Mark as Delivered
+                        </button>
+                      )}
+                      {order.status === 'delivered' && (
+                        <span className="admin-order-card__done">🎉 Delivered</span>
+                      )}
+                      {!isPending && (
+                        <button className="btn btn--ghost btn--sm" onClick={() => confirmOrder(order)}>
+                          💬 Resend WhatsApp
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
