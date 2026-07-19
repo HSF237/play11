@@ -67,8 +67,8 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar__actions">
-          {user && (
-            <div className="navbar__user" ref={userMenuRef}>
+          <div className="navbar__user" ref={userMenuRef}>
+            {user ? (
               <button
                 className="navbar__avatar"
                 onClick={() => setUserMenu((v) => !v)}
@@ -79,24 +79,35 @@ export default function Navbar() {
                   : <span>{initials}</span>
                 }
               </button>
-              {userMenu && (
-                <div className="navbar__user-menu">
-                  <p className="navbar__user-name">{user.displayName || user.email}</p>
-                  {isAdmin && (
-                    <Link to="/admin" className="navbar__user-item" onClick={() => setUserMenu(false)}>
-                      ⚙️ Admin Dashboard
-                    </Link>
-                  )}
-                  <button
-                    className="navbar__user-item navbar__user-item--out"
-                    onClick={() => { logout(); setUserMenu(false) }}
-                  >
-                    Sign out
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
+            ) : (
+              <button
+                className="navbar__avatar navbar__avatar--guest"
+                onClick={loginWithGoogle}
+                aria-label="Sign in"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                </svg>
+              </button>
+            )}
+            {userMenu && user && (
+              <div className="navbar__user-menu">
+                <p className="navbar__user-name">{user.displayName || user.email}</p>
+                {isAdmin && (
+                  <Link to="/admin" className="navbar__user-item" onClick={() => setUserMenu(false)}>
+                    ⚙️ Admin Dashboard
+                  </Link>
+                )}
+                <button
+                  className="navbar__user-item navbar__user-item--out"
+                  onClick={() => { logout(); setUserMenu(false) }}
+                >
+                  Sign out
+                </button>
+              </div>
+            )}
+          </div>
 
           <Link to="/cart" className="navbar__cart" aria-label="Cart">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
