@@ -46,6 +46,7 @@ export default function Checkout() {
   const [busy, setBusy]     = useState(false)
   const [utr, setUtr]       = useState('')
   const [utrError, setUtrError] = useState('')
+  const [confirmed, setConfirmed] = useState(false)
   const [form, setForm]     = useState({
     name: '', email: '', phone: '', address: '',
     city: '', state: '', pincode: '', country: 'India',
@@ -167,14 +168,24 @@ export default function Checkout() {
                 </small>
                 {utrError && <p className="pay-box__error">{utrError}</p>}
               </div>
+
+              <label className="pay-box__confirm-check">
+                <input
+                  type="checkbox"
+                  checked={confirmed}
+                  onChange={(e) => setConfirmed(e.target.checked)}
+                />
+                I confirm I have paid <strong>₹{Number(subtotal).toLocaleString('en-IN')}</strong> to Play11 UPI and the UTR above is correct.
+              </label>
             </div>
 
             <button
               type="submit"
               className="btn btn--primary btn--lg btn--block"
-              disabled={busy}
+              disabled={busy || !confirmed}
+              style={{ opacity: !confirmed ? 0.5 : 1 }}
             >
-              {busy ? 'Confirming…' : `I've Paid — ₹${Number(subtotal).toLocaleString('en-IN')}`}
+              {busy ? 'Submitting…' : `Confirm Order — ₹${Number(subtotal).toLocaleString('en-IN')}`}
             </button>
 
             <button
