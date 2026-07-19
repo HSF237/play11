@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ProductCard from '../components/ProductCard.jsx'
 import { fetchProducts } from '../services/productService.js'
@@ -10,42 +10,42 @@ const REVIEWS = [
     location: 'Payyanur',
     avatar: 'NA',
     rating: 5,
-    text: 'Best jersey store I have found online. The quality is genuinely good — fabric is thick and the print does not fade after washing. Delivery was fast too. Highly recommend Play11!',
+    text: 'Bro quality is actually very good only. After washing also colour didn\'t go anywhere. Fast delivery also. I already told my friends to order from here itself.',
   },
   {
     name: 'Hassan',
     location: 'Kannur',
     avatar: 'HA',
     rating: 5,
-    text: 'Ordered a jersey and it came in 4 days. The stitching and crest quality is really good for the price. WhatsApp response was quick whenever I had questions. Will order again.',
+    text: 'Came in 4 days only. Badge and stitching is looking very premium for this price. Whatsapp they are replying fast, no delay nothing. Will order again for sure.',
   },
   {
     name: 'Fadi',
     location: 'Kozhikode',
     avatar: 'FA',
     rating: 5,
-    text: 'Wore the jersey to a match and got so many compliments. Everyone thought it was an original store-bought one. Play11 jersey feel thanne different aanu. Super happy with it!',
+    text: 'Wore to the match, everyone was asking where I bought it. Honestly the feel is different da, like you won\'t feel it\'s a copy. Super happy with it machan.',
   },
   {
     name: 'Samad',
     location: 'Malappuram',
     avatar: 'SM',
     rating: 5,
-    text: 'Got two jerseys as gifts for my friends. Both of them loved it. The packaging was clean and the jerseys fit perfectly. No issues at all — smooth ordering through WhatsApp.',
+    text: 'Bought two jerseys as gift for my friends. Both of them loved it only. Size was also correct, no issue. Packing also came properly. Good experience overall.',
   },
   {
     name: 'Sanah',
     location: 'Kochi',
     avatar: 'SN',
     rating: 5,
-    text: 'Great experience from start to finish. The jersey looks exactly like the photos, colour is vibrant and the fabric is comfortable. Delivery was on time. 100% will order again!',
+    text: 'Exactly like the photo only it came. Colour is very nice and fabric is comfortable also. No sweating problem. Delivery was on time. Will definitely order again!',
   },
   {
     name: 'Yadunandh',
     location: 'Thrissur',
     avatar: 'YN',
     rating: 5,
-    text: 'This is my third order from Play11. Never disappointed even once. The quality is consistent and the team is always helpful on WhatsApp. Best place for football jerseys in Kerala.',
+    text: 'Third order from Play11 itself this is. Not even one time they disappointed. Quality is consistent and on WhatsApp they reply properly. Best jersey place in Kerala no doubt.',
   },
 ]
 
@@ -124,6 +124,8 @@ const BADGES = [
 
 export default function Home() {
   const [featured, setFeatured] = useState([])
+  const [activeReview, setActiveReview] = useState(0)
+  const carouselRef = useRef(null)
 
   useEffect(() => {
     fetchProducts().then((all) => {
@@ -325,7 +327,17 @@ export default function Home() {
             <span className="reviews__count">· {REVIEWS.length} reviews</span>
           </div>
         </div>
-        <div className="reviews__grid" data-reveal>
+        <div
+          className="reviews__grid"
+          data-reveal
+          ref={carouselRef}
+          onScroll={() => {
+            const el = carouselRef.current
+            if (!el) return
+            const idx = Math.round(el.scrollLeft / el.offsetWidth)
+            setActiveReview(idx)
+          }}
+        >
           {REVIEWS.map((r) => (
             <div className="review" key={r.name}>
               <div className="review__top">
@@ -338,6 +350,21 @@ export default function Home() {
               </div>
               <p className="review__text">"{r.text}"</p>
             </div>
+          ))}
+        </div>
+        <div className="reviews__dots">
+          {REVIEWS.map((_, i) => (
+            <button
+              key={i}
+              className={`reviews__dot${i === activeReview ? ' reviews__dot--active' : ''}`}
+              aria-label={`Review ${i + 1}`}
+              onClick={() => {
+                const el = carouselRef.current
+                if (!el) return
+                el.scrollTo({ left: el.offsetWidth * i, behavior: 'smooth' })
+                setActiveReview(i)
+              }}
+            />
           ))}
         </div>
       </section>

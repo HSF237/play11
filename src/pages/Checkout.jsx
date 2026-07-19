@@ -1,62 +1,92 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { QRCodeSVG } from 'qrcode.react'
 import { useCart } from '../context/CartContext.jsx'
 import { inr } from '../utils/format.js'
-import { buildWhatsAppOrderLink, STORE } from '../storeConfig.js'
+import { STORE } from '../storeConfig.js'
+import { saveOrder } from '../services/productService.js'
+
+const STEP_DETAILS  = 'details'
+const STEP_PAYMENT  = 'payment'
+const STEP_SUCCESS  = 'success'
+
+async function sendNtfy(form, items, subtotal, utr) {
+  const lines = [
+    `Customer: ${form.name}`,
+    `Phone: ${form.phone}`,
+    form.email ? `Email: ${form.email}` : null,
+    `Address: ${form.address}, ${form.city}, ${form.state} - ${form.pincode}`,
+    ``,
+    `Items:`,
+    ...items.map((i) => `• ${i.qty}× ${i.name} (${i.size}${i.sleeve ? ', ' + i.sleeve : ''}) — ₹${(i.price * i.qty).toLocaleString('en-IN')}`),
+    ``,
+    `Total: ₹${Number(subtotal).toLocaleString('en-IN')}`,
+    `UPI UTR: ${utr}`,
+  ].filter((l) => l !== null)
+
+  try {
+    await fetch(`https://ntfy.sh/${STORE.ntfyTopic}`, {
+      method: 'POST',
+      headers: {
+        Title: '🛍️ New Play11 Order!',
+        Priority: 'high',
+        Tags: 'shopping,football',
+        'Content-Type': 'text/plain',
+      },
+      body: lines.join('\n'),
+    })
+  } catch (e) {
+    console.warn('ntfy notification failed:', e)
+  }
+}
 
 export default function Checkout() {
   const { items, subtotal, clear } = useCart()
-  const [placed, setPlaced] = useState(false)
-  const [busy, setBusy] = useState(false)
-  const [snapshot, setSnapshot] = useState(null)
-  const [form, setForm] = useState({
+  const [step, setStep]     = useState(STEP_DETAILS)
+  const [busy, setBusy]     = useState(false)
+  const [utr, setUtr]       = useState('')
+  const [utrError, setUtrError] = useState('')
+  const [form, setForm]     = useState({
     name: '', email: '', phone: '', address: '',
     city: '', state: '', pincode: '', country: 'India',
   })
 
-  function update(e) {
+  const upiLink = `upi://pay?pa=${encodeURIComponent(STORE.upiId)}&pn=${encodeURIComponent(STORE.name)}&am=${subtotal}&cu=INR&tn=${encodeURIComponent('Play11 Order - ' + form.name)}`
+
+  function updateForm(e) {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
   }
 
-  function placeOrder(e) {
+  function handleDetails(e) {
     e.preventDefault()
+    setStep(STEP_PAYMENT)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  async function handlePayment(e) {
+    e.preventDefault()
+    const cleaned = utr.trim().replace(/\s/g, '')
+    if (cleaned.length < 12) {
+      setUtrError('Please enter a valid UTR / transaction reference number (min 12 digits).')
+      return
+    }
+    setUtrError('')
     setBusy(true)
-    // Send the order straight to Play11 on WhatsApp.
-    const waLink = buildWhatsAppOrderLink(form, items, subtotal)
-    const wa = window.open(waLink, '_blank')
-    setSnapshot({ form: { ...form }, items: [...items], subtotal, waLink })
-    // Fallback if the popup was blocked: redirect this tab to WhatsApp.
-    if (!wa) window.location.href = waLink
-    setPlaced(true)
-    clear()
-    setBusy(false)
+    try {
+      await saveOrder({ form, items, subtotal, utr: cleaned })
+      await sendNtfy(form, items, subtotal, cleaned)
+      clear()
+      setStep(STEP_SUCCESS)
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setBusy(false)
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  if (placed) {
-    return (
-      <div className="checkout-success">
-        <div className="checkout-success__tick">✓</div>
-        <h1>Order received!</h1>
-        <p>
-          Thank you, {form.name || 'champion'}! Your order just opened in
-          <strong> WhatsApp</strong> — tap <strong>send</strong> there to deliver
-          it straight to Play11. We'll reply with the <strong>delivery charge for
-          your location</strong> ({form.city || 'your area'}, {form.state || 'India'})
-          and confirm the rest.
-        </p>
-        <div className="checkout-success__actions">
-          {snapshot && (
-            <a href={snapshot.waLink} className="btn btn--primary" target="_blank" rel="noreferrer">
-              Open WhatsApp again
-            </a>
-          )}
-          <Link to="/shop" className="btn btn--ghost">Keep Shopping</Link>
-        </div>
-      </div>
-    )
-  }
-
-  if (items.length === 0) {
+  /* ── Empty cart ─────────────────────────────── */
+  if (items.length === 0 && step !== STEP_SUCCESS) {
     return (
       <div className="cart cart--empty">
         <h1>Nothing to check out</h1>
@@ -65,55 +95,157 @@ export default function Checkout() {
     )
   }
 
+  /* ── Success ────────────────────────────────── */
+  if (step === STEP_SUCCESS) {
+    return (
+      <div className="checkout-success">
+        <div className="checkout-success__tick">✓</div>
+        <h1>Order confirmed!</h1>
+        <p>
+          Thank you, <strong>{form.name}</strong>! Your payment has been received
+          and your order is now with <strong>Play11</strong>. We'll pack and ship
+          your jersey soon. 🚀
+        </p>
+        <p style={{ color: 'var(--muted)', fontSize: '0.9rem', marginTop: '0.5rem' }}>
+          Questions? WhatsApp us at <strong>{STORE.phone}</strong>
+        </p>
+        <div className="checkout-success__actions">
+          <Link to="/shop" className="btn btn--primary">Keep Shopping</Link>
+        </div>
+      </div>
+    )
+  }
+
+  /* ── Payment step ───────────────────────────── */
+  if (step === STEP_PAYMENT) {
+    return (
+      <div className="checkout">
+        <h1 className="cart__title">Complete Payment</h1>
+        <div className="checkout__layout">
+          <form className="checkout__form" onSubmit={handlePayment}>
+
+            <div className="pay-box">
+              <h2 className="pay-box__title">Scan & Pay</h2>
+              <p className="pay-box__sub">
+                Use <strong>GPay, PhonePe, Paytm</strong> or any UPI app to scan the QR code below.
+              </p>
+
+              <div className="pay-box__qr">
+                <QRCodeSVG
+                  value={upiLink}
+                  size={200}
+                  bgColor="#ffffff"
+                  fgColor="#0a0a0b"
+                  level="M"
+                />
+                <p className="pay-box__amount">Pay ₹{Number(subtotal).toLocaleString('en-IN')}</p>
+                <p className="pay-box__upi">UPI: {STORE.upiId}</p>
+              </div>
+
+              <div className="pay-box__steps">
+                <span>1️⃣ Scan QR with your UPI app</span>
+                <span>2️⃣ Confirm the payment of ₹{Number(subtotal).toLocaleString('en-IN')}</span>
+                <span>3️⃣ Copy the <strong>UTR / reference number</strong> shown after payment</span>
+                <span>4️⃣ Paste it below and submit</span>
+              </div>
+
+              <div className="field" style={{ marginTop: '1.5rem' }}>
+                <label>UTR / Transaction Reference Number *</label>
+                <input
+                  value={utr}
+                  onChange={(e) => { setUtr(e.target.value); setUtrError('') }}
+                  placeholder="12-digit reference from your UPI app"
+                  required
+                  maxLength={30}
+                />
+                <small className="field__hint">
+                  After paying, your UPI app shows a reference/UTR number — enter it here so we can confirm your payment.
+                </small>
+                {utrError && <p className="pay-box__error">{utrError}</p>}
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn--primary btn--lg btn--block"
+              disabled={busy}
+            >
+              {busy ? 'Confirming…' : `I've Paid — ₹${Number(subtotal).toLocaleString('en-IN')}`}
+            </button>
+
+            <button
+              type="button"
+              className="btn btn--ghost btn--block"
+              style={{ marginTop: '0.75rem' }}
+              onClick={() => setStep(STEP_DETAILS)}
+            >
+              ← Back to details
+            </button>
+          </form>
+
+          <aside className="checkout__summary">
+            <h2>Your order</h2>
+            {items.map((i) => (
+              <div className="checkout-line" key={i.key}>
+                <span>{i.qty}× {i.name} <em>({i.size}{i.sleeve ? `, ${i.sleeve}` : ''})</em></span>
+                <span>{inr(i.price * i.qty)}</span>
+              </div>
+            ))}
+            <div className="summary-row summary-row--total"><span>Total</span><span>{inr(subtotal)}</span></div>
+            <div className="summary-row"><span>Payment</span><span style={{ color: 'var(--gold)' }}>UPI only</span></div>
+          </aside>
+        </div>
+      </div>
+    )
+  }
+
+  /* ── Delivery details step ──────────────────── */
   return (
     <div className="checkout">
       <h1 className="cart__title">Checkout</h1>
       <div className="checkout__layout">
-        <form className="checkout__form" onSubmit={placeOrder}>
+        <form className="checkout__form" onSubmit={handleDetails}>
           <h2>Delivery details</h2>
           <div className="field">
             <label>Full name *</label>
-            <input name="name" required value={form.name} onChange={update} />
+            <input name="name" required value={form.name} onChange={updateForm} />
           </div>
           <div className="field-row">
             <div className="field">
               <label>Phone / WhatsApp *</label>
-              <input name="phone" required value={form.phone} onChange={update} placeholder="+91 …" />
+              <input name="phone" required value={form.phone} onChange={updateForm} placeholder="+91 …" />
             </div>
             <div className="field">
               <label>Email <span className="field-opt">(optional)</span></label>
-              <input type="email" name="email" value={form.email} onChange={update} placeholder="Optional" />
+              <input type="email" name="email" value={form.email} onChange={updateForm} placeholder="Optional" />
             </div>
           </div>
           <div className="field">
             <label>Address *</label>
-            <input name="address" required value={form.address} onChange={update} placeholder="House / street / landmark" />
+            <input name="address" required value={form.address} onChange={updateForm} placeholder="House / street / landmark" />
           </div>
           <div className="field-row">
             <div className="field">
               <label>City / Town *</label>
-              <input name="city" required value={form.city} onChange={update} />
+              <input name="city" required value={form.city} onChange={updateForm} />
             </div>
             <div className="field">
               <label>State *</label>
-              <input name="state" required value={form.state} onChange={update} placeholder="Kerala" />
+              <input name="state" required value={form.state} onChange={updateForm} placeholder="Kerala" />
             </div>
             <div className="field">
               <label>PIN code *</label>
-              <input name="pincode" required value={form.pincode} onChange={update} placeholder="670307" />
+              <input name="pincode" required value={form.pincode} onChange={updateForm} placeholder="670307" />
             </div>
           </div>
 
           <div className="checkout__note">
-            📦 <strong>Delivery is all-India.</strong> Tapping the button sends your
-            order to Play11 on <strong>WhatsApp</strong>. We review your location and
-            reply with the exact <strong>delivery charge & details</strong>. No payment
-            is taken now.
+            💳 <strong>Online payment only.</strong> After filling your details, you'll be shown a UPI QR code to complete payment. Order is confirmed only after payment.
           </div>
-          <button type="submit" className="btn btn--primary btn--lg btn--block" disabled={busy}>
-            {busy ? 'Opening WhatsApp…' : `Place Order on WhatsApp · ${inr(subtotal)} + delivery`}
+
+          <button type="submit" className="btn btn--primary btn--lg btn--block">
+            Proceed to Payment →
           </button>
-          <p className="checkout__wa-hint">You'll be taken to WhatsApp to send the order to {STORE.phone}.</p>
         </form>
 
         <aside className="checkout__summary">
@@ -125,9 +257,8 @@ export default function Checkout() {
             </div>
           ))}
           <div className="summary-row"><span>Subtotal</span><span>{inr(subtotal)}</span></div>
-          <div className="summary-row"><span>Delivery (All India)</span><span>Confirmed after order</span></div>
-          <div className="summary-row summary-row--total"><span>Pay now</span><span>₹0</span></div>
-          <p className="summary-hint">You pay items + delivery once Play11 confirms the charge for your location.</p>
+          <div className="summary-row"><span>Delivery</span><span>Free above ₹999</span></div>
+          <div className="summary-row summary-row--total"><span>Total</span><span>{inr(subtotal)}</span></div>
         </aside>
       </div>
     </div>

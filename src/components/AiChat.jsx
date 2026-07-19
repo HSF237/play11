@@ -285,6 +285,11 @@ export default function AiChat() {
 
   return (
     <>
+      {!open && (
+        <div className="aichat__bubble-hint">
+          Hey! I'm your Play11 guide 👋
+        </div>
+      )}
       <button
         className={`aichat__trigger ${open ? 'aichat__trigger--hide' : ''}`}
         onClick={handleOpen}

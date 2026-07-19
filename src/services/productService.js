@@ -72,3 +72,18 @@ export async function deleteProduct(id) {
   }
   await deleteDoc(doc(db, COLLECTION, id))
 }
+
+export async function saveOrder(orderData) {
+  if (!isFirebaseConfigured) return null
+  try {
+    const ref = await addDoc(collection(db, 'orders'), {
+      ...orderData,
+      createdAt: serverTimestamp(),
+      status: 'pending',
+    })
+    return ref.id
+  } catch (err) {
+    console.warn('Order save failed:', err.message)
+    return null
+  }
+}

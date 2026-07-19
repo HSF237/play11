@@ -22,6 +22,14 @@ export const STORE = {
   email: 'play11official@gmail.com',
   instagram: 'play11official',
   location: 'Payyanur, Kannur, Kerala',
+
+  // UPI ID for QR code payments — change this to your real UPI ID.
+  // Format examples: yourname@ybl  /  7736308424@paytm  /  play11@okaxis
+  upiId: '8547015205@fam',
+
+  // ntfy.sh topic — owner installs ntfy app and subscribes to this topic.
+  // Keep this private (don't share publicly). Change to any unique string.
+  ntfyTopic: 'play11-orders-x7k2m9',
 }
 
 // Builds the pre-filled WhatsApp order message and returns a wa.me link.
