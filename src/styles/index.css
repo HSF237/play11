@@ -1009,6 +1009,16 @@ input, select, textarea { font-family: inherit; }
 }
 .pay-box__steps strong { color: var(--text); }
 .pay-box__error { color: var(--danger); font-size: 0.85rem; margin-top: 0.4rem; }
+.pay-box__confirm-check {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  margin-top: 1.25rem;
+  font-size: 0.85rem; color: var(--muted);
+  cursor: pointer; line-height: 1.5;
+}
+.pay-box__confirm-check input[type="checkbox"] {
+  margin-top: 2px; flex-shrink: 0;
+  width: 16px; height: 16px; accent-color: var(--gold); cursor: pointer;
+}
 
 /* ===================== AI CHATBOT ===================== */
 .aichat__trigger {
