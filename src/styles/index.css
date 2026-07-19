@@ -720,6 +720,42 @@ input, select, textarea { font-family: inherit; }
 .admin__warn code { background: rgba(0,0,0,0.3); padding: 0.1rem 0.35rem; border-radius: 4px; }
 .admin__flash { position: fixed; top: 80px; right: 24px; z-index: 200; background: var(--gold); color: #15110a; padding: 0.8rem 1.4rem; border-radius: var(--radius-sm); font-weight: 600; box-shadow: var(--shadow); animation: slidein 0.3s ease; }
 @keyframes slidein { from { transform: translateX(40px); opacity: 0; } }
+
+/* ── Admin tabs ── */
+.admin__tabs { display: flex; gap: 0.5rem; padding: 1.25rem 1.5rem 0; border-bottom: 1px solid var(--border); }
+.admin__tab { background: none; border: none; padding: 0.6rem 1.2rem; border-radius: 0.5rem 0.5rem 0 0; font-size: 0.9rem; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; transition: color 0.15s; }
+.admin__tab--active { color: var(--gold); border-bottom-color: var(--gold); font-weight: 600; }
+.admin__tab-badge { background: #f87171; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 0.1rem 0.4rem; border-radius: 1rem; margin-left: 0.3rem; }
+
+/* ── Admin orders list ── */
+.admin__orders { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; max-width: 900px; }
+.admin__orders-loading { display: flex; align-items: center; gap: 0.75rem; padding: 2rem 1.5rem; color: var(--muted); }
+.admin__orders-empty { padding: 2rem 1.5rem; color: var(--muted); }
+
+.admin-order-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 1rem; padding: 1.25rem 1.5rem;
+  display: flex; flex-direction: column; gap: 0.85rem;
+}
+.admin-order-card--pending { border-color: rgba(245,158,11,0.4); }
+.admin-order-card__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.admin-order-card__head strong { display: block; font-size: 1rem; }
+.admin-order-card__phone { font-size: 0.85rem; color: var(--muted); }
+.admin-order-card__meta { text-align: right; }
+.admin-order-card__date { font-size: 0.78rem; color: var(--muted-2); display: block; }
+.admin-order-card__status { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.2rem 0.6rem; border-radius: 2rem; display: inline-block; margin-top: 0.3rem; }
+.admin-order-card__status--pending  { background: #3b2e00; color: #f59e0b; }
+.admin-order-card__status--confirmed { background: #0a2e1a; color: #34d399; }
+.admin-order-card__status--shipped  { background: #0a1a2e; color: #60a5fa; }
+.admin-order-card__status--delivered { background: #0f1f0a; color: #86efac; }
+.admin-order-card__items { display: flex; flex-wrap: wrap; gap: 0.4rem 0.75rem; font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 0.85rem; }
+.admin-order-card__foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 0.85rem; }
+.admin-order-card__addr { font-size: 0.82rem; color: var(--muted); display: block; }
+.admin-order-card__utr { font-size: 0.78rem; color: var(--muted-2); display: block; margin-top: 0.2rem; }
+.admin-order-card__right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem; }
+.admin-order-card__total { font-size: 1.1rem; color: var(--gold); }
+.admin-order-card__confirm-box { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+.admin-order-card__confirm-q { font-size: 0.82rem; color: var(--muted); text-align: right; }
 .admin__layout { display: grid; grid-template-columns: 440px 1fr; gap: 2rem; max-width: 1320px; margin: 0 auto; padding: 2rem 1.5rem; align-items: start; }
 .admin__panel { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.8rem; }
 .admin__panel h2 { font-size: 1.3rem; margin-bottom: 1.4rem; }

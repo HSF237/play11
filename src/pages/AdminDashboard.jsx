@@ -7,6 +7,9 @@ import {
   updateProduct,
   deleteProduct,
 } from '../services/productService.js'
+import { collection, getDocs, orderBy, query, doc, updateDoc } from 'firebase/firestore'
+import { db } from '../firebase.js'
+import { STORE } from '../storeConfig.js'
 import { isFirebaseConfigured } from '../firebase.js'
 import { inr } from '../utils/format.js'
 import { stockInfo } from '../utils/stock.js'
@@ -39,11 +42,58 @@ function imagesToArray(str) {
 export default function AdminDashboard() {
   const { user, logout } = useAuth()
 
+  const [tab, setTab]           = useState('orders')
   const [products, setProducts] = useState([])
-  const [form, setForm] = useState(EMPTY)
+  const [orders, setOrders]     = useState([])
+  const [form, setForm]         = useState(EMPTY)
   const [editingId, setEditingId] = useState(null)
   const [loadingP, setLoadingP] = useState(true)
-  const [msg, setMsg] = useState('')
+  const [loadingO, setLoadingO] = useState(true)
+  const [msg, setMsg]           = useState('')
+
+  async function loadOrders() {
+    setLoadingO(true)
+    try {
+      const q = query(collection(db, 'orders'), orderBy('createdAt', 'desc'))
+      const snap = await getDocs(q)
+      setOrders(snap.docs.map((d) => ({ id: d.id, ...d.data() })))
+    } catch (e) {
+      console.warn('loadOrders failed:', e.message)
+    }
+    setLoadingO(false)
+  }
+
+  async function confirmOrder(order) {
+    // Mark as confirmed in Firestore
+    try {
+      await updateDoc(doc(db, 'orders', order.id), { status: 'confirmed' })
+      setOrders((prev) => prev.map((o) => o.id === order.id ? { ...o, status: 'confirmed' } : o))
+    } catch (e) {
+      console.warn('confirmOrder failed:', e.message)
+    }
+    // Draft WhatsApp message to customer
+    const itemLines = order.items?.map(
+      (i) => `• ${i.qty}× ${i.name} (${i.size}${i.sleeve ? ', ' + i.sleeve : ''})`
+    ).join('\n') || ''
+    const msg = [
+      `Hey ${order.form?.name}! 👋`,
+      ``,
+      `Thanks for shopping from *Play11* ⚽`,
+      ``,
+      `Your order has been *confirmed* and we've received your payment of *₹${order.subtotal}*.`,
+      ``,
+      `*Items ordered:*`,
+      itemLines,
+      ``,
+      `We'll pack and ship your jersey soon. You'll get an update once it's on the way! 🚀`,
+      ``,
+      `— Team Play11, ${STORE.location}`,
+    ].join('\n')
+
+    const phone = order.form?.phone?.replace(/\D/g, '')
+    const intlPhone = phone?.startsWith('91') ? phone : `91${phone}`
+    window.open(`https://wa.me/${intlPhone}?text=${encodeURIComponent(msg)}`, '_blank')
+  }
 
   async function loadProducts() {
     setLoadingP(true)
@@ -53,6 +103,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     loadProducts()
+    loadOrders()
   }, [])
 
   function flash(text) {
@@ -177,6 +228,84 @@ export default function AdminDashboard() {
 
       {msg && <div className="admin__flash">{msg}</div>}
 
+      {/* ── Tab switcher ── */}
+      <div className="admin__tabs">
+        <button className={`admin__tab ${tab === 'orders' ? 'admin__tab--active' : ''}`} onClick={() => setTab('orders')}>
+          📦 Orders {orders.length > 0 && <span className="admin__tab-badge">{orders.filter(o => o.status === 'pending').length || ''}</span>}
+        </button>
+        <button className={`admin__tab ${tab === 'products' ? 'admin__tab--active' : ''}`} onClick={() => setTab('products')}>
+          👕 Products
+        </button>
+      </div>
+
+      {/* ── ORDERS TAB ── */}
+      {tab === 'orders' && (
+        <div className="admin__orders">
+          {loadingO ? (
+            <div className="admin__orders-loading"><div className="spinner" /> Loading orders…</div>
+          ) : orders.length === 0 ? (
+            <p className="admin__orders-empty">No orders yet.</p>
+          ) : orders.map((order) => {
+            const date = order.createdAt?.toDate
+              ? order.createdAt.toDate().toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+              : '—'
+            const isPending = !order.status || order.status === 'pending'
+            return (
+              <div className={`admin-order-card ${isPending ? 'admin-order-card--pending' : ''}`} key={order.id}>
+                <div className="admin-order-card__head">
+                  <div>
+                    <strong>{order.form?.name}</strong>
+                    <span className="admin-order-card__phone">📞 {order.form?.phone}</span>
+                  </div>
+                  <div className="admin-order-card__meta">
+                    <span className="admin-order-card__date">{date}</span>
+                    <span className={`admin-order-card__status admin-order-card__status--${order.status || 'pending'}`}>
+                      {order.status || 'pending'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="admin-order-card__items">
+                  {order.items?.map((item, i) => (
+                    <span key={i}>{item.qty}× {item.name} ({item.size}{item.sleeve ? `, ${item.sleeve}` : ''})</span>
+                  ))}
+                </div>
+
+                <div className="admin-order-card__foot">
+                  <div>
+                    <span className="admin-order-card__addr">📍 {order.form?.address}, {order.form?.city}, {order.form?.state} - {order.form?.pincode}</span>
+                    <span className="admin-order-card__utr">UTR: {order.utr}</span>
+                  </div>
+                  <div className="admin-order-card__right">
+                    <strong className="admin-order-card__total">₹{order.subtotal}</strong>
+                    {isPending ? (
+                      <div className="admin-order-card__confirm-box">
+                        <p className="admin-order-card__confirm-q">Did you receive ₹{order.subtotal} from {order.form?.name}?</p>
+                        <button
+                          className="btn btn--primary btn--sm"
+                          onClick={() => confirmOrder(order)}
+                        >
+                          ✅ Yes — Send Confirmation on WhatsApp
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        className="btn btn--ghost btn--sm"
+                        onClick={() => confirmOrder(order)}
+                      >
+                        💬 Resend WhatsApp
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
+
+      {/* ── PRODUCTS TAB ── */}
+      {tab === 'products' && (
       <div className="admin__layout">
         <section className="admin__panel">
           <h2>{editingId ? 'Edit Jersey' : 'Add New Jersey'}</h2>
@@ -337,6 +466,8 @@ export default function AdminDashboard() {
           )}
         </section>
       </div>
+      )}
+
     </div>
   )
 }
