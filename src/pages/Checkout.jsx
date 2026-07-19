@@ -105,11 +105,14 @@ export default function Checkout() {
     return (
       <div className="checkout-success">
         <div className="checkout-success__tick">✓</div>
-        <h1>Order confirmed!</h1>
+        <h1>Order received!</h1>
         <p>
-          Thank you, <strong>{form.name}</strong>! Your payment has been received
-          and your order is now with <strong>Play11</strong>. We'll pack and ship
-          your jersey soon. 🚀
+          Thank you, <strong>{form.name}</strong>! Your order has been placed and
+          Play11 will verify your payment shortly. Once confirmed, your jersey
+          will be packed and shipped. 🚀
+        </p>
+        <p style={{ color: 'var(--muted)', fontSize: '0.88rem', marginTop: '0.4rem' }}>
+          ⏳ Payment verification usually takes a few hours. If there's any issue with the UTR, Play11 will contact you on WhatsApp.
         </p>
         <p style={{ color: 'var(--muted)', fontSize: '0.9rem', marginTop: '0.5rem' }}>
           Questions? WhatsApp us at <strong>{STORE.phone}</strong>
