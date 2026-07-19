@@ -6,7 +6,7 @@ import Logo from './Logo.jsx'
 
 export default function Navbar() {
   const { count } = useCart()
-  const { user, isAdmin, logout } = useAuth()
+  const { user, isAdmin, logout, loginWithGoogle } = useAuth()
   const [scrolled, setScrolled]   = useState(false)
   const [open, setOpen]           = useState(false)
   const [userMenu, setUserMenu]   = useState(false)
