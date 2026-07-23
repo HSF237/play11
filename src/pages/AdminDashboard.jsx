@@ -32,11 +32,26 @@ const EMPTY = {
   stock: '',
 }
 
+// Turn a pasted link into a direct, embeddable image URL.
+// Google Drive "share/view" links are web pages, not images — convert them to
+// the direct googleusercontent form so they actually render in <img>.
+function normalizeImageUrl(url) {
+  const u = url.trim()
+  const drive = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:[^]*&)?id=)([\w-]+)/)
+  if (drive) return `https://lh3.googleusercontent.com/d/${drive[1]}`
+  return u
+}
+
 function imagesToArray(str) {
   return str
-    .split(/[\n,]+/)
-    .map((s) => s.trim())
+    .split(/\n+/)
+    .map((s) => normalizeImageUrl(s.trim()))
     .filter(Boolean)
+}
+
+// Does the URL look like it will actually load as an image?
+function looksLikeImage(u) {
+  return /\.(jpe?g|png|webp|gif|avif)(\?|#|$)/i.test(u) || /googleusercontent\.com\/d\//.test(u)
 }
 
 export default function AdminDashboard() {
@@ -373,14 +388,16 @@ export default function AdminDashboard() {
               <textarea name="images" rows="3" value={form.images} onChange={update} required
                 placeholder={'https://…/front.jpg\nhttps://…/back.jpg\nhttps://…/detail.jpg'} />
               <small className="field__hint">
-                Use the <b>DIRECT image link</b> — it ends in <b>.jpg / .png</b>
-                (on ImgBB it starts with <b>i.ibb.co</b>). A page link like
-                <i> ibb.co/abc123</i> will NOT show. First link = main photo.
+                Use a <b>DIRECT image link</b> ending in <b>.jpg / .png</b>
+                (ImgBB: starts with <b>i.ibb.co</b>). <b>Google Drive</b> links work
+                too — paste the normal share link, just set the file to
+                <b> "Anyone with the link."</b> First link = main photo.
               </small>
-              {previewImages.some((u) => !/\.(jpe?g|png|webp|gif|avif)(\?|#|$)/i.test(u)) && (
+              {previewImages.some((u) => !looksLikeImage(u)) && (
                 <div className="admin__imgwarn">
-                  ⚠ One of these isn't a direct image link (must end in .jpg/.png).
-                  On ImgBB: open the photo → <b>Embed codes → Direct link</b> → copy.
+                  ⚠ One of these isn't a direct image link. Use a <b>.jpg/.png</b>
+                  link (ImgBB: open photo → <b>Embed codes → Direct link</b>), or a
+                  <b> Google Drive</b> link set to <b>"Anyone with the link."</b>
                 </div>
               )}
             </div>
