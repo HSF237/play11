@@ -60,6 +60,7 @@ export default function AdminDashboard() {
   const [tab, setTab]           = useState('orders')
   const [products, setProducts] = useState([])
   const [orders, setOrders]     = useState([])
+  const [tracking, setTracking] = useState({}) // orderId -> DTDC tracking id being typed
   const [form, setForm]         = useState(EMPTY)
   const [editingId, setEditingId] = useState(null)
   const [loadingP, setLoadingP] = useState(true)
@@ -87,31 +88,74 @@ export default function AdminDashboard() {
     }
   }
 
-  async function confirmOrder(order) {
-    await setOrderStatus(order.id, 'confirmed')
-    // Draft WhatsApp message to customer
-    const itemLines = order.items?.map(
+  const DTDC_TRACK_URL = 'https://www.dtdc.in/track'
+
+  // Update any fields on an order (status, tracking id, etc.).
+  async function patchOrder(orderId, data) {
+    try {
+      await updateDoc(doc(db, 'orders', orderId), data)
+      setOrders((prev) => prev.map((o) => o.id === orderId ? { ...o, ...data } : o))
+    } catch (e) {
+      console.warn('patchOrder failed:', e.message)
+    }
+  }
+
+  // ── WhatsApp customer notifications ──
+  function customerPhone(order) {
+    const phone = order.form?.phone?.replace(/\D/g, '')
+    return phone?.startsWith('91') ? phone : `91${phone}`
+  }
+  function orderItemLines(order) {
+    return order.items?.map(
       (i) => `• ${i.qty}× ${i.name} (${i.size}${i.sleeve ? ', ' + i.sleeve : ''})`
     ).join('\n') || ''
-    const msg = [
-      `Hey ${order.form?.name}! 👋`,
+  }
+  // The customer message changes with the order status.
+  function messageFor(order, status, trackingId) {
+    const items = orderItemLines(order)
+    const track = trackingId || order.trackingId
+    if (status === 'shipped') return [
+      `Hey ${order.form?.name}! 📦`, ``,
+      `Great news — your *Play11* order has been *SHIPPED* and is on its way to ${order.form?.city || 'you'}! 🚚`, ``,
+      `*Items:*`, items,
+      ...(track ? [``, `*DTDC Tracking ID:* ${track}`, `Track your parcel: ${DTDC_TRACK_URL}`] : []),
       ``,
-      `Thanks for shopping from *Play11* ⚽`,
-      ``,
-      `Your order has been *confirmed* and we've received your payment of *₹${order.subtotal}*.`,
-      ``,
-      `*Items ordered:*`,
-      itemLines,
-      ``,
-      `We'll pack and ship your jersey soon. You'll get an update once it's on the way! 🚀`,
-      ``,
+      `We'll message you again once it's delivered. Any questions, just reply here. ⚽`, ``,
+      `— Team Play11`,
+    ].join('\n')
+    if (status === 'delivered') return [
+      `Hey ${order.form?.name}! 🎉`, ``,
+      `Your *Play11* order has been *DELIVERED*.`,
+      `Hope you love your jersey — wear the legend! ⚽`, ``,
+      `Tag us @${STORE.instagram} if you share a pic. Thank you for shopping with Play11! 🙏`,
+    ].join('\n')
+    // default: confirmed
+    return [
+      `Hey ${order.form?.name}! 👋`, ``,
+      `Thanks for shopping from *Play11* ⚽`, ``,
+      `Your order has been *CONFIRMED* and we've received your payment of *₹${order.subtotal}*.`, ``,
+      `*Items ordered:*`, items, ``,
+      `We'll pack and ship your jersey soon. You'll get an update once it's on the way! 🚀`, ``,
       `— Team Play11, ${STORE.location}`,
     ].join('\n')
-
-    const phone = order.form?.phone?.replace(/\D/g, '')
-    const intlPhone = phone?.startsWith('91') ? phone : `91${phone}`
-    window.open(`https://wa.me/${intlPhone}?text=${encodeURIComponent(msg)}`, '_blank')
   }
+  function notifyCustomer(order, status, trackingId) {
+    window.open(`https://wa.me/${customerPhone(order)}?text=${encodeURIComponent(messageFor(order, status, trackingId))}`, '_blank')
+  }
+  async function confirmOrder(order) { await setOrderStatus(order.id, 'confirmed'); notifyCustomer(order, 'confirmed') }
+  async function shipOrder(order) {
+    const trackingId = (tracking[order.id] ?? order.trackingId ?? '').trim()
+    await patchOrder(order.id, { status: 'shipped', trackingId: trackingId || null, courier: trackingId ? 'DTDC' : null })
+    notifyCustomer(order, 'shipped', trackingId)
+  }
+  async function saveTracking(order) {
+    const trackingId = (tracking[order.id] ?? order.trackingId ?? '').trim()
+    await patchOrder(order.id, { trackingId: trackingId || null, courier: trackingId ? 'DTDC' : null })
+    if (trackingId) { notifyCustomer(order, 'shipped', trackingId); flash('Tracking saved — WhatsApp opened') }
+    else flash('Tracking cleared')
+  }
+  async function deliverOrder(order) { await setOrderStatus(order.id, 'delivered'); notifyCustomer(order, 'delivered') }
+  function resendNotification(order) { notifyCustomer(order, order.status || 'confirmed') }
 
   async function loadProducts() {
     setLoadingP(true)
@@ -306,20 +350,37 @@ export default function AdminDashboard() {
                         </>
                       )}
                       {order.status === 'confirmed' && (
-                        <button className="btn btn--sm admin-order-card__ship-btn" onClick={() => setOrderStatus(order.id, 'shipped')}>
-                          🚚 Mark as Shipped
-                        </button>
+                        <div className="admin-order-card__ship-row">
+                          <input
+                            className="admin-order-card__tracking"
+                            placeholder="DTDC Tracking ID (optional)"
+                            value={tracking[order.id] ?? order.trackingId ?? ''}
+                            onChange={(e) => setTracking((t) => ({ ...t, [order.id]: e.target.value }))}
+                          />
+                          <button className="btn btn--sm admin-order-card__ship-btn" onClick={() => shipOrder(order)}>
+                            🚚 Mark Shipped & Notify
+                          </button>
+                        </div>
                       )}
                       {order.status === 'shipped' && (
-                        <button className="btn btn--sm admin-order-card__deliver-btn" onClick={() => setOrderStatus(order.id, 'delivered')}>
-                          ✅ Mark as Delivered
-                        </button>
+                        <div className="admin-order-card__ship-row">
+                          <input
+                            className="admin-order-card__tracking"
+                            placeholder="DTDC Tracking ID"
+                            value={tracking[order.id] ?? order.trackingId ?? ''}
+                            onChange={(e) => setTracking((t) => ({ ...t, [order.id]: e.target.value }))}
+                          />
+                          <button className="btn btn--ghost btn--sm" onClick={() => saveTracking(order)}>💾 Save / Resend</button>
+                          <button className="btn btn--sm admin-order-card__deliver-btn" onClick={() => deliverOrder(order)}>
+                            ✅ Mark Delivered & Notify
+                          </button>
+                        </div>
                       )}
                       {order.status === 'delivered' && (
                         <span className="admin-order-card__done">🎉 Delivered</span>
                       )}
                       {!isPending && (
-                        <button className="btn btn--ghost btn--sm" onClick={() => confirmOrder(order)}>
+                        <button className="btn btn--ghost btn--sm" onClick={() => resendNotification(order)}>
                           💬 Resend WhatsApp
                         </button>
                       )}

@@ -12,6 +12,33 @@ const STATUS_COLORS = {
   cancelled: { bg: '#2e0a0a', text: '#f87171' },
 }
 
+const TRACK_STEPS = [
+  { key: 'placed',    label: 'Placed',    icon: '📝' },
+  { key: 'confirmed', label: 'Confirmed', icon: '✅' },
+  { key: 'shipped',   label: 'Shipped',   icon: '🚚' },
+  { key: 'delivered', label: 'Delivered', icon: '🎉' },
+]
+const TRACK_ORDER = ['placed', 'confirmed', 'shipped', 'delivered']
+
+// Creative order progress bar: Placed → Confirmed → Shipped → Delivered.
+function OrderTracker({ status }) {
+  const idx = status === 'pending' ? 0 : Math.max(0, TRACK_ORDER.indexOf(status))
+  return (
+    <div className="order-track">
+      {TRACK_STEPS.map((s, i) => {
+        const done = i <= idx
+        return (
+          <div key={s.key} className={`order-track__step ${done ? 'is-done' : ''} ${i === idx ? 'is-current' : ''}`}>
+            {i > 0 && <span className={`order-track__line ${done ? 'is-done' : ''}`} />}
+            <span className="order-track__dot">{done ? s.icon : i + 1}</span>
+            <span className="order-track__label">{s.label}</span>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 export default function MyOrders() {
   const { user } = useAuth()
   const [orders, setOrders]   = useState([])
@@ -87,6 +114,20 @@ export default function MyOrders() {
                 </span>
                 <span className="order-card__total">{inr(order.subtotal)}</span>
               </div>
+
+              {order.status !== 'cancelled' && <OrderTracker status={order.status || 'pending'} />}
+
+              {(order.status === 'shipped' || order.status === 'delivered') && order.trackingId && (
+                <div className="order-track-box">
+                  <div>
+                    <div className="order-track-box__label">📦 DTDC Tracking ID</div>
+                    <div className="order-track-box__id">{order.trackingId}</div>
+                  </div>
+                  <a href="https://www.dtdc.in/track" target="_blank" rel="noreferrer" className="btn btn--primary btn--sm">
+                    Track your parcel →
+                  </a>
+                </div>
+              )}
 
               {order.status === 'pending' && (
                 <p className="order-card__note">

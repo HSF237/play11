@@ -841,6 +841,45 @@ input, select, textarea { font-family: inherit; }
   background: rgba(120,124,134,0.14); border-color: rgba(120,124,134,0.4); color: #c9ccd4;
 }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; filter: grayscale(0.3); }
+
+/* ---- Order tracker (customer "My Orders") ---- */
+.order-track { display: flex; align-items: flex-start; justify-content: space-between; margin: 1.2rem 0 0.3rem; }
+.order-track__step { position: relative; flex: 1 1 0; display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; }
+.order-track__line { position: absolute; top: 15px; right: 50%; width: 100%; height: 3px; background: var(--line); z-index: 0; border-radius: 3px; }
+.order-track__line.is-done { background: linear-gradient(90deg, var(--gold), var(--gold-soft)); }
+.order-track__dot {
+  position: relative; z-index: 1; width: 32px; height: 32px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 0.85rem; font-weight: 700;
+  background: var(--bg-card, #15161a); border: 2px solid var(--line); color: var(--muted-2);
+}
+.order-track__step.is-done .order-track__dot {
+  background: linear-gradient(135deg, var(--gold), var(--gold-soft)); border-color: var(--gold); color: #15110a;
+}
+.order-track__step.is-current .order-track__dot { animation: trackPulse 1.8s ease-in-out infinite; }
+@keyframes trackPulse { 0%,100% { box-shadow: 0 0 0 4px rgba(200,162,74,0.20); } 50% { box-shadow: 0 0 0 9px rgba(200,162,74,0.04); } }
+.order-track__label { margin-top: 0.45rem; font-size: 0.72rem; color: var(--muted); }
+.order-track__step.is-done .order-track__label { color: var(--text); font-weight: 600; }
+
+.order-track-box {
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;
+  padding: 0.9rem 1.1rem; border: 1px solid rgba(96,165,250,0.35); border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, rgba(96,165,250,0.10), rgba(96,165,250,0.02));
+}
+.order-track-box__label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.order-track-box__id { font-size: 1.05rem; font-weight: 800; letter-spacing: 0.08em; color: #93c5fd; }
+.order-track-box .btn { margin-left: auto; }
+
+/* admin: DTDC tracking input on order cards */
+.admin-order-card__ship-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
+.admin-order-card__tracking {
+  padding: 0.5rem 0.75rem; border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--bg-elev, #121317); color: var(--text); font-size: 0.85rem; min-width: 170px;
+}
+.admin-order-card__tracking:focus { outline: none; border-color: var(--gold); }
+@media (max-width: 640px) {
+  .order-track__label { font-size: 0.62rem; }
+  .order-track-box .btn { margin-left: 0; width: 100%; }
+}
 .admin-loading { min-height: 100vh; display: grid; place-items: center; color: var(--muted); }
 
 /* ---------- 404 ---------- */
