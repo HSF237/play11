@@ -13,6 +13,20 @@ import { STORE } from '../storeConfig.js'
 import { isFirebaseConfigured } from '../firebase.js'
 import { inr } from '../utils/format.js'
 import { stockInfo } from '../utils/stock.js'
+import {
+  fetchCoupons,
+  addCoupon,
+  updateCoupon,
+  deleteCoupon,
+} from '../services/couponService.js'
+
+const EMPTY_COUPON = {
+  code: '',
+  discountType: 'percentage', // 'percentage' or 'flat'
+  discountValue: '',
+  validity: '',
+  applicableProduct: 'all', // 'all' or productId
+}
 
 const EMPTY = {
   name: '',
@@ -60,11 +74,15 @@ export default function AdminDashboard() {
   const [tab, setTab]           = useState('orders')
   const [products, setProducts] = useState([])
   const [orders, setOrders]     = useState([])
+  const [coupons, setCoupons]   = useState([])
   const [tracking, setTracking] = useState({}) // orderId -> DTDC tracking id being typed
   const [form, setForm]         = useState(EMPTY)
   const [editingId, setEditingId] = useState(null)
+  const [couponForm, setCouponForm] = useState(EMPTY_COUPON)
+  const [editingCouponId, setEditingCouponId] = useState(null)
   const [loadingP, setLoadingP] = useState(true)
   const [loadingO, setLoadingO] = useState(true)
+  const [loadingC, setLoadingC] = useState(true)
   const [msg, setMsg]           = useState('')
 
   async function loadOrders() {
@@ -163,9 +181,16 @@ export default function AdminDashboard() {
     setLoadingP(false)
   }
 
+  async function loadCoupons() {
+    setLoadingC(true)
+    setCoupons(await fetchCoupons())
+    setLoadingC(false)
+  }
+
   useEffect(() => {
     loadProducts()
     loadOrders()
+    loadCoupons()
   }, [])
 
   function flash(text) {
@@ -268,6 +293,59 @@ export default function AdminDashboard() {
     }
   }
 
+  function updateCouponForm(e) {
+    const { name, value, type, checked } = e.target
+    setCouponForm((f) => ({ ...f, [name]: type === 'checkbox' ? checked : value }))
+  }
+  function resetCouponForm() {
+    setCouponForm(EMPTY_COUPON)
+    setEditingCouponId(null)
+  }
+  async function handleCouponSubmit(e) {
+    e.preventDefault()
+    const payload = {
+      code: couponForm.code.trim().toUpperCase(),
+      discountType: couponForm.discountType,
+      discountValue: Number(couponForm.discountValue) || 0,
+      validity: couponForm.validity,
+      applicableProduct: couponForm.applicableProduct || 'all',
+    }
+    try {
+      if (editingCouponId) {
+        await updateCoupon(editingCouponId, payload)
+        flash('Coupon updated ✓')
+      } else {
+        await addCoupon(payload)
+        flash('Coupon added ✓')
+      }
+      resetCouponForm()
+      loadCoupons()
+    } catch (err) {
+      flash(err.message)
+    }
+  }
+  function startEditCoupon(c) {
+    setEditingCouponId(c.id)
+    setCouponForm({
+      code: c.code || '',
+      discountType: c.discountType || 'percentage',
+      discountValue: c.discountValue || '',
+      validity: c.validity || '',
+      applicableProduct: c.applicableProduct || 'all',
+    })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+  async function handleDeleteCoupon(id) {
+    if (!window.confirm('Delete this coupon?')) return
+    try {
+      await deleteCoupon(id)
+      flash('Coupon deleted')
+      loadCoupons()
+    } catch (err) {
+      flash(err.message)
+    }
+  }
+
   const previewImages = imagesToArray(form.images)
 
   return (
@@ -297,6 +375,9 @@ export default function AdminDashboard() {
         </button>
         <button className={`admin__tab ${tab === 'products' ? 'admin__tab--active' : ''}`} onClick={() => setTab('products')}>
           👕 Products
+        </button>
+        <button className={`admin__tab ${tab === 'coupons' ? 'admin__tab--active' : ''}`} onClick={() => setTab('coupons')}>
+          🎟️ Coupons
         </button>
       </div>
 
@@ -557,6 +638,90 @@ export default function AdminDashboard() {
           )}
         </section>
       </div>
+      )}
+      {/* ── COUPONS TAB ── */}
+      {tab === 'coupons' && (
+        <div className="admin__layout">
+          <section className="admin__panel">
+            <h2>{editingCouponId ? 'Edit Coupon' : 'Add New Coupon'}</h2>
+            <form className="admin__form" onSubmit={handleCouponSubmit}>
+              <div className="field">
+                <label>Coupon Code *</label>
+                <input name="code" value={couponForm.code} onChange={updateCouponForm} required placeholder="e.g. SUMMER10" style={{ textTransform: 'uppercase' }} />
+              </div>
+              <div className="field-row">
+                <div className="field">
+                  <label>Discount Type</label>
+                  <select name="discountType" value={couponForm.discountType} onChange={updateCouponForm}>
+                    <option value="percentage">Percentage (%)</option>
+                    <option value="flat">Flat Amount (₹)</option>
+                  </select>
+                </div>
+                <div className="field">
+                  <label>Discount Value *</label>
+                  <input name="discountValue" type="number" min="1" step="0.01" value={couponForm.discountValue} onChange={updateCouponForm} required placeholder="10" />
+                </div>
+              </div>
+              <div className="field-row">
+                <div className="field">
+                  <label>Validity (Expiry Date) *</label>
+                  <input name="validity" type="date" value={couponForm.validity} onChange={updateCouponForm} required />
+                </div>
+                <div className="field">
+                  <label>Applicable Product</label>
+                  <select name="applicableProduct" value={couponForm.applicableProduct} onChange={updateCouponForm}>
+                    <option value="all">All Products (Entire Order)</option>
+                    {products.map(p => (
+                      <option key={p.id} value={p.id}>{p.name} ({p.club})</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="admin__form-actions">
+                <button className="btn btn--primary" type="submit">
+                  {editingCouponId ? 'Save Changes' : 'Add Coupon'}
+                </button>
+                {editingCouponId && (
+                  <button type="button" className="btn btn--ghost" onClick={resetCouponForm}>Cancel</button>
+                )}
+              </div>
+            </form>
+          </section>
+
+          <section className="admin__panel">
+            <h2>Coupons ({coupons.length})</h2>
+            {loadingC ? (
+              <div className="shop__loading"><div className="spinner" /></div>
+            ) : (
+              <div className="admin__list">
+                {coupons.map((c) => {
+                  const pName = c.applicableProduct !== 'all' 
+                    ? (products.find(p => p.id === c.applicableProduct)?.name || 'Unknown Product') 
+                    : 'All Products';
+                  return (
+                  <div className="admin-row" key={c.id}>
+                    <div className="admin-row__info" style={{ flex: 1 }}>
+                      <strong>{c.code}</strong>
+                      <span>
+                        {c.discountType === 'percentage' ? `${c.discountValue}% OFF` : `₹${c.discountValue} OFF`}
+                        {' · '}
+                        Valid till: {c.validity ? new Date(c.validity).toLocaleDateString('en-IN') : 'N/A'}
+                        {' · '}
+                        Applies to: {pName}
+                      </span>
+                    </div>
+                    <div className="admin-row__actions">
+                      <button className="btn btn--sm btn--ghost" onClick={() => startEditCoupon(c)}>Edit</button>
+                      <button className="btn btn--sm btn--danger" onClick={() => handleDeleteCoupon(c.id)}>Delete</button>
+                    </div>
+                  </div>
+                  )
+                })}
+                {coupons.length === 0 && <p style={{ color: 'var(--c-gray)' }}>No coupons created yet.</p>}
+              </div>
+            )}
+          </section>
+        </div>
       )}
 
     </div>
