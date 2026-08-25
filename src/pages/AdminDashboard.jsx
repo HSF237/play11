@@ -699,8 +699,8 @@ export default function AdminDashboard() {
                     ? (products.find(p => p.id === c.applicableProduct)?.name || 'Unknown Product') 
                     : 'All Products';
                   return (
-                  <div className="admin-row" key={c.id}>
-                    <div className="admin-row__info" style={{ flex: 1 }}>
+                  <div className="admin-coupon-row" key={c.id}>
+                    <div className="admin-coupon-row__info" style={{ flex: 1 }}>
                       <strong>{c.code}</strong>
                       <span>
                         {c.discountType === 'percentage' ? `${c.discountValue}% OFF` : `₹${c.discountValue} OFF`}
@@ -710,7 +710,7 @@ export default function AdminDashboard() {
                         Applies to: {pName}
                       </span>
                     </div>
-                    <div className="admin-row__actions">
+                    <div className="admin-coupon-row__actions">
                       <button className="btn btn--sm btn--ghost" onClick={() => startEditCoupon(c)}>Edit</button>
                       <button className="btn btn--sm btn--danger" onClick={() => handleDeleteCoupon(c.id)}>Delete</button>
                     </div>

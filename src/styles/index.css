@@ -821,9 +821,17 @@ input, select, textarea { font-family: inherit; }
 .stock-count { min-width: 28px; text-align: center; font-weight: 800; font-variant-numeric: tabular-nums; }
 .stock-count.is-low { color: #e0533d; }
 .stock-count.is-sold { color: #b8341f; }
+.admin-coupon-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.9rem; border: 1px solid var(--line); border-radius: var(--radius-sm); transition: border-color 0.2s; }
+.admin-coupon-row:hover { border-color: var(--muted-2); }
+.admin-coupon-row__info strong { display: block; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.25rem; }
+.admin-coupon-row__info span { color: var(--muted); font-size: 0.85rem; display: block; line-height: 1.4; }
+.admin-coupon-row__actions { display: flex; gap: 0.5rem; }
+
 @media (max-width: 640px) {
   .admin-row { grid-template-columns: 48px 1fr auto; }
   .admin-row__stock { grid-column: 2 / -1; justify-content: flex-start; }
+  .admin-coupon-row { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+  .admin-coupon-row__actions { width: 100%; justify-content: flex-end; }
 }
 
 /* ---- Storefront stock badges & sold-out state ---- */
