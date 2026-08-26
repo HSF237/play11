@@ -70,6 +70,10 @@ service cloud.firestore {
       allow create: if true;                 // customers can place orders
       allow read, update, delete: if request.auth != null;  // only admin
     }
+    match /coupons/{id} {
+      allow read: if true;                   // customers can validate coupons
+      allow write: if request.auth != null;  // only admin can create/edit coupons
+    }
   }
 }
 ```
