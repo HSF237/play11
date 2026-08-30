@@ -182,15 +182,15 @@ input, select, textarea { font-family: inherit; }
 .hero__bg {
   position: absolute; inset: 0;
   background:
-    radial-gradient(circle at 70% 30%, rgba(200,162,74,0.14), transparent 45%),
-    radial-gradient(circle at 20% 80%, rgba(200,162,74,0.06), transparent 40%),
-    linear-gradient(180deg, #0a0a0b 0%, #0e0f13 60%, #0a0a0b 100%);
+    radial-gradient(circle at 70% 30%, rgba(200,162,74,0.1), transparent 45%),
+    radial-gradient(circle at 20% 80%, rgba(200,162,74,0.04), transparent 40%),
+    var(--bg);
 }
 .hero__bg::after {
   content: ''; position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(circle at 50% 40%, black, transparent 75%);
 }
@@ -202,7 +202,7 @@ input, select, textarea { font-family: inherit; }
 .hero__watermark {
   position: absolute; right: -2%; bottom: -8%; z-index: 1;
   font-family: var(--font-display); font-size: 46vw; line-height: 0.7;
-  color: rgba(255,255,255,0.018); pointer-events: none; user-select: none;
+  color: rgba(0,0,0,0.02); pointer-events: none; user-select: none;
 }
 .hero__content {
   position: relative; z-index: 2; max-width: var(--maxw); margin: 0 auto;
@@ -263,16 +263,16 @@ input, select, textarea { font-family: inherit; }
   border: 1px solid var(--line); box-shadow: var(--shadow);
   animation: float 6s ease-in-out infinite;
 }
-.hero__jersey img { width: 100%; height: 100%; object-fit: contain; background: #0d0d0f; }
+.hero__jersey img { width: 100%; height: 100%; object-fit: contain; background: var(--bg-elev); }
 .hero__jersey::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(circle at 50% 0%, transparent 55%, rgba(10,10,11,0.22));
+  background: radial-gradient(circle at 50% 0%, transparent 55%, rgba(0,0,0,0.05));
 }
 @keyframes float { 0%,100% { transform: translateY(-10px); } 50% { transform: translateY(10px); } }
 .hero__chip {
-  position: absolute; z-index: 3; background: rgba(18,19,23,0.85); backdrop-filter: blur(8px);
+  position: absolute; z-index: 3; background: rgba(255,255,255,0.85); backdrop-filter: blur(8px);
   border: 1px solid var(--line); color: var(--text); font-size: 0.82rem; font-weight: 600;
-  padding: 0.5rem 0.9rem; border-radius: 999px; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  padding: 0.5rem 0.9rem; border-radius: 999px; box-shadow: 0 8px 24px rgba(0,0,0,0.1);
   animation: float 6s ease-in-out infinite;
 }
 .hero__chip--1 { top: 8%; left: 0; }
@@ -318,7 +318,7 @@ input, select, textarea { font-family: inherit; }
   display: block;
 }
 .card:hover { transform: translateY(-6px); border-color: rgba(200,162,74,0.4); box-shadow: var(--shadow); }
-.card__media { position: relative; aspect-ratio: 4/5; overflow: hidden; background: #0a0a0b; }
+.card__media { position: relative; aspect-ratio: 4/5; overflow: hidden; background: var(--bg-elev); }
 .card__media img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.5s ease; }
 .card:hover .card__media img { transform: scale(1.06); }
 .card__badge {
@@ -975,7 +975,7 @@ input, select, textarea { font-family: inherit; }
 }
 .bento__tile {
   position: relative; overflow: hidden; border-radius: var(--radius);
-  border: 1px solid var(--line); display: block; background: #0e0f13;
+  border: 1px solid var(--line); display: block; background: var(--bg-elev);
 }
 .bento__tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
 .bento__tile:hover img { transform: scale(1.08); }
@@ -1017,7 +1017,7 @@ input, select, textarea { font-family: inherit; }
 .cta-band__eyebrow { display: block; font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
 
 /* Landing responsive */
-@media (max-width: 960px) {
+@media (max-width: 768px) {
   .hero { min-height: auto; }
   .hero__content { grid-template-columns: 1fr; padding-top: 6.5rem; gap: 2.5rem; }
   /* Show the jersey visual on mobile (stacked under the text) so it isn't empty */
