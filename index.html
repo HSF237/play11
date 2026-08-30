@@ -18,8 +18,8 @@
         position: fixed; inset: 0; z-index: 9999;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
         background:
-          radial-gradient(circle at 50% 40%, rgba(200,162,74,0.20), transparent 60%),
-          #0a0a0b;
+          radial-gradient(circle at 50% 40%, rgba(200,162,74,0.1), transparent 60%),
+          #f8f9fa;
         font-family: 'Archivo Black', Impact, 'Arial Black', sans-serif;
         transition: opacity 0.7s ease, visibility 0.7s ease;
         overflow: hidden;
@@ -72,8 +72,8 @@
       @keyframes p11WordIn { to { opacity: 1; transform: none; } }
       @keyframes p11Sheen { 0% { transform: translateX(-120%);} 60%,100% { transform: translateX(120%);} }
       .p11-tag {
-        margin-top: 1.1rem; font-family: 'Inter', Arial, sans-serif; font-weight: 500;
-        font-size: 0.72rem; letter-spacing: 0.46em; color: #b9bcc6; text-transform: uppercase;
+        margin-top: 1.1rem; font-family: 'Inter', Arial, sans-serif; font-weight: 600;
+        font-size: 0.72rem; letter-spacing: 0.46em; color: #4a5568; text-transform: uppercase;
         opacity: 0; transform: translateY(8px); animation: p11TagIn 0.8s ease 0.7s forwards;
       }
       @keyframes p11TagIn { to { opacity: 1; transform: none; } }
@@ -104,7 +104,7 @@
     <div id="p11-splash">
       <div class="p11-glow"></div>
       <div class="p11-stage">
-        <img class="p11-splash-img" src="/play11-logo-white.png" alt="PLAY11" />
+        <img class="p11-splash-img" src="/play11-logo.png" alt="PLAY11" />
         <div class="p11-tag">Wear The Legend</div>
       </div>
       <div class="p11-bar"><span></span></div>

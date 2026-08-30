@@ -38,7 +38,7 @@ export default function Navbar() {
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__inner">
         <Link to="/" className="navbar__logo" onClick={() => setOpen(false)}>
-          <Logo />
+          <Logo variant="black" />
         </Link>
 
         <nav className={`navbar__links ${open ? 'is-open' : ''}`}>
