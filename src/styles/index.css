@@ -4,23 +4,23 @@
    ============================================================= */
 
 :root {
-  --bg: #0a0a0b;
-  --bg-elev: #121317;
-  --bg-card: #15161a;
-  --line: #23252b;
-  --text: #f4f4f6;
-  --muted: #9a9da8;
-  --muted-2: #6b6e7a;
+  --bg: #f8f9fa;
+  --bg-elev: #ffffff;
+  --bg-card: #ffffff;
+  --line: #e2e8f0;
+  --text: #1a202c;
+  --muted: #718096;
+  --muted-2: #a0aec0;
   --gold: #c8a24a;
-  --gold-soft: #e0c486;
+  --gold-soft: #b8923a;
   --accent: #d4af37;
-  --danger: #e0533d;
+  --danger: #e53e3e;
   --radius: 16px;
   --radius-sm: 10px;
   --maxw: 1240px;
   --font-display: 'Anton', 'Bebas Neue', Impact, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-  --shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -63,7 +63,7 @@ input, select, textarea { font-family: inherit; }
   font-size: 0.95rem;
   letter-spacing: 0.02em;
   transition: transform 0.2s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.2s ease;
-  background: #1c1d22;
+  background: #f1f5f9;
   color: var(--text);
   border: 1px solid var(--line);
 }
@@ -91,7 +91,7 @@ input, select, textarea { font-family: inherit; }
   border-bottom: 1px solid transparent;
 }
 .navbar--scrolled {
-  background: rgba(10, 10, 11, 0.82);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(14px);
   padding: 0.7rem 0;
   border-bottom: 1px solid var(--line);
