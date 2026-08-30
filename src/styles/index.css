@@ -1032,7 +1032,9 @@ input, select, textarea { font-family: inherit; }
     width: 240px; 
     z-index: 1; 
   }
-  .hero__jersey { width: auto; height: 300px; aspect-ratio: 2 / 3; margin: 0 auto; }
+  .hero__jersey { width: auto; height: 320px; aspect-ratio: auto; margin: 0 auto; background: transparent; border: none; box-shadow: none; }
+  .hero__jersey img { background: transparent; }
+  .hero__jersey::after { display: none; }
   .hero__ring { width: 320px; height: 320px; }
   .hero__ring--2 { width: 360px; height: 360px; }
   .hero__chip { padding: 0.35rem 0.6rem; font-size: 0.7rem; }

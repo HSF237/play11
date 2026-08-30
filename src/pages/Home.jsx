@@ -174,11 +174,14 @@ export default function Home() {
 
           <div className="hero__right" aria-hidden="true">
             <div className="hero__jersey">
-              <img
-                src={HERO_IMAGE}
-                alt=""
-                onError={(e) => (e.currentTarget.style.display = 'none')}
-              />
+              <picture>
+                <source srcSet="/beckham-cutout.png" media="(max-width: 768px)" />
+                <img
+                  src={HERO_IMAGE}
+                  alt=""
+                  onError={(e) => (e.currentTarget.style.display = 'none')}
+                />
+              </picture>
             </div>
           </div>
         </div>
