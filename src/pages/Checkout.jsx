@@ -11,9 +11,10 @@ const STEP_DETAILS  = 'details'
 const STEP_PAYMENT  = 'payment'
 const STEP_SUCCESS  = 'success'
 
-async function sendNtfy(form, items, subtotal, utr) {
+async function sendNtfy(form, items, total, utr, appliedCoupon) {
   const itemSummary = items.map((i) => `${i.qty}x ${i.name} (${i.size})`).join(', ')
-  const msg = `${form.name} | ${form.phone} | Rs.${subtotal} | UTR: ${utr} | ${itemSummary} | ${form.address}, ${form.city} ${form.pincode}`
+  const couponText = appliedCoupon ? ` | Coupon: ${appliedCoupon.code}` : ''
+  const msg = `${form.name} | ${form.phone} | Rs.${total} | UTR: ${utr}${couponText} | ${itemSummary} | ${form.address}, ${form.city} ${form.pincode}`
 
   try {
     const res = await fetch(`https://ntfy.sh/${STORE.ntfyTopic}`, {
@@ -32,7 +33,7 @@ async function sendNtfy(form, items, subtotal, utr) {
 }
 
 export default function Checkout() {
-  const { items, subtotal, clear } = useCart()
+  const { items, subtotal, discount, total, appliedCoupon, clear } = useCart()
   const { user, loginWithGoogle }  = useAuth()
   const [step, setStep]     = useState(STEP_DETAILS)
   const [busy, setBusy]     = useState(false)
@@ -44,7 +45,7 @@ export default function Checkout() {
     city: '', state: '', pincode: '', country: 'India',
   })
 
-  const upiLink = `upi://pay?pa=${encodeURIComponent(STORE.upiId)}&pn=${encodeURIComponent(STORE.name)}&am=${subtotal}&cu=INR&tn=${encodeURIComponent('Play11 Order - ' + form.name)}`
+  const upiLink = `upi://pay?pa=${encodeURIComponent(STORE.upiId)}&pn=${encodeURIComponent(STORE.name)}&am=${total}&cu=INR&tn=${encodeURIComponent('Play11 Order - ' + form.name)}`
 
   function updateForm(e) {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
@@ -70,8 +71,8 @@ export default function Checkout() {
     setUtrError('')
     setBusy(true)
     try {
-      await saveOrder({ form, items, subtotal, utr: cleaned, userId: user?.uid, userEmail: user?.email })
-      await sendNtfy(form, items, subtotal, cleaned)
+      await saveOrder({ form, items, subtotal, discount, total, appliedCoupon, utr: cleaned, userId: user?.uid, userEmail: user?.email })
+      await sendNtfy(form, items, total, cleaned, appliedCoupon)
       clear()
       setStep(STEP_SUCCESS)
     } catch (err) {
@@ -138,13 +139,13 @@ export default function Checkout() {
                   fgColor="#0a0a0b"
                   level="M"
                 />
-                <p className="pay-box__amount">Pay ₹{Number(subtotal).toLocaleString('en-IN')}</p>
+                <p className="pay-box__amount">Pay ₹{Number(total).toLocaleString('en-IN')}</p>
                 <p className="pay-box__upi">UPI: {STORE.upiId}</p>
               </div>
 
               <div className="pay-box__steps">
                 <span>1️⃣ Scan QR with your UPI app</span>
-                <span>2️⃣ Confirm the payment of ₹{Number(subtotal).toLocaleString('en-IN')}</span>
+                <span>2️⃣ Confirm the payment of ₹{Number(total).toLocaleString('en-IN')}</span>
                 <span>3️⃣ Copy the <strong>UTR / reference number</strong> shown after payment</span>
                 <span>4️⃣ Paste it below and submit</span>
               </div>
@@ -170,7 +171,7 @@ export default function Checkout() {
                   checked={confirmed}
                   onChange={(e) => setConfirmed(e.target.checked)}
                 />
-                I confirm I have paid <strong>₹{Number(subtotal).toLocaleString('en-IN')}</strong> to Play11 UPI and the UTR above is correct.
+                I confirm I have paid <strong>₹{Number(total).toLocaleString('en-IN')}</strong> to Play11 UPI and the UTR above is correct.
               </label>
             </div>
 
@@ -180,7 +181,7 @@ export default function Checkout() {
               disabled={busy || !confirmed}
               style={{ opacity: !confirmed ? 0.5 : 1 }}
             >
-              {busy ? 'Submitting…' : `Confirm Order — ₹${Number(subtotal).toLocaleString('en-IN')}`}
+              {busy ? 'Submitting…' : `Confirm Order — ₹${Number(total).toLocaleString('en-IN')}`}
             </button>
 
             <button
@@ -201,7 +202,14 @@ export default function Checkout() {
                 <span>{inr(i.price * i.qty)}</span>
               </div>
             ))}
-            <div className="summary-row summary-row--total"><span>Total</span><span>{inr(subtotal)}</span></div>
+            <div className="summary-row"><span>Subtotal</span><span>{inr(subtotal)}</span></div>
+            {discount > 0 && (
+              <div className="summary-row" style={{ color: 'var(--primary)' }}>
+                <span>Discount ({appliedCoupon?.code})</span>
+                <span>-{inr(discount)}</span>
+              </div>
+            )}
+            <div className="summary-row summary-row--total"><span>Total</span><span>{inr(total)}</span></div>
             <div className="summary-row"><span>Payment</span><span style={{ color: 'var(--gold)' }}>UPI only</span></div>
           </aside>
         </div>
@@ -290,8 +298,14 @@ export default function Checkout() {
             </div>
           ))}
           <div className="summary-row"><span>Subtotal</span><span>{inr(subtotal)}</span></div>
+          {discount > 0 && (
+            <div className="summary-row" style={{ color: 'var(--primary)' }}>
+              <span>Discount ({appliedCoupon?.code})</span>
+              <span>-{inr(discount)}</span>
+            </div>
+          )}
           <div className="summary-row"><span>Delivery</span><span>Free above ₹999</span></div>
-          <div className="summary-row summary-row--total"><span>Total</span><span>{inr(subtotal)}</span></div>
+          <div className="summary-row summary-row--total"><span>Total</span><span>{inr(total)}</span></div>
         </aside>
       </div>
     </div>

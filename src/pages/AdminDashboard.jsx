@@ -151,7 +151,7 @@ export default function AdminDashboard() {
     return [
       `Hey ${order.form?.name}! 👋`, ``,
       `Thanks for shopping from *Play11* ⚽`, ``,
-      `Your order has been *CONFIRMED* and we've received your payment of *₹${order.subtotal}*.`, ``,
+      `Your order has been *CONFIRMED* and we've received your payment of *₹${order.total || order.subtotal}*.`, ``,
       `*Items ordered:*`, items, ``,
       `We'll pack and ship your jersey soon. You'll get an update once it's on the way! 🚀`, ``,
       `— Team Play11, ${STORE.location}`,
@@ -420,11 +420,11 @@ export default function AdminDashboard() {
                     <span className="admin-order-card__utr">UTR: {order.utr}</span>
                   </div>
                   <div className="admin-order-card__right">
-                    <strong className="admin-order-card__total">₹{order.subtotal}</strong>
+                    <strong className="admin-order-card__total">₹{order.total || order.subtotal}</strong>
                     <div className="admin-order-card__confirm-box">
                       {isPending && (
                         <>
-                          <p className="admin-order-card__confirm-q">Did you receive ₹{order.subtotal} from {order.form?.name}?</p>
+                          <p className="admin-order-card__confirm-q">Did you receive ₹{order.total || order.subtotal} from {order.form?.name}?</p>
                           <button className="btn btn--primary btn--sm" onClick={() => confirmOrder(order)}>
                             ✅ Yes — Send Confirmation on WhatsApp
                           </button>

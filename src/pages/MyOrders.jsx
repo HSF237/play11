@@ -112,7 +112,7 @@ export default function MyOrders() {
                 <span className="order-card__addr">
                   📍 {order.form?.city}, {order.form?.state}
                 </span>
-                <span className="order-card__total">{inr(order.subtotal)}</span>
+                <span className="order-card__total">{inr(order.total || order.subtotal)}</span>
               </div>
 
               {order.status !== 'cancelled' && <OrderTracker status={order.status || 'pending'} />}
