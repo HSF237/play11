@@ -1,17 +1,50 @@
 rules_version = '2';
 service cloud.firestore {
-  match /databases/{database}/documents {
-    match /products/{id} {
-      allow read: if true;
-      allow write: if request.auth != null;
-    }
-    match /orders/{id} {
-      allow create: if true;
-      allow read, update, delete: if request.auth != null;
-    }
-    match /coupons/{id} {
-      allow read: if true;
-      allow write: if request.auth != null;
-    }
+ match /databases/{database}/documents {
+  function admin() { return request.auth != null && request.auth.token.email_verified == true && request.auth.token.email in ['play11official@gmail.com','zerox9861@gmail.com']; }
+  function validProduct() { let p=request.resource.data; return p.name is string && p.name.size()>0 && p.name.size()<=160 && p.price is number && p.price>0 && p.price<=100000 && p.sizes is list && p.sizes.size()>0 && p.sizes.size()<=30 && (p.stock==null || p.stock is int && p.stock>=0); }
+  match /products/{id} { allow read: if true; allow create,update: if admin() && validProduct(); allow delete: if admin(); }
+  match /coupons/{id} { allow read: if true; allow write: if admin(); }
+  match /settings/{id} { allow read: if true; allow write: if admin(); }
+  function validLine(i) {
+   return i.id.matches('^.{1,150}$') && i.name.matches('^.{1,160}$') && i.size.matches('^.{1,30}$')
+    && i.qty is int && i.qty>=1 && i.qty<=20
+    && i.price is number && i.price>0 && i.price<=100000;
   }
+  function validLines(items) {
+   return items is list && items.size()>0 && items.size()<=10
+    && validLine(items[0]) && (items.size()<2 || validLine(items[1]))
+    && (items.size()<3 || validLine(items[2])) && (items.size()<4 || validLine(items[3]))
+    && (items.size()<5 || validLine(items[4])) && (items.size()<6 || validLine(items[5]))
+    && (items.size()<7 || validLine(items[6])) && (items.size()<8 || validLine(items[7]))
+    && (items.size()<9 || validLine(items[8])) && (items.size()<10 || validLine(items[9]));
+  }
+  function validRequest(d) { return d.keys().hasOnly(['form','items','subtotal','discount','total','deliveryCharge','couponCode','userId','isMock','source','consent','status','paymentStatus','createdAt'])
+    && d.status=='requested' && d.paymentStatus=='unpaid'
+    && d.source=='whatsapp' && d.consent==true
+    && d.createdAt==request.time && validLines(d.items)
+    && d.form.keys().hasOnly(['name','phone','email','address','city','state','pincode','country'])
+    && d.form.name is string && d.form.name.size()>0 && d.form.name.size()<=200
+    && d.form.phone.matches('^[0-9]{10}$') && d.form.pincode.matches('^[1-9][0-9]{5}$')
+    && d.form.address is string && d.form.address.size()>0 && d.form.address.size()<=200
+    && d.form.city is string && d.form.city.size()>0 && d.form.city.size()<=200
+    && d.form.state is string && d.form.state.size()>0 && d.form.state.size()<=200
+    && d.form.email is string && d.form.email.size()<=200
+    && d.form.country=='India'
+    && d.subtotal is number && d.subtotal>=0 && d.subtotal<=20000000
+    && d.discount is number && d.discount>=0 && d.discount<=d.subtotal
+    && d.total==d.subtotal-d.discount
+    && d.isMock is bool
+    && (d.deliveryCharge==null || d.deliveryCharge is number && d.deliveryCharge>=0 && d.deliveryCharge<=100000)
+    && d.couponCode is string && d.couponCode.size()<=40
+    && (d.userId=='' || request.auth!=null && d.userId==request.auth.uid);
+  }
+  // Requests are untrusted estimates. Only staff can read customer details,
+  // confirm current prices, reserve stock, or verify payment.
+  match /orderRequests/{id} {
+   allow create: if validRequest(request.resource.data);
+   allow read,update,delete: if admin();
+  }
+  match /orders/{id} { allow read,update,delete: if admin(); allow create: if false; }
+ }
 }

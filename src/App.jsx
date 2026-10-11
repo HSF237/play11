@@ -1,167 +1,118 @@
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
-import Navbar from './components/Navbar.jsx'
-import Footer from './components/Footer.jsx'
-import WhatsAppBubble from './components/WhatsAppBubble.jsx'
-import AiChat from './components/AiChat.jsx'
-import Home from './pages/Home.jsx'
-import { useAuth } from './context/AuthContext.jsx'
-import Shop from './pages/Shop.jsx'
-import ProductDetail from './pages/ProductDetail.jsx'
-import Cart from './pages/Cart.jsx'
-import Checkout from './pages/Checkout.jsx'
-import AdminLogin from './pages/AdminLogin.jsx'
-import AdminDashboard from './pages/AdminDashboard.jsx'
-import ProtectedRoute from './components/ProtectedRoute.jsx'
-import MyOrders from './pages/MyOrders.jsx'
-import WishlistPage from './pages/WishlistPage.jsx'
-import NotFound from './pages/NotFound.jsx'
-
-function ScrollToTop() {
-  const { pathname } = useLocation()
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
-  }, [pathname])
-  return null
+import { useEffect, Component, lazy, Suspense } from "react";
+import { Routes, Route, useLocation, Link } from "react-router-dom";
+import {
+  Navbar,
+  Footer,
+  Home,
+  Shop,
+  ProductDetail,
+  Cart,
+  Checkout,
+  Wishlist,
+  Info,
+} from "./new/Storefront.jsx";
+import { StoreProvider, useStore } from "./new/core.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+const Admin = lazy(() =>
+  import("./new/Admin.jsx").then((m) => ({ default: m.Admin })),
+);
+const AdminLogin = lazy(() =>
+  import("./new/Admin.jsx").then((m) => ({ default: m.AdminLogin })),
+);
+class Boundary extends Component {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    return this.state.failed ? (
+      <div className="empty">
+        <h1>Let’s try that again.</h1>
+        <p>The page could not load. Your saved bag is still here.</p>
+        <button className="btn" onClick={() => location.reload()}>
+          Reload store
+        </button>
+      </div>
+    ) : (
+      this.props.children
+    );
+  }
 }
-
-// Buttery inertia smooth-scroll via Lenis (loaded from CDN so no reinstall).
-// Degrades gracefully to native scroll if the CDN is unavailable, and stays
-// native on touch devices so mobile is never broken.
-function useSmoothScroll() {
+function Shell() {
+  const { pathname } = useLocation(),
+    { settings } = useStore(),
+    admin = pathname.startsWith("/admin");
   useEffect(() => {
-    let lenis
-    let rafId
-    let stopped = false
-    import('https://cdn.jsdelivr.net/npm/lenis@1.1.14/+esm')
-      .then((mod) => {
-        if (stopped) return
-        const Lenis = mod.default || mod.Lenis
-        lenis = new Lenis({
-          duration: 1.15,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-          lerp: 0.09,
-          wheelMultiplier: 1,
-          anchors: true,
-        })
-        const raf = (time) => {
-          lenis.raf(time)
-          rafId = requestAnimationFrame(raf)
-        }
-        rafId = requestAnimationFrame(raf)
-        window.__lenis = lenis
-      })
-      .catch(() => {})
-    return () => {
-      stopped = true
-      if (rafId) cancelAnimationFrame(rafId)
-      if (lenis) lenis.destroy()
-      window.__lenis = null
-    }
-  }, [])
-}
-
-// Top scroll-progress bar — buttery, rAF-throttled, transform-only.
-function useScrollProgress() {
-  useEffect(() => {
-    const bar = document.getElementById('scrollProgress')
-    if (!bar) return
-    let raf = 0
-    const onScroll = () => {
-      if (raf) return
-      raf = requestAnimationFrame(() => {
-        const doc = document.documentElement
-        const max = doc.scrollHeight - doc.clientHeight
-        const p = max > 0 ? doc.scrollTop / max : 0
-        bar.style.transform = `scaleX(${p})`
-        raf = 0
-      })
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      if (raf) cancelAnimationFrame(raf)
-    }
-  }, [])
-}
-
-// Reveal-on-scroll for any [data-reveal] element. Re-runs on route change and
-// watches for async-loaded content (e.g. products) via a MutationObserver, so
-// nothing is ever left stuck invisible.
-function useReveal(pathname) {
-  useEffect(() => {
-    if (!('IntersectionObserver' in window)) {
-      document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-visible'))
-      return
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-visible')
-            io.unobserve(e.target)
-          }
-        })
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -8% 0px' }
-    )
-    const observeAll = () =>
-      document.querySelectorAll('[data-reveal]:not(.is-visible)').forEach((el) => io.observe(el))
-
-    observeAll()
-    // Catch elements rendered after async data loads.
-    const mo = new MutationObserver(() => observeAll())
-    mo.observe(document.body, { childList: true, subtree: true })
-    const t = setTimeout(observeAll, 400)
-
-    return () => {
-      io.disconnect()
-      mo.disconnect()
-      clearTimeout(t)
-    }
-  }, [pathname])
-}
-
-export default function App() {
-  const location = useLocation()
-  const isAdmin = location.pathname.startsWith('/admin')
-  const { user } = useAuth()
-
-  useSmoothScroll()
-  useScrollProgress()
-  useReveal(location.pathname)
-
+    window.scrollTo(0, 0);
+    document.title = `${pathname === "/" ? "Your club. Your colours." : pathname.split("/")[1].replaceAll("-", " ")} — PLAY11`;
+  }, [pathname]);
   return (
-    <div className="app-shell">
-      <ScrollToTop />
-      {!isAdmin && <div className="scroll-progress" id="scrollProgress" aria-hidden="true" />}
-      {!isAdmin && <Navbar />}
-      <main className="app-main">
-        <Routes>
-          <Route path="/" element={user ? <Navigate to="/shop" replace /> : <Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/my-orders" element={<MyOrders />} />
-          <Route path="/wishlist" element={<WishlistPage />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+    <>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      {!admin && <Navbar />}
+      <main id="main">
+        <Suspense fallback={<div className="loading">Loading…</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/story" element={<Info page="story" />} />
+            <Route path="/help" element={<Info page="help" />} />
+            <Route path="/policies" element={<Info page="policies" />} />
+            <Route path="/my-orders" element={<Info page="orders" />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <div className="empty">
+                  <span className="eyebrow">404 / OFFSIDE</span>
+                  <h1>Out of play.</h1>
+                  <Link className="btn" to="/shop">
+                    Back to the lineup →
+                  </Link>
+                </div>
+              }
+            />
+          </Routes>
+        </Suspense>
       </main>
-      {!isAdmin && <Footer />}
-      {!isAdmin && <WhatsAppBubble />}
-      {!isAdmin && <AiChat />}
-    </div>
-  )
+      {!admin && (
+        <>
+          <Footer />
+          <a
+            className="support-float"
+            href={`https://wa.me/${settings.whatsapp}`}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Contact PLAY11 on WhatsApp"
+          >
+            <span>↗</span>
+            <b>Let’s talk football</b>
+          </a>
+        </>
+      )}
+    </>
+  );
+}
+export default function App() {
+  return (
+    <Boundary>
+      <StoreProvider>
+        <Shell />
+      </StoreProvider>
+    </Boundary>
+  );
 }

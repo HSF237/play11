@@ -4,113 +4,34 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Play11 — Premium authentic football jerseys. Wear the legend." />
-    <title>Play11 — Wear The Legend</title>
+    <meta name="theme-color" content="#111111" />
+    <meta
+      name="description"
+      content="PLAY11 — football jerseys for club, country and culture. Shop the lineup and order on WhatsApp. All-India delivery. No cash on delivery."
+    />
+    <meta property="og:title" content="PLAY11 — Your club. Your colours." />
+    <meta
+      property="og:description"
+      content="Football belongs to you. Explore club kits, national teams and the retro archive."
+    />
+    <meta
+      property="og:image"
+      content="https://play11jerseys.vercel.app/jersey-catalogue.webp"
+    />
+    <title>PLAY11 — Your club. Your colours.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Montserrat:wght@800;900&family=Inter:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <style>
-      /* ===== Play11 splash / loading screen (shows before React boots) ===== */
-      #p11-splash {
-        position: fixed; inset: 0; z-index: 9999;
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-        background:
-          radial-gradient(circle at 50% 40%, rgba(200,162,74,0.1), transparent 60%),
-          #F9F6F0;
-        font-family: 'Archivo Black', Impact, 'Arial Black', sans-serif;
-        transition: opacity 0.7s ease, visibility 0.7s ease;
-        overflow: hidden;
-      }
-      #p11-splash.hide { opacity: 0; visibility: hidden; }
-      /* faint moving grid */
-      #p11-splash::before {
-        content: ''; position: absolute; inset: -2px;
-        background-image:
-          linear-gradient(rgba(200,162,74,0.12) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(200,162,74,0.12) 1px, transparent 1px);
-        background-size: 54px 54px;
-        mask-image: radial-gradient(circle at 50% 45%, black, transparent 70%);
-        -webkit-mask-image: radial-gradient(circle at 50% 45%, black, transparent 70%);
-        animation: p11Grid 8s linear infinite;
-      }
-      @keyframes p11Grid { to { background-position: 54px 54px; } }
-      /* breathing glow */
-      .p11-glow {
-        position: absolute; width: 520px; height: 520px; border-radius: 50%;
-        background: radial-gradient(circle, rgba(200,162,74,0.22), transparent 65%);
-        filter: blur(20px); animation: p11Glow 2.6s ease-in-out infinite;
-      }
-      @keyframes p11Glow { 0%,100% { transform: scale(0.9); opacity: 0.7; } 50% { transform: scale(1.08); opacity: 1; } }
-      .p11-stage { position: relative; z-index: 2; text-align: center; }
-      .p11-mark {
-        display: block; margin: 0 auto 0.9rem;
-        opacity: 0; transform: translateY(14px) scale(0.85);
-        animation: p11WordIn 0.9s cubic-bezier(0.22,0.61,0.36,1) forwards;
-        filter: drop-shadow(0 6px 18px rgba(200,162,74,0.35));
-      }
-      .p11-word {
-        font-family: 'Montserrat', 'Archivo Black', sans-serif; font-weight: 900;
-        font-size: clamp(2.8rem, 13vw, 5rem); line-height: 1; letter-spacing: -0.03em;
-        color: #1F1B16; position: relative; display: inline-block;
-        opacity: 0; transform: translateY(22px) scale(0.96);
-        animation: p11WordIn 1s cubic-bezier(0.22,0.61,0.36,1) 0.15s forwards;
-      }
-      .p11-word b {
-        font-weight: inherit;
-        background: linear-gradient(135deg, #e0c486, #c8a24a 55%, #fff 130%);
-        -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-      }
-      .p11-word::after {
-        content: ''; position: absolute; inset: 0;
-        background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.45) 50%, transparent 65%);
-        -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-        transform: translateX(-120%); animation: p11Sheen 2.2s ease-in-out 1s infinite;
-      }
-      @keyframes p11WordIn { to { opacity: 1; transform: none; } }
-      @keyframes p11Sheen { 0% { transform: translateX(-120%);} 60%,100% { transform: translateX(120%);} }
-      .p11-tag {
-        margin-top: 1.1rem; font-family: 'Inter', Arial, sans-serif; font-weight: 600;
-        font-size: 0.72rem; letter-spacing: 0.46em; color: #4a5568; text-transform: uppercase;
-        opacity: 0; transform: translateY(8px); animation: p11TagIn 0.8s ease 0.7s forwards;
-      }
-      @keyframes p11TagIn { to { opacity: 1; transform: none; } }
-      /* determinate loading bar that fills over the splash duration */
-      .p11-bar {
-        position: relative; z-index: 2; margin-top: 2rem; width: 220px; height: 3px;
-        border-radius: 3px; background: rgba(0,0,0,0.09); overflow: hidden;
-        opacity: 0; animation: p11TagIn 0.6s ease 0.6s forwards;
-      }
-      .p11-bar span {
-        display: block; height: 100%; width: 0; border-radius: 3px;
-        background: linear-gradient(90deg, #c8a24a, #e0c486);
-        box-shadow: 0 0 12px rgba(200,162,74,0.65);
-        animation: p11Fill 2.3s cubic-bezier(0.4,0,0.2,1) 0.5s forwards;
-      }
-      @keyframes p11Fill { to { width: 100%; } }
-      /* official Play11 logo on the splash */
-      .p11-splash-img {
-        height: clamp(46px, 13vw, 82px); width: auto; display: block; margin: 0 auto;
-        opacity: 0; transform: translateY(18px) scale(0.96);
-        animation: p11WordIn 1s cubic-bezier(0.22,0.61,0.36,1) 0.15s forwards;
-        filter: drop-shadow(0 6px 20px rgba(200,162,74,0.28));
-      }
-    </style>
   </head>
   <body>
-    <!-- Branded loading screen, removed once the app mounts -->
-    <div id="p11-splash">
-      <div class="p11-glow"></div>
-      <div class="p11-stage">
-        <img class="p11-splash-img" src="/play11-logo.png" alt="PLAY11" />
-        <div class="p11-tag">Wear The Legend</div>
-      </div>
-      <div class="p11-bar"><span></span></div>
-    </div>
-
     <div id="root"></div>
+    <noscript
+      >Enable JavaScript to browse PLAY11, or order directly at +91 77363 08424
+      on WhatsApp.</noscript
+    >
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -1,101 +1,23 @@
-# 🔥 Play11 — Firebase setup (free) — do this once
+# PLAY11 backend setup
 
-Firebase is what powers your **admin login**, your **products**, and your
-**orders** in the cloud. It's free (Spark plan). This takes ~10 minutes.
+The website uses the existing Firebase project `play11-ed7b4`. No real products or order history are overwritten by the rebuild.
 
-> I can't create the Firebase project *for* you — it has to be made inside
-> **your own Google account** (it asks for your Google login for security).
-> But the steps below are exact, and the website is already 100% wired to use
-> it the moment you paste your keys.
+## Required before opening for orders
 
----
+1. Open Firebase Console → Firestore Database → Rules. Replace the rules with the repository’s `firestore.rules` and Publish. Alternatively sign in locally with Firebase CLI and run `firebase deploy --only firestore:rules --project play11-ed7b4`.
+2. Authentication → Settings → Authorised domains: ensure your actual Vercel domain is allowed. Google and email/password providers must be enabled for staff sign-in.
+3. Sign in at `/admin` using a verified account in `ADMIN_EMAILS`. The same allowlist is enforced in Firestore rules. Changing staff access requires updating both the allowlist and rules.
+4. Add real products with accurate photos, prices, available sizes, fabric and size measurements. Review existing products before publishing them.
+5. In Store settings, confirm delivery and return policies, then disable Show sample catalogue.
 
-## Step 1 — Create the project
-1. Go to **https://console.firebase.google.com** and sign in with your Google account.
-2. Click **“Add project”**.
-3. Name it **play11** → Continue.
-4. Google Analytics: you can **turn it off** (not needed) → **Create project**.
+## Order flow
 
-## Step 2 — Create the database (Firestore)
-1. Left menu → **Build → Firestore Database**.
-2. Click **Create database**.
-3. Choose location **asia-south1 (Mumbai)** (closest to India) → Next.
-4. Start in **Test mode** → **Enable**.
+A guest saves an unpaid order request in `orderRequests`, then explicitly opens WhatsApp and sends the prepared message. Saving a request never claims payment or stock confirmation. The staff confirms current prices and stock using a Firestore transaction; it reserves stock atomically. Staff verifies payment independently, adds tracking, marks shipped and delivered. Cancellation restores reserved stock. Sample products cannot be confirmed for fulfilment. Legacy orders remain visible in Legacy history.
 
-## Step 3 — Turn on admin login (Authentication)
-1. Left menu → **Build → Authentication → Get started**.
-2. Open the **Sign-in method** tab → click **Email/Password** → **Enable** → Save.
-3. Go to the **Users** tab → **Add user**:
-   - Email: `play11official@gmail.com`
-   - Password: choose a strong password (this is your admin password)
-   - **Add user**.
-   ➜ This is the login Nashid uses at `/admin/login`.
+Below the free-delivery threshold, shipping is quoted on WhatsApp unless a fixed fee is set. Free delivery applies above the threshold after discounts. Orders contain up to 10 jersey/size combinations with up to 20 pieces each. Bulk enquiries can be handled on WhatsApp.
 
-## Step 4 — Get your config keys
-1. Click the **⚙️ gear (top-left) → Project settings**.
-2. Scroll to **“Your apps”** → click the **web icon `</>`**.
-3. App nickname: `play11-web` → **Register app**.
-4. Firebase shows a `firebaseConfig = { … }` block. **Copy those values.**
+## Security and operations
 
-## Step 5 — Paste keys into the site
-Open **`src/firebase.js`** and replace the placeholder values with yours:
+Firebase web configuration is public identification, not administrator credentials. Never put a service-account private key in the frontend or repository. Customer records are staff-only. Submitted totals are estimates, recalculated at admin confirmation. Anonymous request creation is allowed; monitor abuse and configure Firebase App Check before a public marketing campaign. Configure project quotas/alerts and retain order records according to your published privacy policy.
 
-```js
-const firebaseConfig = {
-  apiKey: "AIza...your key...",
-  authDomain: "play11-xxxx.firebaseapp.com",
-  projectId: "play11-xxxx",
-  storageBucket: "play11-xxxx.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abc123",
-}
-```
-
-Save the file. Done — the site now runs on your live backend.
-
-## Step 6 — Lock it down before going public (recommended)
-In Firestore → **Rules** tab, paste this and **Publish**. It lets anyone view
-products + place orders, but only your logged-in admin can edit products and
-read/manage orders:
-
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /products/{id} {
-      allow read: if true;
-      allow write: if request.auth != null;
-    }
-    match /orders/{id} {
-      allow create: if true;                 // customers can place orders
-      allow read, update, delete: if request.auth != null;  // only admin
-    }
-    match /coupons/{id} {
-      allow read: if true;                   // customers can validate coupons
-      allow write: if request.auth != null;  // only admin can create/edit coupons
-    }
-  }
-}
-```
-
----
-
-## How the whole thing works once live
-1. **Nashid logs in** at `/admin/login` with the email/password from Step 3.
-2. In **Products**, he adds jerseys — name, club, price (₹), **multiple image
-   URLs**, sizes, fabric, description. They appear instantly in the shop.
-3. A **customer** browses, adds to cart, and checks out by entering their
-   **name, phone, address, city, state, PIN**. No payment is taken.
-4. The order lands in the admin **Orders** tab. Nashid sees the customer's
-   **location**, sets the **delivery charge** for that area + a note, and saves.
-   (Connect WhatsApp/UPI later to collect payment.)
-
-That's the complete loop: list → order → quote delivery → fulfil.
-
----
-
-### Want me to set up Firebase in your browser for you?
-If your Chrome is connected to Claude and you're logged into your Google
-account, I can drive the Firebase console and do Steps 1–4 with you watching,
-then paste the keys into `firebase.js`. Just say **“do the Firebase setup in my
-browser.”** (You'll still approve each step.)
+Publishing this GitHub code to Vercel does not publish Firebase database rules. Do not describe the database controls as live until the rules have been published and staff access has been tested.
