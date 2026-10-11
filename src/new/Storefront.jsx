@@ -224,7 +224,7 @@ function CatalogueError() {
   ) : null;
 }
 export function Home() {
-  const { products, settings: s, loading } = useStore(),
+  const { products, settings: s, loading, isSampleCatalogue } = useStore(),
     featured = products.filter((p) => p.featured).slice(0, 4),
     picks = featured.length ? featured : products.slice(0, 4);
   return (
@@ -293,7 +293,7 @@ export function Home() {
             Shop the full lineup <Icon name="arrow" />
           </Link>
         </div>
-        {s.sampleCatalogue && (
+        {isSampleCatalogue && (
           <p className="sample-note">
             Preview collection · Sample jerseys and prices. Real products coming
             soon.
@@ -449,7 +449,7 @@ export function Home() {
   );
 }
 export function Shop() {
-  const { products, settings, loading } = useStore(),
+  const { products, settings, loading, isSampleCatalogue } = useStore(),
     [params, setParams] = useSearchParams(),
     [filters, setFilters] = useState(false),
     input = useRef(),
@@ -543,7 +543,7 @@ export function Shop() {
       <div className="shop-toolbar">
         <span>
           {visible.length} jerseys{" "}
-          {settings.sampleCatalogue && "· Sample collection"}
+          {isSampleCatalogue && "· Sample collection"}
         </span>
         <div>
           <button

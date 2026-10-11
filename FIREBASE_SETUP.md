@@ -8,7 +8,7 @@ The website uses the existing Firebase project `play11-ed7b4`. No real products 
 2. Authentication → Settings → Authorised domains: ensure your actual Vercel domain is allowed. Google and email/password providers must be enabled for staff sign-in.
 3. Sign in at `/admin` using a verified account in `ADMIN_EMAILS`. The same allowlist is enforced in Firestore rules. Changing staff access requires updating both the allowlist and rules.
 4. Add real products with accurate photos, prices, available sizes, fabric and size measurements. Review existing products before publishing them.
-5. In Store settings, confirm delivery and return policies, then disable Show sample catalogue.
+5. In Store settings, confirm delivery and return policies, then optionally disable the sample fallback. Published products automatically replace samples.
 
 ## Order flow
 

@@ -104,3 +104,18 @@ assert.equal(
 console.log(
   "14 commerce checks passed: coupon types, scope, caps, expiry, minimum spend, disabled coupon, stock, size, current price, delivery boundary.",
 );
+
+// Live inventory must never be hidden by the sample setting.
+const { catalogueState } = await import("../src/new/catalogue.js");
+const preview = [{ id: "sample" }];
+const live = [{ id: "france", published: true }, { id: "psg", published: true }, { id: "draft", published: false }];
+assert.deepEqual(catalogueState(live, preview, true).products.map(p => p.id), ["france", "psg"]);
+assert.equal(catalogueState(live, preview, true).isSampleCatalogue, false);
+assert.deepEqual(catalogueState(live, preview, false).products.map(p => p.id), ["france", "psg"]);
+assert.equal(catalogueState([], preview, true).isSampleCatalogue, true);
+assert.deepEqual(catalogueState([], preview, false).products, []);
+assert.deepEqual(catalogueState(live.slice(2), preview, true).products, preview);
+assert.deepEqual(catalogueState([], preview, true, true).products, []);
+assert.deepEqual(catalogueState([], preview, true, false, "Permission denied").products, []);
+assert.equal(catalogueState([{id: "legacy"}], preview, true).products[0].id, "legacy");
+console.log("9 catalogue checks passed: live products override samples, drafts stay hidden, samples are an empty-catalogue fallback, loading and errors stay visible.");

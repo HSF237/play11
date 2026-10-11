@@ -11,6 +11,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db } from "../firebase.js";
+import { catalogueState } from "./catalogue.js";
 export const defaults = {
   whatsapp: "917736308424",
   phone: "+91 77363 08424",
@@ -124,18 +125,19 @@ export function StoreProvider({ children }) {
     setToast(text);
     timer.current = setTimeout(() => setToast(""), 4000);
   }
-  const products = settings.sampleCatalogue
-    ? samples
-    : liveProducts.filter((p) => p.published !== false);
+  const { products, isSampleCatalogue } = catalogueState(
+    liveProducts, samples, settings.sampleCatalogue, loading, error,
+  );
   return (
     <Context.Provider
       value={{
         products,
+        isSampleCatalogue,
         liveProducts,
         settings,
-        error: settings.sampleCatalogue ? "" : error,
+        error,
         backendError: error || settingsError,
-        loading: !settings.sampleCatalogue && loading,
+        loading,
         refresh: () => setRetry((n) => n + 1),
         notify,
       }}

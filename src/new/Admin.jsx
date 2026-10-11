@@ -188,7 +188,7 @@ export function AdminLogin() {
 }
 export function Admin() {
   const { user, logout } = useAuth(),
-    { liveProducts, settings, backendError, refresh, notify } = useStore(),
+    { liveProducts, settings, isSampleCatalogue, backendError, refresh, notify } = useStore(),
     [tab, setTab] = useState("overview"),
     [orders, setOrders] = useState([]),
     [legacy, setLegacy] = useState([]),
@@ -496,11 +496,10 @@ export function Admin() {
             {error}
           </div>
         )}
-        {settings.sampleCatalogue && (
+        {isSampleCatalogue && (
           <div className="notice">
-            <b>Sample catalogue is visible.</b> Add real products, then turn off
-            “Show sample catalogue” in Store settings. Existing real products
-            are preserved.
+            <b>Sample catalogue is visible.</b> Publish a real product to replace
+            the samples automatically. Draft products stay hidden.
           </div>
         )}
         {tab === "overview" && (
@@ -1332,7 +1331,7 @@ export function Admin() {
                     checked={draft.sampleCatalogue}
                     onChange={cs}
                   />
-                  Show sample catalogue (switch off to show real products)
+                  Show samples only when there are no published products
                 </label>
               )}
               <button className="btn btn-red" disabled={busy}>
