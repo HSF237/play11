@@ -2715,3 +2715,70 @@ details p {
     transform: none;
   }
 }
+
+
+/* PLAY11 editorial collection refresh */
+.collection-editorial {
+  padding: clamp(44px, 5.5vw, 88px) clamp(22px, 4vw, 64px);
+  background: #f7f7f5;
+  color: #17191d;
+}
+.collection-heading {
+  display:flex; align-items:flex-end; justify-content:space-between; gap:28px;
+  margin:0 0 clamp(24px,3vw,42px);
+}
+.collection-heading h2 {
+  margin:12px 0 0; font-size:clamp(2.4rem,4.5vw,4.6rem);
+  line-height:.98; letter-spacing:-.065em; font-weight:850;
+}
+.collection-heading h2 em { color:#caa64d; font-style:normal; }
+.collection-heading > p { margin:0 0 6px; padding-left:18px; border-left:2px solid #d8b451; color:#69707c; line-height:1.65; font-size:clamp(.8rem,1vw,.95rem); }
+.collection-editorial .collection-grid {
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(12px,1.4vw,20px);
+}
+.collection-editorial .collection-tile {
+  position:relative; display:block; min-width:0; min-height:370px; height:clamp(360px,28vw,455px);
+  overflow:hidden; border-radius:12px; padding:clamp(18px,1.6vw,26px);
+  text-decoration:none; isolation:isolate; transition:transform .25s ease, box-shadow .25s ease;
+}
+.collection-editorial .collection-tile:hover { transform:translateY(-5px); box-shadow:0 18px 38px #10182820; }
+.collection-card-club { background:#15191f; color:#fff; }
+.collection-card-national { background:#07392e; color:#fff; }
+.collection-card-retro { background:#102746; color:#fff; }
+.collection-card-limited { background:#eee2cb; color:#202329; }
+.collection-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; position:relative; z-index:2; }
+.collection-card-top > span:first-child { font-size:10px; font-weight:700; letter-spacing:.14em; }
+.collection-card-top i { opacity:.5; font-style:normal; padding:0 3px; }
+.collection-arrow { display:grid; place-items:center; width:34px; height:34px; border:1px solid currentColor; border-radius:50%; transition:background .2s,color .2s; }
+.collection-tile:hover .collection-arrow { background:#e6bd55; color:#16191d; border-color:#e6bd55; }
+.collection-card-copy { position:absolute; z-index:2; left:clamp(18px,1.6vw,26px); bottom:clamp(22px,2vw,30px); width:52%; }
+.collection-card-copy h3 { margin:0 0 12px; font-size:clamp(1.35rem,2vw,2.1rem); line-height:1.03; letter-spacing:-.045em; font-weight:850; }
+.collection-card-copy p { margin:0 0 23px; max-width:180px; font-size:clamp(.78rem,.95vw,.92rem); line-height:1.55; opacity:.74; }
+.collection-cta { display:inline-flex; align-items:center; gap:10px; font-size:9px; letter-spacing:.13em; font-weight:800; }
+.collection-cta b { font-size:16px; font-weight:400; }
+.collection-product { position:absolute; z-index:1; right:-3%; top:13%; width:70%; height:70%; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+.collection-product > img, .collection-product img { width:100%; height:100%; object-fit:contain; object-position:center; mix-blend-mode:normal; filter:drop-shadow(0 16px 12px #0003); transition:transform .35s ease; }
+.collection-tile:hover .collection-product img { transform:scale(1.045) rotate(-1deg); }
+.collection-card-limited .collection-product { width:68%; right:-1%; }
+.collection-empty { font-size:1.2rem; font-weight:800; text-align:center; opacity:.5; }
+@media (max-width:1050px) {
+  .collection-editorial .collection-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .collection-editorial .collection-tile { height:420px; }
+  .collection-card-copy { width:46%; }
+  .collection-product { width:66%; }
+}
+@media (max-width:600px) {
+  .collection-editorial { padding:42px 18px; }
+  .collection-heading { align-items:flex-start; flex-direction:column; gap:16px; }
+  .collection-heading h2 { font-size:clamp(2.2rem,10vw,3.3rem); }
+  .collection-heading > p { margin:0; }
+  .collection-editorial .collection-grid { grid-template-columns:1fr; gap:14px; }
+  .collection-editorial .collection-tile { height:360px; min-height:340px; border-radius:10px; }
+  .collection-card-copy { width:47%; bottom:22px; }
+  .collection-card-copy h3 { font-size:1.75rem; }
+  .collection-card-copy p { margin-bottom:18px; }
+  .collection-product { top:10%; right:-2%; width:68%; height:76%; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .collection-editorial .collection-tile, .collection-product img, .collection-arrow { transition:none; }
+}
