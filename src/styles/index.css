@@ -2836,3 +2836,37 @@ details p {
  .collection-editorial .collection-card-copy p { font-size:.8rem; margin-bottom:14px; }
  .collection-editorial .collection-product { width:65%; right:-5%; top:19%; height:58%; }
 }
+
+
+/* Final spacing correction for the live catalogue-backed collection cards */
+.collection-editorial .collection-tile { position:relative; }
+.collection-editorial .collection-card-copy {
+  left:22px; bottom:24px; width:43%; max-width:170px;
+  padding:0; z-index:4;
+}
+.collection-editorial .collection-card-copy h3 {
+  font-size:clamp(1.2rem,1.55vw,1.65rem);
+  line-height:1.05; margin:0 0 10px; letter-spacing:-.035em;
+}
+.collection-editorial .collection-card-copy p {
+  font-size:clamp(.72rem,.82vw,.82rem); line-height:1.45;
+  margin:0 0 14px; max-width:155px;
+}
+.collection-editorial .collection-cta { font-size:8px; white-space:normal; }
+.collection-editorial .collection-product {
+  right:-3%; top:19%; width:59%; height:59%; z-index:2;
+}
+.collection-editorial .collection-card-limited .collection-product { width:57%; right:-1%; }
+.collection-editorial .collection-card-top { z-index:5; }
+.collection-editorial .collection-art-hitarea { z-index:3; }
+@media(max-width:1050px) {
+ .collection-editorial .collection-card-copy { left:20px; bottom:22px; width:43%; }
+ .collection-editorial .collection-card-copy h3 { font-size:1.45rem; }
+ .collection-editorial .collection-product { width:59%; top:19%; height:58%; }
+}
+@media(max-width:600px) {
+ .collection-editorial .collection-card-copy { left:18px; bottom:20px; width:46%; }
+ .collection-editorial .collection-card-copy h3 { font-size:1.5rem; }
+ .collection-editorial .collection-card-copy p { font-size:.78rem; }
+ .collection-editorial .collection-product { width:62%; top:20%; height:55%; }
+}
