@@ -326,13 +326,13 @@ export function Home() {
         </div>
         <div className="collection-grid collection-player-grid">
           {[
-            { key: "Club", number: "01", title: "Club allegiance.", label: "CLUB KITS", note: "Iconic clubs. Legendary colours.", tone: "club", image: "/products/jersey-collection/club-players.jpg" },
-            { key: "National", number: "02", title: "Country first.", label: "NATIONAL TEAMS", note: "Carry your colours. Feel every moment.", tone: "national", image: "/products/jersey-collection/national-players.jpg" },
-            { key: "Retro", number: "03", title: "Never forgotten.", label: "RETRO KITS", note: "Legends, eras, and unforgettable football.", tone: "retro", image: "/products/jersey-collection/retro-players.jpg" },
-            { key: "Limited", number: "04", title: "Made to stand out.", label: "LIMITED EDITION", note: "Distinctive drops for devoted fans.", tone: "limited", image: "/products/jersey-collection/limited-players.jpg" },
+            { key: "Club", number: "01", title: "Club allegiance.", label: "CLUB KITS", note: "Iconic clubs. Legendary colours.", tone: "club", image: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?auto=format&fit=crop&w=1100&q=85", credit: "https://unsplash.com/photos/man-playing-soccer-during-daytime-Z0KjmjxUsKs" },
+            { key: "National", number: "02", title: "Country first.", label: "NATIONAL TEAMS", note: "Carry your colours. Feel every moment.", tone: "national", image: "https://images.unsplash.com/photo-1777715330451-f3915a7f4326?auto=format&fit=crop&w=1100&q=85", credit: "https://unsplash.com/photos/crowd-watches-teams-line-up-on-a-sports-field-h5A7bUaxsIU" },
+            { key: "Retro", number: "03", title: "Never forgotten.", label: "RETRO KITS", note: "Legends, eras, and unforgettable football.", tone: "retro", image: "https://images.unsplash.com/photo-1725531140774-a3419f40ab41?auto=format&fit=crop&w=1100&q=85", credit: "https://unsplash.com/photos/a-vintage-team-portrait-of-men-in-soccer-uniforms-Amz1-vG1X4E" },
+            { key: "Limited", number: "04", title: "Made to stand out.", label: "LIMITED EDITION", note: "Distinctive drops for devoted fans.", tone: "limited", image: "https://images.unsplash.com/photo-1771077508493-c79cd2634c3d?auto=format&fit=crop&w=1100&q=85", credit: "https://unsplash.com/photos/players-compete-in-a-soccer-match-on-a-green-field-WO01CyDYens" },
           ].map((card) => (
             <article className={`collection-tile collection-card-${card.tone} collection-player-card`} key={card.key}>
-              <img className="collection-player-photo" src={card.image} alt={card.label + " football players"} loading="lazy" />
+              <img className="collection-player-photo" src={card.image} alt={card.label + " football players"} loading="lazy" referrerPolicy="no-referrer" />
               <div className="collection-player-shade" />
               <div className="collection-card-top"><span>{card.number} <i>/</i> {card.label}</span><span className="collection-arrow"><Icon name="arrow" /></span></div>
               <div className="collection-card-copy"><span className="collection-player-overline">PLAY11 / THE COLLECTION</span><h3>{card.title}</h3><p>{card.note}</p><span className="collection-cta">EXPLORE {card.label} <b>↗</b></span></div>
