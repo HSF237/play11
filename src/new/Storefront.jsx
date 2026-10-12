@@ -316,53 +316,41 @@ export function Home() {
           </div>
         )}
       </section>
-      <section className="collection-section">
-        <div className="section-heading">
+      <section className="collection-section collection-editorial">
+        <div className="collection-heading">
           <div>
             <span className="eyebrow">03 / PICK YOUR SIDE</span>
-            <h2>A game of belonging.</h2>
+            <h2>A game of <em>belonging.</em></h2>
           </div>
-          <p>
-            Some things you choose.
-            <br />
-            Your colours choose you.
-          </p>
+          <p>Some things you choose.<br />Your colours choose you.</p>
         </div>
         <div className="collection-grid">
-          {s.collections.map((c, i) => {
-            const p =
-              products.find(
-                (p) =>
-                  (["Club", "National"].includes(c) ? p.type : p.category) ===
-                  c,
-              ) || products[i];
+          {[
+            { key: "Club", number: "01", title: "Club allegiance.", line: "CLUB KITS", note: "Your badge. Your people.", tone: "club" },
+            { key: "National", number: "02", title: "Country first.", line: "NATIONAL TEAMS", note: "More than a jersey.", tone: "national" },
+            { key: "Retro", number: "03", title: "Never forgotten.", line: "RETRO KITS", note: "Classics that stay with us.", tone: "retro" },
+            { key: "Limited", number: "04", title: "Limited edition.", line: "LIMITED KITS", note: "For the ones who know.", tone: "limited" },
+          ].map((card) => {
+            const eligible = products.filter((product) => {
+              const identity = `${product.name || ""} ${product.club || ""}`.toLowerCase();
+              return !identity.includes("france") && !identity.includes("dembélé") && !identity.includes("dembele");
+            });
+            const p = eligible.find((product) =>
+              (["Club", "National"].includes(card.key) ? product.type : product.category) === card.key
+            ) || eligible.find((product) => product.type === (card.key === "National" ? "National" : "Club")) || eligible[0];
             return (
-              <Link
-                className={`collection-tile collection-${i % 4}`}
-                key={c}
-                to={`/shop?collection=${c}`}
-              >
-                <div className="collection-top">
-                  <span>0{i + 1} / THE COLLECTION</span>
-                  <Icon name="arrow" />
+              <Link className={`collection-tile collection-card-${card.tone}`} key={card.key} to={`/shop?collection=${card.key}`}>
+                <div className="collection-card-top">
+                  <span>{card.number} <i>/</i> {card.line}</span>
+                  <span className="collection-arrow"><Icon name="arrow" /></span>
                 </div>
-                {p && <Image product={p} />}
-                <div className="collection-bottom">
-                  <h3>
-                    {c === "Club"
-                      ? "Club allegiance."
-                      : c === "National"
-                        ? "Country first."
-                        : c === "Retro"
-                          ? "Never forgotten."
-                          : `${c} edition.`}
-                  </h3>
-                  <span>
-                    {c === "National"
-                      ? "NATIONAL TEAMS"
-                      : `${c.toUpperCase()} KITS`}{" "}
-                    ↗
-                  </span>
+                <div className="collection-card-copy">
+                  <h3>{card.title}</h3>
+                  <p>{card.note}</p>
+                  <span className="collection-cta">{card.line} <b>↗</b></span>
+                </div>
+                <div className="collection-product">
+                  {p ? <Image product={p} /> : <span className="collection-empty">New kits<br/>coming soon</span>}
                 </div>
               </Link>
             );
