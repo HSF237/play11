@@ -2988,3 +2988,30 @@ details p {
 @media(prefers-reduced-motion:reduce) {
   .collection-recut .collection-player-photo { transition:none; }
 }
+
+
+/* PLAY11 readability pass — more open letter spacing */
+.collection-recut .collection-heading h2 {
+  letter-spacing: .015em;
+}
+.collection-recut .collection-recut-copy h3 {
+  letter-spacing: .015em;
+  line-height: .98;
+}
+.collection-recut .collection-recut-top,
+.collection-recut .collection-player-overline,
+.collection-recut .collection-cta {
+  letter-spacing: .18em;
+}
+.collection-recut .collection-heading > p,
+.collection-recut .collection-recut-copy p {
+  letter-spacing: .025em;
+}
+.collection-recut:before {
+  letter-spacing: -.045em;
+}
+@media(max-width:620px) {
+  .collection-recut .collection-heading h2 { letter-spacing: .005em; }
+  .collection-recut .collection-recut-copy h3 { letter-spacing: .01em; }
+  .collection-recut .collection-recut-copy p { letter-spacing: .02em; }
+}
