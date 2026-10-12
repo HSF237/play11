@@ -2889,3 +2889,102 @@ details p {
 @media(max-width:1050px) { .collection-editorial .collection-player-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .collection-editorial .collection-player-card { height:440px; } .collection-editorial .collection-player-card .collection-card-copy h3 { font-size:clamp(1.9rem,4vw,2.7rem); } }
 @media(max-width:600px) { .collection-editorial .collection-player-grid { grid-template-columns:1fr; gap:14px; } .collection-editorial .collection-player-card { height:420px; min-height:380px; } .collection-editorial .collection-player-card .collection-card-top { top:18px; left:18px; right:18px; } .collection-editorial .collection-player-card .collection-card-copy { left:18px; bottom:20px; } }
 @media(prefers-reduced-motion:reduce) { .collection-editorial .collection-player-card .collection-player-photo { transition:none; } }
+
+
+/* PLAY11 collection recut — asymmetric editorial grid, ink + acid-lime art direction */
+.collection-recut {
+  background:#0c0e0d !important;
+  color:#f3f0e8 !important;
+  padding:clamp(54px,7vw,108px) clamp(18px,4.5vw,72px) !important;
+  position:relative;
+  overflow:hidden;
+}
+.collection-recut:before {
+  content:"PLAY11 / FOOTBALL CULTURE";
+  position:absolute; right:-.02em; top:22px;
+  font-size:clamp(2.6rem,8.6vw,9rem); line-height:.8; letter-spacing:-.09em;
+  font-weight:950; white-space:nowrap; color:#ffffff08; pointer-events:none;
+}
+.collection-recut .collection-heading { position:relative; z-index:1; margin-bottom:clamp(28px,4vw,52px); }
+.collection-recut .eyebrow { color:#c6f36a; }
+.collection-recut .collection-heading h2 { color:#f5f3ed; max-width:780px; font-size:clamp(2.6rem,5.8vw,6rem); letter-spacing:-.075em; }
+.collection-recut .collection-heading h2 em { color:#c6f36a; }
+.collection-recut .collection-heading > p { color:#b6b9b1; border-left:2px solid #c6f36a; }
+.collection-recut .collection-recut-grid {
+  position:relative; z-index:1;
+  display:grid; grid-template-columns:minmax(0,1.22fr) minmax(0,.88fr) minmax(0,.88fr);
+  grid-template-rows:clamp(220px,21vw,310px) clamp(220px,21vw,310px);
+  grid-template-areas:"club national retro" "club limited limited";
+  gap:12px;
+}
+.collection-recut .collection-recut-card {
+  height:auto; min-height:0; width:100%; padding:0; border-radius:0;
+  border:1px solid #ffffff20; background:#171b17; color:#fff;
+  box-shadow:none; transform:none; transition:border-color .25s ease;
+}
+.collection-recut .collection-recut-card:hover { transform:none; box-shadow:none; border-color:#c6f36a; }
+.collection-recut .collection-recut-club { grid-area:club; }
+.collection-recut .collection-recut-national { grid-area:national; }
+.collection-recut .collection-recut-retro { grid-area:retro; }
+.collection-recut .collection-recut-limited { grid-area:limited; }
+.collection-recut .collection-player-photo {
+  filter:saturate(.82) contrast(1.08);
+  transform:scale(1.015);
+  transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .5s ease;
+}
+.collection-recut .collection-recut-card:hover .collection-player-photo { transform:scale(1.07); filter:saturate(1.05) contrast(1.06); }
+.collection-recut .collection-player-shade {
+  background:linear-gradient(180deg,#05070599 0%,#05070508 28%,#05070520 46%,#050705e8 100%);
+}
+.collection-recut .collection-recut-national .collection-player-shade { background:linear-gradient(180deg,#050705aa 0%,#05070518 36%,#050705e8 100%); }
+.collection-recut .collection-recut-top {
+  position:absolute; z-index:3; top:17px; left:18px; right:18px;
+  display:flex; justify-content:space-between; align-items:center; gap:8px;
+  font-size:9px; font-weight:800; letter-spacing:.12em;
+}
+.collection-recut .collection-recut-top i { color:#c6f36a; font-style:normal; margin:0 4px; }
+.collection-recut-mark { color:#c6f36a; font-size:10px; letter-spacing:-.04em; font-weight:950; }
+.collection-recut .collection-recut-copy {
+  position:absolute; z-index:3; left:clamp(17px,2vw,30px); right:18px; bottom:clamp(17px,2vw,28px);
+  width:auto; max-width:none; padding:0;
+}
+.collection-recut .collection-player-overline { color:#c6f36a; font-size:8px; letter-spacing:.16em; margin-bottom:9px; }
+.collection-recut .collection-recut-copy h3 {
+  display:flex; flex-direction:column; gap:0; margin:0 0 10px;
+  font-size:clamp(1.5rem,2.7vw,3.15rem); line-height:.88; letter-spacing:-.065em;
+  font-weight:950; max-width:100%; white-space:normal; text-shadow:0 2px 18px #0006;
+}
+.collection-recut .collection-recut-copy p { font-size:11px; line-height:1.5; color:#e4e5df; opacity:.86; margin:0 0 15px; max-width:290px; }
+.collection-recut .collection-cta { color:#fff; font-size:8px; letter-spacing:.14em; }
+.collection-recut .collection-cta b { color:#c6f36a; font-size:15px; }
+.collection-recut .collection-art-hitarea { z-index:2; }
+.collection-recut .collection-recut-limited .collection-recut-copy { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; column-gap:20px; }
+.collection-recut .collection-recut-limited .collection-player-overline,
+.collection-recut .collection-recut-limited h3,
+.collection-recut .collection-recut-limited p { grid-column:1; }
+.collection-recut .collection-recut-limited .collection-cta { grid-column:2; grid-row:2 / span 2; align-self:end; padding-bottom:3px; white-space:nowrap; }
+@media(max-width:1050px) {
+  .collection-recut .collection-recut-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(2,360px);
+    grid-template-areas:"club national" "retro limited";
+  }
+  .collection-recut .collection-recut-copy h3 { font-size:clamp(1.8rem,4vw,2.8rem); }
+  .collection-recut .collection-recut-limited .collection-recut-copy { display:block; }
+  .collection-recut .collection-recut-limited .collection-cta { display:inline-flex; }
+}
+@media(max-width:620px) {
+  .collection-recut { padding:48px 16px !important; }
+  .collection-recut:before { top:16px; }
+  .collection-recut .collection-heading { align-items:flex-start; flex-direction:column; gap:17px; }
+  .collection-recut .collection-heading h2 { font-size:clamp(2.5rem,12vw,4rem); }
+  .collection-recut .collection-recut-grid { grid-template-columns:1fr; grid-template-rows:none; grid-template-areas:none; gap:10px; }
+  .collection-recut .collection-recut-card { grid-area:auto; height:360px; min-height:360px; }
+  .collection-recut .collection-recut-club { height:430px; }
+  .collection-recut .collection-recut-limited { height:390px; }
+  .collection-recut .collection-recut-copy { left:19px; right:16px; bottom:20px; }
+  .collection-recut .collection-recut-copy h3 { font-size:clamp(2rem,9vw,3.1rem); }
+  .collection-recut .collection-recut-top { top:16px; left:16px; right:16px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .collection-recut .collection-player-photo { transition:none; }
+}
