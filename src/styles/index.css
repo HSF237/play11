@@ -2782,3 +2782,17 @@ details p {
 @media (prefers-reduced-motion:reduce) {
   .collection-editorial .collection-tile, .collection-product img, .collection-arrow { transition:none; }
 }
+
+
+/* Dedicated PLAY11 collection artwork with independent functional links */
+.collection-editorial .collection-art-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(12px,1.4vw,20px); }
+.collection-art-card { position:relative; min-width:0; overflow:hidden; border-radius:10px; aspect-ratio:420 / 434; background:#071515; isolation:isolate; }
+.collection-art-image { display:block; width:100%; height:100%; object-fit:cover; }
+.collection-art-hitarea { position:absolute; inset:0; z-index:2; }
+.collection-art-button { position:absolute; z-index:3; left:6.1%; bottom:6.1%; width:clamp(38px,4vw,48px); aspect-ratio:1; border-radius:50%; display:grid; place-items:center; color:#17201d; background:#e9bf5c; border:1px solid #e9bf5c; box-shadow:0 4px 14px #0002; transition:transform .2s ease, background .2s ease; }
+.collection-art-button svg { width:19px; height:19px; }
+.collection-art-button:hover { transform:translateX(3px); background:#ffda7c; }
+.collection-art-button:focus-visible, .collection-art-hitarea:focus-visible { outline:3px solid #e9bf5c; outline-offset:-4px; }
+@media(max-width:1050px) { .collection-editorial .collection-art-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:600px) { .collection-editorial .collection-art-grid { grid-template-columns:1fr; gap:16px; } .collection-art-card { border-radius:9px; } .collection-art-button { width:44px; } }
+@media(prefers-reduced-motion:reduce) { .collection-art-button { transition:none; } }
