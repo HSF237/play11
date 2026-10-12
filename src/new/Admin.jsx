@@ -4,6 +4,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { useAuth } from "../context/AuthContext.jsx";
 import Logo from "../components/Logo.jsx";
+import PreparedJerseys from "./PreparedJerseys.jsx";
 import {
   useStore,
   Image,
@@ -569,6 +570,7 @@ export function Admin() {
           <div className="admin-two-col">
             <section className="admin-panel">
               <h2>{productId ? "Edit jersey" : "Add a jersey"}</h2>
+              <PreparedJerseys />
               <form onSubmit={submitProduct}>
                 <div className="form-grid">
                   <Field

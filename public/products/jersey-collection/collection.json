@@ -1,0 +1,638 @@
+[
+  {
+    "key": "argentina-dotted-messi",
+    "name": "Argentina Dotted Messi",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/argentina-dotted-messi-front.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/argentina-dotted-messi-model.webp"
+      }
+    ],
+    "missingViews": [
+      "back"
+    ]
+  },
+  {
+    "key": "germany-black-kroos",
+    "name": "Germany Black Kroos",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/germany-black-kroos-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/germany-black-kroos-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/germany-black-kroos-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "brazil-black-trim-neymar",
+    "name": "Brazil Black Trim Neymar",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/brazil-black-trim-neymar-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/brazil-black-trim-neymar-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/brazil-black-trim-neymar-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "milan-white-leao",
+    "name": "Milan White Leao",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/milan-white-leao-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/milan-white-leao-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/milan-white-leao-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "netherlands-red-depay",
+    "name": "Netherlands Red Depay",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/netherlands-red-depay-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/netherlands-red-depay-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/netherlands-red-depay-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "brazil-white-kaka",
+    "name": "Brazil White Kaka",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/brazil-white-kaka-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/brazil-white-kaka-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/brazil-white-kaka-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "spain-red-yamal",
+    "name": "Spain Red Yamal",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/spain-red-yamal-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/spain-red-yamal-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/spain-red-yamal-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "portugal-striped-ronaldo",
+    "name": "Portugal Striped Ronaldo",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/portugal-striped-ronaldo-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/portugal-striped-ronaldo-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/portugal-striped-ronaldo-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "bayern-striped-robben",
+    "name": "Bayern Striped Robben",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/bayern-striped-robben-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/bayern-striped-robben-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/bayern-striped-robben-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "germany-geometric-beckenbauer",
+    "name": "Germany Geometric Beckenbauer",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/germany-geometric-beckenbauer-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/germany-geometric-beckenbauer-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/germany-geometric-beckenbauer-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "madrid-gold-kaka",
+    "name": "Madrid Gold Kaka",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/madrid-gold-kaka-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/madrid-gold-kaka-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/madrid-gold-kaka-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "liverpool-white-torres",
+    "name": "Liverpool White Torres",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/liverpool-white-torres-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/liverpool-white-torres-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/liverpool-white-torres-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "germany-red-ballack",
+    "name": "Germany Red Ballack",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/germany-red-ballack-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/germany-red-ballack-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/germany-red-ballack-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "sweden-blue-ibrahimovic",
+    "name": "Sweden Blue Ibrahimovic",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/sweden-blue-ibrahimovic-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/sweden-blue-ibrahimovic-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/sweden-blue-ibrahimovic-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "milan-black-ibrahimovic",
+    "name": "Milan Black Ibrahimovic",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/milan-black-ibrahimovic-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/milan-black-ibrahimovic-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/milan-black-ibrahimovic-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "madrid-navy-kaka",
+    "name": "Madrid Navy Kaka",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/madrid-navy-kaka-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/madrid-navy-kaka-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/madrid-navy-kaka-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "liverpool-red-fowler",
+    "name": "Liverpool Red Fowler",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/liverpool-red-fowler-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/liverpool-red-fowler-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/liverpool-red-fowler-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "liverpool-red-gerrard",
+    "name": "Liverpool Red Gerrard",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/liverpool-red-gerrard-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/liverpool-red-gerrard-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/liverpool-red-gerrard-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "argentina-tribute-messi",
+    "name": "Argentina Tribute Messi",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/argentina-tribute-messi-front.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/argentina-tribute-messi-model.webp"
+      }
+    ],
+    "missingViews": [
+      "back"
+    ]
+  },
+  {
+    "key": "portugal-red-nike-ronaldo",
+    "name": "Portugal red Puma shirt with black polo collar \u2014 RONALDO 7",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/portugal-red-nike-ronaldo-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/portugal-red-nike-ronaldo-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/portugal-red-nike-ronaldo-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "france-geometric-mbappe",
+    "name": "France Geometric Mbappe",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/france-geometric-mbappe-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/france-geometric-mbappe-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/france-geometric-mbappe-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "france-retro-zidane",
+    "name": "France Retro Zidane",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/france-retro-zidane-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/france-retro-zidane-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/france-retro-zidane-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "argentina-black-messi",
+    "name": "Argentina Black Messi",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/argentina-black-messi-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/argentina-black-messi-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/argentina-black-messi-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "croatia-modric",
+    "name": "Croatia Modric",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/croatia-modric-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/croatia-modric-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/croatia-modric-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "brazil-yellow-piping-neymar",
+    "name": "Brazil Yellow Piping Neymar",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/brazil-yellow-piping-neymar-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/brazil-yellow-piping-neymar-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/brazil-yellow-piping-neymar-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "spain-plain-red-yamal",
+    "name": "Spain Plain Red Yamal",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/spain-plain-red-yamal-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/spain-plain-red-yamal-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/spain-plain-red-yamal-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "portugal-red-striped-ronaldo",
+    "name": "Portugal Red Striped Ronaldo",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/portugal-red-striped-ronaldo-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/portugal-red-striped-ronaldo-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/portugal-red-striped-ronaldo-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "france-blue-mbappe",
+    "name": "France Blue Mbappe",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/france-blue-mbappe-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/france-blue-mbappe-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/france-blue-mbappe-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "portugal-red-puma-ronaldo",
+    "name": "Portugal Red Puma Ronaldo",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/portugal-red-puma-ronaldo-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/portugal-red-puma-ronaldo-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/portugal-red-puma-ronaldo-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "argentina-black-collar-messi",
+    "name": "Argentina Black Collar Messi",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/argentina-black-collar-messi-front.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/argentina-black-collar-messi-model.webp"
+      }
+    ],
+    "missingViews": [
+      "back"
+    ]
+  },
+  {
+    "key": "argentina-white-collar-messi",
+    "name": "Argentina blue-edged crew collar shirt \u2014 MESSI 10",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/argentina-white-collar-messi-front.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/argentina-white-collar-messi-model.webp"
+      }
+    ],
+    "missingViews": [
+      "back"
+    ]
+  },
+  {
+    "key": "brazil-button-collar-neymar",
+    "name": "Brazil yellow black crew collar shirt \u2014 NEYMAR JR 10",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/brazil-button-collar-neymar-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/brazil-button-collar-neymar-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/brazil-button-collar-neymar-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "argentina-blue-shoulder-messi",
+    "name": "Argentina white crew collar gradient stripes \u2014 MESSI 10",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/argentina-blue-shoulder-messi-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/argentina-blue-shoulder-messi-back.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/argentina-blue-shoulder-messi-model.webp"
+      }
+    ],
+    "missingViews": []
+  },
+  {
+    "key": "argentina-floral-messi",
+    "name": "Argentina custom dragon and floral shirt \u2014 MESSI 10",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/argentina-floral-messi-front.webp"
+      },
+      {
+        "view": "model",
+        "url": "/products/jersey-collection/argentina-floral-messi-model.webp"
+      }
+    ],
+    "missingViews": [
+      "back"
+    ]
+  }
+]
