@@ -2796,3 +2796,43 @@ details p {
 @media(max-width:1050px) { .collection-editorial .collection-art-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media(max-width:600px) { .collection-editorial .collection-art-grid { grid-template-columns:1fr; gap:16px; } .collection-art-card { border-radius:9px; } .collection-art-button { width:44px; } }
 @media(prefers-reduced-motion:reduce) { .collection-art-button { transition:none; } }
+
+
+/* Collection cards: keep copy clear of product photography */
+.collection-editorial .collection-tile { overflow:hidden; }
+.collection-editorial .collection-card-top { position:absolute; top:24px; left:24px; right:24px; z-index:4; }
+.collection-editorial .collection-card-copy {
+  z-index:4; left:24px; bottom:24px; width:45%; max-width:190px;
+  padding:0; overflow-wrap:break-word;
+}
+.collection-editorial .collection-card-copy h3 {
+  font-size:clamp(1.25rem,1.7vw,1.8rem); line-height:1.04;
+  letter-spacing:-.045em; text-shadow:0 1px 10px #0001;
+}
+.collection-editorial .collection-card-copy p {
+  font-size:clamp(.75rem,.88vw,.88rem); line-height:1.45;
+  margin:0 0 17px; max-width:165px; opacity:.88;
+}
+.collection-editorial .collection-cta { font-size:8px; letter-spacing:.1em; }
+.collection-editorial .collection-product {
+  top:18%; right:-5%; width:61%; height:62%; z-index:2;
+}
+.collection-editorial .collection-product img {
+  object-fit:contain; object-position:center; filter:drop-shadow(0 12px 14px #00025);
+}
+.collection-editorial .collection-card-limited .collection-product { width:59%; right:-2%; }
+.collection-editorial .collection-art-hitarea { z-index:3; }
+.collection-editorial .collection-art-button { z-index:5; }
+@media(max-width:1050px) {
+ .collection-editorial .collection-tile { height:400px; }
+ .collection-editorial .collection-card-copy { width:44%; left:20px; bottom:22px; }
+ .collection-editorial .collection-product { width:62%; right:-4%; top:18%; height:62%; }
+}
+@media(max-width:600px) {
+ .collection-editorial .collection-tile { height:360px; }
+ .collection-editorial .collection-card-top { top:18px; left:18px; right:18px; }
+ .collection-editorial .collection-card-copy { left:18px; bottom:20px; width:47%; }
+ .collection-editorial .collection-card-copy h3 { font-size:1.55rem; }
+ .collection-editorial .collection-card-copy p { font-size:.8rem; margin-bottom:14px; }
+ .collection-editorial .collection-product { width:65%; right:-5%; top:19%; height:58%; }
+}
