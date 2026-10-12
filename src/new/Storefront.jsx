@@ -324,21 +324,28 @@ export function Home() {
           </div>
           <p>Some things you choose.<br />Your colours choose you.</p>
         </div>
-        <div className="collection-grid collection-art-grid">
+        <div className="collection-grid">
           {[
-            { key: "Club", number: "01", label: "CLUB KITS", image: "/collections/club-kits.webp", alt: "Barcelona-inspired club jersey collection artwork" },
-            { key: "National", number: "02", label: "NATIONAL TEAMS", image: "/collections/national-teams.webp", alt: "Brazil-inspired national team jersey collection artwork" },
-            { key: "Retro", number: "03", label: "RETRO KITS", image: "/collections/retro-kits.webp", alt: "Argentina-inspired retro jersey collection artwork" },
-            { key: "Limited", number: "04", label: "LIMITED EDITION", image: "/collections/limited-edition.webp", alt: "Black and gold special edition jersey collection artwork" },
-          ].map((card) => (
-            <article className="collection-art-card" key={card.key}>
-              <img className="collection-art-image" src={card.image} alt={card.alt} loading="lazy" />
-              <Link className="collection-art-hitarea" to={`/shop?collection=${card.key}`} aria-label={`View ${card.label.toLowerCase()}`} />
-              <Link className="collection-art-button" to={`/shop?collection=${card.key}`} aria-label={`View ${card.label.toLowerCase()}`}>
-                <Icon name="arrow" />
-              </Link>
-            </article>
-          ))}
+            { key: "Club", number: "01", title: "Club allegiance.", label: "CLUB KITS", note: "Iconic clubs. Legendary colours.", tone: "club" },
+            { key: "National", number: "02", title: "Country first.", label: "NATIONAL TEAMS", note: "More than a jersey. It's a nation's heartbeat.", tone: "national" },
+            { key: "Retro", number: "03", title: "Never forgotten.", label: "RETRO KITS", note: "Classic designs. Timeless emotions.", tone: "retro" },
+            { key: "Limited", number: "04", title: "Limited edition.", label: "LIMITED EDITION", note: "Rare drops. Unique looks.", tone: "limited" },
+          ].map((card) => {
+            const eligible = products.filter((product) => {
+              const identity = `${product.name || ""} ${product.club || ""}`.toLowerCase();
+              return !identity.includes("france") && !identity.includes("dembélé") && !identity.includes("dembele");
+            });
+            const product = eligible.find((item) => (card.key === "Club" || card.key === "National" ? item.type : item.category) === card.key) || eligible[0];
+            return (
+              <article className={`collection-tile collection-card-${card.tone}`} key={card.key}>
+                <div className="collection-card-top"><span>{card.number} <i>/</i> {card.label}</span><span className="collection-arrow"><Icon name="arrow" /></span></div>
+                <div className="collection-card-copy"><h3>{card.title}</h3><p>{card.note}</p><span className="collection-cta">{card.label} <b>↗</b></span></div>
+                <div className="collection-product">{product ? <Image product={product} /> : <span className="collection-empty">Explore the collection</span>}</div>
+                <Link className="collection-art-hitarea" to={`/shop?collection=${card.key}`} aria-label={`View ${card.label.toLowerCase()}`} />
+                <Link className="collection-art-button" to={`/shop?collection=${card.key}`} aria-label={`View ${card.label.toLowerCase()}`}><Icon name="arrow" /></Link>
+              </article>
+            );
+          })}
         </div>
       </section>
             <section className="manifesto">
