@@ -316,32 +316,32 @@ export function Home() {
           </div>
         )}
       </section>
-      <section className="collection-section collection-editorial">
+      <section className="collection-section collection-editorial collection-recut">
         <div className="collection-heading">
           <div>
-            <span className="eyebrow">03 / PICK YOUR SIDE</span>
-            <h2>A game of <em>belonging.</em></h2>
+            <span className="eyebrow">03 / FOUR SIDES OF FOOTBALL</span>
+            <h2>Find your <em>football identity.</em></h2>
           </div>
-          <p>Some things you choose.<br />Your colours choose you.</p>
+          <p>Old-school soul. New-season energy.<br />Choose the shirt that feels like you.</p>
         </div>
-        <div className="collection-grid collection-player-grid">
+        <div className="collection-grid collection-player-grid collection-recut-grid">
           {[
-            { key: "Club", number: "01", title: "Club allegiance.", label: "CLUB KITS", note: "Iconic clubs. Legendary colours.", tone: "club", image: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?auto=format&fit=crop&w=1100&q=85", credit: "https://unsplash.com/photos/man-playing-soccer-during-daytime-Z0KjmjxUsKs" },
-            { key: "National", number: "02", title: "Country first.", label: "NATIONAL TEAMS", note: "Carry your colours. Feel every moment.", tone: "national", image: "https://images.unsplash.com/photo-1777715330451-f3915a7f4326?auto=format&fit=crop&w=1100&q=85", credit: "https://unsplash.com/photos/crowd-watches-teams-line-up-on-a-sports-field-h5A7bUaxsIU" },
-            { key: "Retro", number: "03", title: "Never forgotten.", label: "RETRO KITS", note: "Legends, eras, and unforgettable football.", tone: "retro", image: "https://images.unsplash.com/photo-1725531140774-a3419f40ab41?auto=format&fit=crop&w=1100&q=85", credit: "https://unsplash.com/photos/a-vintage-team-portrait-of-men-in-soccer-uniforms-Amz1-vG1X4E" },
-            { key: "Limited", number: "04", title: "Made to stand out.", label: "LIMITED EDITION", note: "Distinctive drops for devoted fans.", tone: "limited", image: "https://images.unsplash.com/photo-1771077508493-c79cd2634c3d?auto=format&fit=crop&w=1100&q=85", credit: "https://unsplash.com/photos/players-compete-in-a-soccer-match-on-a-green-field-WO01CyDYens" },
+            { key: "Club", number: "01", title: "YOUR CLUB.\nYOUR PEOPLE.", label: "CLUB CULTURE", note: "The badge you grew up with.", tone: "club", image: "https://images.unsplash.com/photo-1779142167149-2bd2eaf1b311?auto=format&fit=crop&w=1500&q=85", credit: "https://unsplash.com/photos/soccer-player-on-field-with-stadium-in-background-5c2A96qZq0g" },
+            { key: "National", number: "02", title: "COLOURS\nOF A NATION.", label: "INTERNATIONAL", note: "Every flag. One feeling.", tone: "national", image: "https://images.unsplash.com/photo-1779142167168-458a646f596e?auto=format&fit=crop&w=1100&q=85", credit: "https://unsplash.com/photos/soccer-player-in-white-uniform-celebrates-on-a-green-field-onMIbTpAww4" },
+            { key: "Retro", number: "03", title: "BACK WHEN\nIT ALL BEGAN.", label: "THE ARCHIVE", note: "Timeless shirts, forever stories.", tone: "retro", image: "https://images.unsplash.com/photo-1707370531796-90bbe5bfeb4a?auto=format&fit=crop&w=1100&q=85", credit: "https://unsplash.com/photos/a-group-of-young-men-playing-a-game-of-soccer-Y8yr_c6bQ4Y" },
+            { key: "Limited", number: "04", title: "NOT MADE\nFOR EVERYONE.", label: "RARE DROPS", note: "For the fans who look closer.", tone: "limited", image: "https://images.unsplash.com/photo-1777715329839-41b5033c3003?auto=format&fit=crop&w=1500&q=85", credit: "https://unsplash.com/photos/soccer-players-warming-up-on-a-stadium-field-before-game-_xLfo1r9nGM" },
           ].map((card) => (
-            <article className={`collection-tile collection-card-${card.tone} collection-player-card`} key={card.key}>
-              <img className="collection-player-photo" src={card.image} alt={card.label + " football players"} loading="lazy" referrerPolicy="no-referrer" />
+            <article className={`collection-tile collection-card-${card.tone} collection-player-card collection-recut-card collection-recut-${card.tone}`} key={card.key}>
+              <img className="collection-player-photo" src={card.image} alt={card.label + " football photography"} loading="lazy" referrerPolicy="no-referrer" />
               <div className="collection-player-shade" />
-              <div className="collection-card-top"><span>{card.number} <i>/</i> {card.label}</span><span className="collection-arrow"><Icon name="arrow" /></span></div>
-              <div className="collection-card-copy"><span className="collection-player-overline">PLAY11 / THE COLLECTION</span><h3>{card.title}</h3><p>{card.note}</p><span className="collection-cta">EXPLORE {card.label} <b>↗</b></span></div>
+              <div className="collection-recut-top"><span>{card.number} <i>/</i> {card.label}</span><span className="collection-recut-mark">P11®</span></div>
+              <div className="collection-recut-copy"><span className="collection-player-overline">PLAY11 — FOOTBALL, YOUR WAY</span><h3>{card.title.split("\\n").map((line, i) => <span key={i}>{line}</span>)}</h3><p>{card.note}</p><span className="collection-cta">DISCOVER COLLECTION <b>↗</b></span></div>
               <Link className="collection-art-hitarea" to={`/shop?collection=${card.key}`} aria-label={`View ${card.label.toLowerCase()}`} />
             </article>
           ))}
         </div>
       </section>
-            <section className="manifesto">
+      <section className="manifesto">
         <div className="manifesto-photo">
           <img
             loading="lazy"
