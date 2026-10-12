@@ -342,7 +342,6 @@ export function Home() {
                 <div className="collection-card-copy"><h3>{card.title}</h3><p>{card.note}</p><span className="collection-cta">{card.label} <b>↗</b></span></div>
                 <div className="collection-product">{product ? <Image product={product} /> : <span className="collection-empty">Explore the collection</span>}</div>
                 <Link className="collection-art-hitarea" to={`/shop?collection=${card.key}`} aria-label={`View ${card.label.toLowerCase()}`} />
-                <Link className="collection-art-button" to={`/shop?collection=${card.key}`} aria-label={`View ${card.label.toLowerCase()}`}><Icon name="arrow" /></Link>
               </article>
             );
           })}
