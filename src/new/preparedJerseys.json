@@ -1081,5 +1081,36 @@
     "featured": false,
     "mockCell": null,
     "isMock": false
+  },
+  {
+    "id": "jersey-inter-third-forlan",
+    "name": "Inter Milan Third · Forlan #9",
+    "club": "Inter Milan",
+    "type": "Club",
+    "category": "Regular",
+    "sleeve": "Half Sleeve",
+    "price": 349,
+    "originalPrice": null,
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock": null,
+    "badge": "",
+    "description": "Inter Milan Third · Forlan #9. Retro Umbro-style third shirt in teal with a yellow collar, Pirelli chest print and Inter crest. Printed player name and number as shown. No custom names or numbers. Confirm size availability and delivery on WhatsApp before payment.",
+    "fabric": "",
+    "sizeChart": "",
+    "images": [
+      "/products/jersey-collection/inter-third-forlan-front.webp",
+      "/products/jersey-collection/inter-third-forlan-back.webp"
+    ],
+    "image": "/products/jersey-collection/inter-third-forlan-front.webp",
+    "available": true,
+    "published": true,
+    "featured": false,
+    "mockCell": null,
+    "isMock": false
   }
 ]
