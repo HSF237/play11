@@ -322,8 +322,10 @@ function buildCategoryTiles(products) {
 }
 export function Home() {
   const { products, settings: s, loading, isSampleCatalogue } = useStore(),
-    featured = products.filter((p) => p.featured).slice(0, 4),
-    picks = featured.length ? featured : products.slice(0, 4),
+    latest = [...products]
+      .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0))
+      .slice(0, 10),
+    arrivalsRow = useRef(null),
     collSection = useRef(null),
     collPin = useRef(null),
     collRail = useRef(null),
@@ -427,15 +429,28 @@ export function Home() {
           </div>
         </section>
       )}
-      <section className="section">
+      <section className="section arrivals-section">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">02 / THE STARTING LINEUP</span>
-            <h2>Matchday essentials.</h2>
+            <span className="eyebrow">02 / JUST DROPPED</span>
+            <h2>Latest arrivals.</h2>
           </div>
-          <Link className="text-link" to="/shop">
-            Shop the full lineup <Icon name="arrow" />
-          </Link>
+          <div className="arrivals-controls">
+            <button
+              type="button"
+              aria-label="Previous jerseys"
+              onClick={() => arrivalsRow.current?.scrollBy({ left: -arrivalsRow.current.clientWidth * 0.8, behavior: "smooth" })}
+            >
+              ←
+            </button>
+            <button
+              type="button"
+              aria-label="Next jerseys"
+              onClick={() => arrivalsRow.current?.scrollBy({ left: arrivalsRow.current.clientWidth * 0.8, behavior: "smooth" })}
+            >
+              →
+            </button>
+          </div>
         </div>
         {isSampleCatalogue && (
           <p className="sample-note">
@@ -447,8 +462,8 @@ export function Home() {
         {loading ? (
           <div className="loading">Loading jerseys…</div>
         ) : (
-          <div className="product-grid">
-            {picks.map((p) => (
+          <div ref={arrivalsRow} className="arrivals-row" tabIndex={0} aria-label="Latest arrivals, swipe sideways for more">
+            {latest.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}
           </div>
@@ -458,6 +473,11 @@ export function Home() {
             <h3>The next drop is on its way.</h3>
             <p>Check back soon or ask our team on WhatsApp.</p>
           </div>
+        )}
+        {!loading && latest.length > 0 && (
+          <Link className="arrivals-all" to="/shop">
+            Shop all jerseys
+          </Link>
         )}
       </section>
       <section ref={collSection} className="collection-section collection-editorial collection-recut">
