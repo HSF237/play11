@@ -245,8 +245,20 @@ function useAutoSlide(count, ms = 5000) {
 }
 
 
-function ClubLogoRow() {
+const plain = (t) =>
+  String(t || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+function ClubLogoRow({ products }) {
   if (!CLUB_LOGOS.length) return null;
+  /* A logo links to the shop only when the catalogue really has jerseys for that club. */
+  const clubLink = (c) => {
+    const hit = products.find(
+      (p) => !p.isMock && c.match.some((w) => plain(p.club).includes(w)),
+    );
+    return hit ? "/shop?club=" + encodeURIComponent(hit.club) : null;
+  };
   return (
     <section className="section club-logos-section" aria-label="Clubs">
       <div className="club-logos-row">
@@ -267,8 +279,9 @@ function ClubLogoRow() {
               <span className="club-logo-name">{c.name}</span>
             </>
           );
-          return c.to ? (
-            <Link key={c.name} className="club-logo" to={c.to}>
+          const to = clubLink(c);
+          return to ? (
+            <Link key={c.name} className="club-logo" to={to}>
               {inner}
             </Link>
           ) : (
@@ -364,7 +377,7 @@ export function Home() {
           <span>✳</span> CULTURE <span>✳</span>
         </div>
       </div>
-      <ClubLogoRow />
+      <ClubLogoRow products={products} />
       <section className="section arrivals-section">
         <div className="section-heading">
           <div>

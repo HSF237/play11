@@ -3135,7 +3135,7 @@ details p {
 }
 .club-logo-badge {
   width:100%; max-width:130px; aspect-ratio:1 / 1; border-radius:50%; background:#f1f1ef; display:grid; place-items:center;
-  padding:16%; box-sizing:border-box; transition:transform .3s ease;
+  padding:11%; box-sizing:border-box; transition:transform .3s ease;
 }
 .club-logo-badge img { width:100%; height:100%; object-fit:contain; display:block; }
 .club-logo-badge[data-fallback]:after { content:attr(data-fallback); font-family:var(--display); font-weight:800; font-size:22px; letter-spacing:.04em; }
