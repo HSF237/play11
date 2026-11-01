@@ -236,11 +236,11 @@ const HERO_FIRST_SLIDES = [
 ];
 /* Desktop hero background: five wide photos behind the headline (phones keep the portrait slider) */
 const HERO_WIDE_SLIDES = [
-  "/hero/wide-swansea-celebration.webp",
-  "/hero/wide-athletic-celebration.webp",
-  "/hero/wide-inter-milan-duel.webp",
-  "/hero/wide-kilmarnock.webp",
-  "/hero/wide-retro-bradford.webp",
+  "/hero/wide-swansea-celebration.jpg",
+  "/hero/wide-athletic-celebration.jpg",
+  "/hero/wide-inter-milan-duel.jpg",
+  "/hero/wide-kilmarnock.jpg",
+  "/hero/wide-retro-bradford.jpg",
 ];
 const HERO_EXTRA_SLIDES = [
   "/collections/club-milan-kaka.webp",
