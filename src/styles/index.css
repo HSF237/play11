@@ -3022,30 +3022,22 @@ details p {
 .collection-recut .collection-recut-retro .collection-player-photo { object-position:50% 25%; }
 .collection-recut .collection-recut-limited .collection-player-photo { object-position:50% 28%; }
 
-/* Mobile: staggered bento mosaic instead of a single vertical stack */
+/* Mobile: swipeable portrait card rail */
 @media(max-width:620px) {
   .collection-recut .collection-recut-grid {
-    grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:none; grid-template-areas:none;
-    gap:10px; align-items:start;
+    display:flex; grid-template-columns:none; grid-template-rows:none; grid-template-areas:none;
+    gap:12px; align-items:stretch;
+    overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+    margin:0 -16px; padding:0 16px 14px; scroll-padding-left:16px; scrollbar-width:none;
   }
-  .collection-recut .collection-recut-card { height:300px; min-height:300px; }
+  .collection-recut .collection-recut-grid::-webkit-scrollbar { display:none; }
+  .collection-recut .collection-recut-card,
   .collection-recut .collection-recut-club,
-  .collection-recut .collection-recut-limited { grid-column:1 / -1; height:320px; }
-  .collection-recut .collection-recut-retro { margin-top:34px; }
-  .collection-recut .collection-recut-national,
-  .collection-recut .collection-recut-retro { height:340px; min-height:340px; }
-  .collection-recut .collection-recut-national .collection-recut-copy,
-  .collection-recut .collection-recut-retro .collection-recut-copy { left:12px; right:10px; bottom:14px; }
-  .collection-recut .collection-recut-national h3,
-  .collection-recut .collection-recut-retro h3 { font-size:1.35rem; margin-bottom:8px; }
-  .collection-recut .collection-recut-national .collection-player-overline,
-  .collection-recut .collection-recut-retro .collection-player-overline,
-  .collection-recut .collection-recut-national p,
-  .collection-recut .collection-recut-retro p { display:none; }
-  .collection-recut .collection-recut-national .collection-recut-top,
-  .collection-recut .collection-recut-retro .collection-recut-top { left:12px; right:12px; font-size:8px; }
-  .collection-recut .collection-recut-national .collection-recut-mark,
-  .collection-recut .collection-recut-retro .collection-recut-mark { display:none; }
-  .collection-recut .collection-recut-club h3,
-  .collection-recut .collection-recut-limited h3 { font-size:clamp(1.8rem,8vw,2.4rem); }
+  .collection-recut .collection-recut-limited {
+    flex:0 0 80%; width:80%; height:auto; min-height:0; aspect-ratio:3 / 4.6; scroll-snap-align:start;
+  }
+  .collection-recut .collection-recut-copy { left:18px; right:16px; bottom:20px; }
+  .collection-recut .collection-recut-copy h3 { font-size:clamp(1.9rem,9vw,2.4rem); }
+  .collection-recut .collection-recut-limited .collection-recut-copy { display:block; }
+  .collection-recut .collection-recut-limited .collection-cta { display:inline-flex; }
 }
