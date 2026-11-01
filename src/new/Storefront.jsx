@@ -10,6 +10,7 @@ import { useCart } from "../context/CartContext.jsx";
 import { useWishlist } from "../context/WishlistContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import Logo from "../components/Logo.jsx";
+import { CLUB_LOGOS } from "./clubLogos.js";
 import {
   useStore,
   Icon,
@@ -243,6 +244,44 @@ function useAutoSlide(count, ms = 5000) {
   return [index, setIndex];
 }
 
+
+function ClubLogoRow() {
+  if (!CLUB_LOGOS.length) return null;
+  return (
+    <section className="section club-logos-section" aria-label="Clubs">
+      <div className="club-logos-row">
+        {CLUB_LOGOS.map((c) => {
+          const inner = (
+            <>
+              <span className="club-logo-badge">
+                <img
+                  src={"/club-logos/" + c.logo}
+                  alt=""
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                    e.currentTarget.parentElement.dataset.fallback = c.name.slice(0, 3).toUpperCase();
+                  }}
+                />
+              </span>
+              <span className="club-logo-name">{c.name}</span>
+            </>
+          );
+          return c.to ? (
+            <Link key={c.name} className="club-logo" to={c.to}>
+              {inner}
+            </Link>
+          ) : (
+            <div key={c.name} className="club-logo">
+              {inner}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 export function Home() {
   const { products, settings: s, loading, isSampleCatalogue } = useStore(),
     latest = [...products]
@@ -325,6 +364,7 @@ export function Home() {
           <span>✳</span> CULTURE <span>✳</span>
         </div>
       </div>
+      <ClubLogoRow />
       <section className="section arrivals-section">
         <div className="section-heading">
           <div>

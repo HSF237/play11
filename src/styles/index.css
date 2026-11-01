@@ -3121,3 +3121,24 @@ details p {
   .hero-dots { top:auto; bottom:12px; left:6%; }
   .hero-image-top { top:16px; }
 }
+
+/* Club logo row: swipe sideways, 3 at a time on phones */
+.club-logos-section { padding-top:24px; padding-bottom:8px; }
+.club-logos-row {
+  display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+  scrollbar-width:none; overscroll-behavior-x:contain; padding-bottom:6px;
+}
+.club-logos-row::-webkit-scrollbar { display:none; }
+.club-logo {
+  flex:0 0 calc((100% - 28px) / 3); scroll-snap-align:start; display:flex; flex-direction:column; align-items:center; gap:10px;
+  color:inherit; text-decoration:none; min-width:0;
+}
+.club-logo-badge {
+  width:100%; max-width:130px; aspect-ratio:1 / 1; border-radius:50%; background:#f1f1ef; display:grid; place-items:center;
+  padding:16%; box-sizing:border-box; transition:transform .3s ease;
+}
+.club-logo-badge img { width:100%; height:100%; object-fit:contain; display:block; }
+.club-logo-badge[data-fallback]:after { content:attr(data-fallback); font-family:var(--display); font-weight:800; font-size:22px; letter-spacing:.04em; }
+a.club-logo:hover .club-logo-badge { transform:scale(1.06); }
+.club-logo-name { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; text-align:center; line-height:1.2; }
+@media(min-width:901px) { .club-logo { flex-basis:calc((100% - 70px) / 6); } }
