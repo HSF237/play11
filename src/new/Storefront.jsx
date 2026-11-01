@@ -287,8 +287,13 @@ function useAutoSlide(count, ms = 5000) {
   return [index, setIndex];
 }
 function tileImage(p) {
-  const list = Array.isArray(p.images) ? p.images : [];
-  return list.find((u) => /model/i.test(u)) || p.image || list[0] || "";
+  /* Category tiles show the jersey itself (front view), never the model shot. */
+  const list = [p.image, ...(Array.isArray(p.images) ? p.images : [])].filter(Boolean);
+  return (
+    list.find((u) => /front/i.test(u)) ||
+    list.find((u) => !/model|back/i.test(u)) ||
+    ""
+  );
 }
 /* Category tiles are built from the live catalogue, so they follow whatever the admin publishes. */
 function buildCategoryTiles(products) {
@@ -325,7 +330,6 @@ export function Home() {
     latest = [...products]
       .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0))
       .slice(0, 10),
-    arrivalsRow = useRef(null),
     collSection = useRef(null),
     collPin = useRef(null),
     collRail = useRef(null),
@@ -435,22 +439,6 @@ export function Home() {
             <span className="eyebrow">02 / JUST DROPPED</span>
             <h2>Latest arrivals.</h2>
           </div>
-          <div className="arrivals-controls">
-            <button
-              type="button"
-              aria-label="Previous jerseys"
-              onClick={() => arrivalsRow.current?.scrollBy({ left: -arrivalsRow.current.clientWidth * 0.8, behavior: "smooth" })}
-            >
-              ←
-            </button>
-            <button
-              type="button"
-              aria-label="Next jerseys"
-              onClick={() => arrivalsRow.current?.scrollBy({ left: arrivalsRow.current.clientWidth * 0.8, behavior: "smooth" })}
-            >
-              →
-            </button>
-          </div>
         </div>
         {isSampleCatalogue && (
           <p className="sample-note">
@@ -462,7 +450,7 @@ export function Home() {
         {loading ? (
           <div className="loading">Loading jerseys…</div>
         ) : (
-          <div ref={arrivalsRow} className="arrivals-row" tabIndex={0} aria-label="Latest arrivals, swipe sideways for more">
+          <div className="arrivals-row" aria-label="Latest arrivals">
             {latest.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}
