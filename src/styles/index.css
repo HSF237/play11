@@ -702,7 +702,6 @@ del {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(1);
   object-position: center 35%;
 }
 .manifesto-copy {
@@ -3020,4 +3019,24 @@ details p {
 .collection-recut .collection-recut-club .collection-player-photo { object-position:50% 30%; }
 .collection-recut .collection-recut-national .collection-player-photo { object-position:50% 45%; }
 .collection-recut .collection-recut-retro .collection-player-photo { object-position:50% 25%; }
-.collection-recut .collection-recut-limited .collection-player-photo { object-position:50% 28%; }
+.collection-recut .collection-recut-limited .collection-player-photo { object-position:50% 45%; }
+
+/* Mobile: swipeable portrait card rail */
+@media(max-width:620px) {
+  .collection-recut .collection-recut-grid {
+    display:flex; grid-template-columns:none; grid-template-rows:none; grid-template-areas:none;
+    gap:12px; align-items:stretch;
+    overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+    margin:0 -16px; padding:0 16px 14px; scroll-padding-left:16px; scrollbar-width:none;
+  }
+  .collection-recut .collection-recut-grid::-webkit-scrollbar { display:none; }
+  .collection-recut .collection-recut-card,
+  .collection-recut .collection-recut-club,
+  .collection-recut .collection-recut-limited {
+    flex:0 0 80%; width:80%; height:auto; min-height:0; aspect-ratio:3 / 4.6; scroll-snap-align:start;
+  }
+  .collection-recut .collection-recut-copy { left:18px; right:16px; bottom:20px; }
+  .collection-recut .collection-recut-copy h3 { font-size:clamp(1.9rem,9vw,2.4rem); }
+  .collection-recut .collection-recut-limited .collection-recut-copy { display:block; }
+  .collection-recut .collection-recut-limited .collection-cta { display:inline-flex; }
+}
