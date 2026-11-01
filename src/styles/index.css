@@ -3142,3 +3142,31 @@ details p {
 a.club-logo:hover .club-logo-badge { transform:scale(1.06); }
 .club-logo-name { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; text-align:center; line-height:1.2; }
 @media(min-width:901px) { .club-logo { flex-basis:calc((100% - 70px) / 6); } }
+
+.category-tile-art {
+  aspect-ratio:1 / 1; display:grid; place-items:center; padding:12%; box-sizing:border-box; text-align:center;
+  background:linear-gradient(160deg,#2b2f33,#14161a); color:#fff;
+  font-family:var(--display); font-weight:800; font-size:clamp(1.6rem,4vw,2.6rem); letter-spacing:.02em; text-transform:uppercase; line-height:.95;
+}
+
+/* Hero slides: the whole photo stays visible (no zoom/crop) over a soft blurred copy of itself */
+.hero-image > .hero-slide-frame { position:absolute; inset:0; opacity:0; transition:opacity 1.1s ease; }
+.hero-image > .hero-slide-frame.is-active { opacity:1; }
+.hero-slide-frame > img { position:absolute; inset:0; width:100%; height:100%; transform:none; transition:none; opacity:1; filter:none; }
+.hero-slide-frame > .hero-slide-bg { object-fit:cover; filter:blur(26px) brightness(.5) saturate(1.1); transform:scale(1.15); }
+.hero-slide-frame > .hero-slide { object-fit:contain; object-position:center; z-index:1; }
+@media(max-width:620px) {
+  /* phones: fill the width, keep faces at the top */
+  .hero-slide-frame > .hero-slide { object-fit:cover; object-position:center 12%; }
+  .hero-slide-frame > .hero-slide-bg { display:none; }
+}
+@media(prefers-reduced-motion:reduce) { .hero-image > .hero-slide-frame { transition:none; } }
+
+/* Phones: lighter text overlay so the players stay visible */
+@media(max-width:620px) {
+  .hero-image { height:min(80svh, 640px); }
+  .hero h1 { font-size:clamp(36px, 11vw, 50px); }
+  .hero-copy > p { display:none; }
+  .hero-copy { padding-bottom:34px; }
+  .hero-copy > .btn { min-height:44px; padding:12px 18px; }
+}

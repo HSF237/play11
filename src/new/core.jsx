@@ -27,7 +27,7 @@ export const defaults = {
     "For the ninety minutes. And everything after. Find the jersey that feels like you.",
   heroImage: "/story-cr7.jpg",
   heroLabel: "THE MATCHDAY EDIT",
-  collections: ["Club", "National", "Retro", "Limited"],
+  collections: ["Club", "National", "Retro", "Limited", "Track pants"],
   story:
     "Football is more than a result. It is the colours you grew up with, the nights you never forget, and the jersey you reach for every weekend. PLAY11 brings that feeling to fans across India, from our home in Kerala.",
   deliveryPolicy:

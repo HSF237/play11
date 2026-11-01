@@ -303,6 +303,19 @@ function ClubLogoRow({ products }) {
   );
 }
 
+function CategoryTile({ tile: t }) {
+  const [broken, setBroken] = useState(false);
+  return (
+    <Link className="category-tile" to={t.to}>
+      {broken ? (
+        <div className="category-tile-art" aria-hidden="true">{t.label}</div>
+      ) : (
+        <img src={t.image} alt="" loading="lazy" onError={() => setBroken(true)} />
+      )}
+      <span>{t.label}</span>
+    </Link>
+  );
+}
 function tileImage(p) {
   /* Category tiles show the jersey itself (front view), never the model shot. */
   const list = [p.image, ...(Array.isArray(p.images) ? p.images : [])].filter(Boolean);
@@ -336,10 +349,12 @@ function buildCategoryTiles(products) {
   });
   [...byClub.entries()]
     .sort((a, b) => b[1].length - a[1].length)
-    .slice(0, 6)
+    .slice(0, 5)
     .forEach(([club, list]) =>
       tiles.push({ label: club, image: tileImage(best(list)), to: "/shop?club=" + encodeURIComponent(club) }),
     );
+  /* Fixed extra category. Put its photo at /public/categories/track-pants.webp (shows a text tile until then). */
+  tiles.push({ label: "Track pants", image: "/categories/track-pants.webp", to: "/shop?collection=" + encodeURIComponent("Track pants") });
   return tiles;
 }
 export function Home() {
@@ -377,19 +392,24 @@ export function Home() {
         </div>
         <div className="hero-image">
           {heroSlides.map((src, i) => (
-            <img
+            <div
               key={src}
-              className={"hero-slide" + (i === heroIndex ? " is-active" : "")}
-              src={src}
-              fetchPriority={i === 0 ? "high" : undefined}
-              loading={i === 0 ? undefined : "lazy"}
-              alt={i === 0 ? "Football moments and the colours that bring fans together" : ""}
+              className={"hero-slide-frame" + (i === heroIndex ? " is-active" : "")}
               aria-hidden={i === heroIndex ? undefined : true}
-              onError={(e) => {
-                e.currentTarget.onerror = null;
-                if (src === s.heroImage) e.currentTarget.src = "/story-cr7.jpg";
-              }}
-            />
+            >
+              <img className="hero-slide-bg" src={src} alt="" loading={i === 0 ? undefined : "lazy"} />
+              <img
+                className="hero-slide"
+                src={src}
+                fetchPriority={i === 0 ? "high" : undefined}
+                loading={i === 0 ? undefined : "lazy"}
+                alt={i === 0 ? "Football moments and the colours that bring fans together" : ""}
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  if (src === s.heroImage) e.currentTarget.src = "/story-cr7.jpg";
+                }}
+              />
+            </div>
           ))}
           <div className="hero-dots" role="tablist" aria-label="Hero photos">
             {heroSlides.map((src, i) => (
@@ -474,10 +494,7 @@ export function Home() {
           </div>
           <div className="category-grid">
             {categoryTiles.slice(0, categoryTiles.length - (categoryTiles.length % 2)).map((t) => (
-              <Link key={t.label} className="category-tile" to={t.to}>
-                <img src={t.image} alt="" loading="lazy" />
-                <span>{t.label}</span>
-              </Link>
+              <CategoryTile key={t.label} tile={t} />
             ))}
           </div>
         </section>
