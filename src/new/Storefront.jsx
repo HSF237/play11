@@ -268,13 +268,68 @@ function usePinnedRail(sectionRef, pinRef, railRef) {
     };
   }, [sectionRef, pinRef, railRef]);
 }
+
+const HERO_EXTRA_SLIDES = [
+  "/collections/club-milan-kaka.webp",
+  "/collections/national-england.webp",
+  "/collections/maldini-italy-mask.webp",
+  "/collections/retro-giggs.webp",
+  "/collections/limited-action.webp",
+];
+function useAutoSlide(count, ms = 5000) {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    if (count < 2) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const t = setInterval(() => setIndex((i) => (i + 1) % count), ms);
+    return () => clearInterval(t);
+  }, [count, ms, index]);
+  return [index, setIndex];
+}
+function tileImage(p) {
+  const list = Array.isArray(p.images) ? p.images : [];
+  return list.find((u) => /model/i.test(u)) || p.image || list[0] || "";
+}
+/* Category tiles are built from the live catalogue, so they follow whatever the admin publishes. */
+function buildCategoryTiles(products) {
+  const live = products.filter((p) => !p.isMock && tileImage(p));
+  /* Prefer photos hosted on this site: they always load, unlike some external links. */
+  const used = new Set();
+  const best = (list) => {
+    const local = list.filter((p) => tileImage(p).startsWith("/"));
+    const pick =
+      local.find((p) => !used.has(tileImage(p))) || local[0] || list[0];
+    if (pick) used.add(tileImage(pick));
+    return pick;
+  };
+  const tiles = [];
+  [["Club", "Club kits"], ["National", "National teams"]].forEach(([type, label]) => {
+    const first = best(live.filter((p) => p.type === type));
+    if (first) tiles.push({ label, image: tileImage(first), to: "/shop?collection=" + type });
+  });
+  const byClub = new Map();
+  live.forEach((p) => {
+    if (!p.club) return;
+    byClub.set(p.club, [...(byClub.get(p.club) || []), p]);
+  });
+  [...byClub.entries()]
+    .sort((a, b) => b[1].length - a[1].length)
+    .slice(0, 6)
+    .forEach(([club, list]) =>
+      tiles.push({ label: club, image: tileImage(best(list)), to: "/shop?club=" + encodeURIComponent(club) }),
+    );
+  return tiles;
+}
 export function Home() {
   const { products, settings: s, loading, isSampleCatalogue } = useStore(),
     featured = products.filter((p) => p.featured).slice(0, 4),
     picks = featured.length ? featured : products.slice(0, 4),
     collSection = useRef(null),
     collPin = useRef(null),
-    collRail = useRef(null);
+    collRail = useRef(null),
+    heroSlides = [...new Set([s.heroImage, ...HERO_EXTRA_SLIDES].filter(Boolean))],
+    [heroIndex, setHeroIndex] = useAutoSlide(heroSlides.length),
+    categoryTiles = buildCategoryTiles(products);
   usePinnedRail(collSection, collPin, collRail);
   return (
     <>
@@ -302,15 +357,34 @@ export function Home() {
           </div>
         </div>
         <div className="hero-image">
-          <img
-            src={s.heroImage}
-            fetchPriority="high"
-            alt="Football heritage and the colours that bring fans together"
-            onError={(e) => {
-              e.currentTarget.onerror = null;
-              e.currentTarget.src = "/story-cr7.jpg";
-            }}
-          />
+          {heroSlides.map((src, i) => (
+            <img
+              key={src}
+              className={"hero-slide" + (i === heroIndex ? " is-active" : "")}
+              src={src}
+              fetchPriority={i === 0 ? "high" : undefined}
+              loading={i === 0 ? undefined : "lazy"}
+              alt={i === 0 ? "Football heritage and the colours that bring fans together" : ""}
+              aria-hidden={i === heroIndex ? undefined : true}
+              onError={(e) => {
+                e.currentTarget.onerror = null;
+                if (i === 0) e.currentTarget.src = "/story-cr7.jpg";
+              }}
+            />
+          ))}
+          <div className="hero-dots" role="tablist" aria-label="Hero photos">
+            {heroSlides.map((src, i) => (
+              <button
+                key={src}
+                type="button"
+                role="tab"
+                aria-selected={i === heroIndex}
+                aria-label={"Photo " + (i + 1)}
+                className={i === heroIndex ? "is-active" : ""}
+                onClick={() => setHeroIndex(i)}
+              />
+            ))}
+          </div>
           <div className="hero-image-top">
             <span>PLAY11 / ON & OFF THE PITCH</span>
             <span>↗</span>
@@ -332,6 +406,27 @@ export function Home() {
           <span>✳</span> CULTURE <span>✳</span>
         </div>
       </div>
+      {categoryTiles.length >= 4 && (
+        <section className="section category-section">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">BROWSE / SHOP BY CATEGORY</span>
+              <h2>Pick your side.</h2>
+            </div>
+            <Link className="text-link" to="/shop">
+              All jerseys <Icon name="arrow" />
+            </Link>
+          </div>
+          <div className="category-grid">
+            {categoryTiles.slice(0, categoryTiles.length - (categoryTiles.length % 2)).map((t) => (
+              <Link key={t.label} className="category-tile" to={t.to}>
+                <img src={t.image} alt="" loading="lazy" />
+                <span>{t.label}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
       <section className="section">
         <div className="section-heading">
           <div>
