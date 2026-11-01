@@ -326,13 +326,13 @@ export function Home() {
         </div>
         <div className="collection-grid collection-player-grid collection-recut-grid">
           {[
-            { key: "Club", number: "01", title: "YOUR CLUB.\nYOUR PEOPLE.", label: "CLUB CULTURE", note: "The badge you grew up with.", tone: "club", image: "https://images.unsplash.com/photo-1779142167149-2bd2eaf1b311?auto=format&fit=crop&w=1500&q=85", credit: "https://unsplash.com/photos/soccer-player-on-field-with-stadium-in-background-5c2A96qZq0g" },
-            { key: "National", number: "02", title: "COLOURS\nOF A NATION.", label: "INTERNATIONAL", note: "Every flag. One feeling.", tone: "national", image: "https://images.unsplash.com/photo-1779142167168-458a646f596e?auto=format&fit=crop&w=1100&q=85", credit: "https://unsplash.com/photos/soccer-player-in-white-uniform-celebrates-on-a-green-field-onMIbTpAww4" },
-            { key: "Retro", number: "03", title: "BACK WHEN\nIT ALL BEGAN.", label: "THE ARCHIVE", note: "Timeless shirts, forever stories.", tone: "retro", image: "https://images.unsplash.com/photo-1707370531796-90bbe5bfeb4a?auto=format&fit=crop&w=1100&q=85", credit: "https://unsplash.com/photos/a-group-of-young-men-playing-a-game-of-soccer-Y8yr_c6bQ4Y" },
-            { key: "Limited", number: "04", title: "NOT MADE\nFOR EVERYONE.", label: "RARE DROPS", note: "For the fans who look closer.", tone: "limited", image: "https://images.unsplash.com/photo-1777715329839-41b5033c3003?auto=format&fit=crop&w=1500&q=85", credit: "https://unsplash.com/photos/soccer-players-warming-up-on-a-stadium-field-before-game-_xLfo1r9nGM" },
+            { key: "Club", number: "01", title: "YOUR CLUB.\nYOUR PEOPLE.", label: "CLUB CULTURE", note: "The badge you grew up with.", tone: "club", image: "/collections/club-milan-kaka.webp", credit: "" },
+            { key: "National", number: "02", title: "COLOURS\nOF A NATION.", label: "INTERNATIONAL", note: "Every flag. One feeling.", tone: "national", image: "/collections/national-england.webp", credit: "" },
+            { key: "Retro", number: "03", title: "BACK WHEN\nIT ALL BEGAN.", label: "THE ARCHIVE", note: "Timeless shirts, forever stories.", tone: "retro", image: "/collections/retro-giggs.webp", credit: "" },
+            { key: "Limited", number: "04", title: "NOT MADE\nFOR EVERYONE.", label: "RARE DROPS", note: "For the fans who look closer.", tone: "limited", image: "/collections/limited-italy-mask.webp", credit: "" },
           ].map((card) => (
             <article className={`collection-tile collection-card-${card.tone} collection-player-card collection-recut-card collection-recut-${card.tone}`} key={card.key}>
-              <img className="collection-player-photo" src={card.image} alt={card.label + " football photography"} loading="lazy" referrerPolicy="no-referrer" />
+              <img className="collection-player-photo" src={card.image} alt={card.label + " football photography"} loading="lazy" />
               <div className="collection-player-shade" />
               <div className="collection-recut-top"><span>{card.number} <i>/</i> {card.label}</span><span className="collection-recut-mark">P11®</span></div>
               <div className="collection-recut-copy"><span className="collection-player-overline">PLAY11 — FOOTBALL, YOUR WAY</span><h3>{card.title.split("\\n").map((line, i) => <span key={i}>{line}</span>)}</h3><p>{card.note}</p><span className="collection-cta">DISCOVER COLLECTION <b>↗</b></span></div>

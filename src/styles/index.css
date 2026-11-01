@@ -3015,3 +3015,9 @@ details p {
   .collection-recut .collection-recut-copy h3 { letter-spacing: .01em; }
   .collection-recut .collection-recut-copy p { letter-spacing: .02em; }
 }
+
+/* Collection tile photo framing (portrait shots in mixed-ratio tiles) */
+.collection-recut .collection-recut-club .collection-player-photo { object-position:50% 30%; }
+.collection-recut .collection-recut-national .collection-player-photo { object-position:50% 45%; }
+.collection-recut .collection-recut-retro .collection-player-photo { object-position:50% 25%; }
+.collection-recut .collection-recut-limited .collection-player-photo { object-position:50% 28%; }
