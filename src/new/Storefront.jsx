@@ -226,6 +226,14 @@ function CatalogueError() {
   ) : null;
 }
 
+const HERO_FIRST_SLIDES = [
+  "/hero/celebration-real-madrid.webp",
+  "/hero/celebration-barcelona.webp",
+  "/hero/shoot-england.webp",
+  "/hero/celebration-roma.webp",
+  "/hero/celebration-fifa.webp",
+  "/hero/celebration-argentina.webp",
+];
 const HERO_EXTRA_SLIDES = [
   "/collections/club-milan-kaka.webp",
   "/collections/national-england.webp",
@@ -339,7 +347,7 @@ export function Home() {
     latest = [...products]
       .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0))
       .slice(0, 10),
-    heroSlides = [...new Set([s.heroImage, ...HERO_EXTRA_SLIDES].filter(Boolean))],
+    heroSlides = [...new Set([...HERO_FIRST_SLIDES, s.heroImage, ...HERO_EXTRA_SLIDES].filter(Boolean))],
     [heroIndex, setHeroIndex] = useAutoSlide(heroSlides.length),
     categoryTiles = buildCategoryTiles(products);
   return (
@@ -375,11 +383,11 @@ export function Home() {
               src={src}
               fetchPriority={i === 0 ? "high" : undefined}
               loading={i === 0 ? undefined : "lazy"}
-              alt={i === 0 ? "Football heritage and the colours that bring fans together" : ""}
+              alt={i === 0 ? "Football moments and the colours that bring fans together" : ""}
               aria-hidden={i === heroIndex ? undefined : true}
               onError={(e) => {
                 e.currentTarget.onerror = null;
-                if (i === 0) e.currentTarget.src = "/story-cr7.jpg";
+                if (src === s.heroImage) e.currentTarget.src = "/story-cr7.jpg";
               }}
             />
           ))}
