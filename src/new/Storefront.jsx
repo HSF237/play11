@@ -110,6 +110,7 @@ export function Navbar() {
 }
 export function Footer() {
   const { settings: s } = useStore();
+  const { isAdmin } = useAuth();
   return (
     <footer className="footer">
       <div className="footer-top">
@@ -153,7 +154,7 @@ export function Footer() {
           >
             Instagram ↗
           </a>
-          <Link to="/admin">Store admin</Link>
+          {isAdmin && <Link to="/admin">Store admin</Link>}
         </div>
       </div>
       <div className="footer-word" aria-hidden="true">
