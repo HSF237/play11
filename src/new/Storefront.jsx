@@ -225,51 +225,6 @@ function CatalogueError() {
   ) : null;
 }
 
-/* Mobile only: vertical page scroll drives the collection cards sideways, then releases. */
-function usePinnedRail(sectionRef, pinRef, railRef) {
-  useEffect(() => {
-    const section = sectionRef.current, pin = pinRef.current, rail = railRef.current;
-    if (!section || !pin || !rail) return;
-    const mq = window.matchMedia("(max-width: 620px)");
-    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let dist = 0, active = false;
-    const reset = () => {
-      active = false;
-      section.style.height = "";
-      section.classList.remove("is-pinned");
-      rail.style.transform = "";
-    };
-    const measure = () => {
-      if (!mq.matches || motion.matches) return reset();
-      const last = rail.lastElementChild;
-      rail.style.transform = "";
-      dist = Math.max(0, last.offsetLeft + last.offsetWidth + 16 - pin.clientWidth);
-      if (!dist) return reset();
-      active = true;
-      section.classList.add("is-pinned");
-      section.style.height = pin.offsetHeight + dist + "px";
-      update();
-    };
-    const update = () => {
-      if (!active) return;
-      const p = Math.min(1, Math.max(0, -section.getBoundingClientRect().top / dist));
-      rail.style.transform = "translate3d(" + -p * dist + "px,0,0)";
-    };
-    measure();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", measure);
-    window.addEventListener("load", measure);
-    mq.addEventListener("change", measure);
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", measure);
-      window.removeEventListener("load", measure);
-      mq.removeEventListener("change", measure);
-      reset();
-    };
-  }, [sectionRef, pinRef, railRef]);
-}
-
 const HERO_EXTRA_SLIDES = [
   "/collections/club-milan-kaka.webp",
   "/collections/national-england.webp",
@@ -331,13 +286,9 @@ export function Home() {
     latest = [...products]
       .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0))
       .slice(0, 10),
-    collSection = useRef(null),
-    collPin = useRef(null),
-    collRail = useRef(null),
     heroSlides = [...new Set([s.heroImage, ...HERO_EXTRA_SLIDES].filter(Boolean))],
     [heroIndex, setHeroIndex] = useAutoSlide(heroSlides.length),
     categoryTiles = buildCategoryTiles(products);
-  usePinnedRail(collSection, collPin, collRail);
   return (
     <>
       <section className="hero">
@@ -469,16 +420,15 @@ export function Home() {
           </Link>
         )}
       </section>
-      <section ref={collSection} className="collection-section collection-editorial collection-recut">
-        <div ref={collPin} className="collection-pin">
-        <div className="collection-heading">
+      <section className="collection-section collection-editorial collection-recut">
+                <div className="collection-heading">
           <div>
             <span className="eyebrow">03 / FOUR SIDES OF FOOTBALL</span>
             <h2>Find your <em>football identity.</em></h2>
           </div>
           <p>Old-school soul. New-season energy.<br />Choose the shirt that feels like you.</p>
         </div>
-        <div ref={collRail} className="collection-grid collection-player-grid collection-recut-grid">
+        <div className="collection-grid collection-player-grid collection-recut-grid">
           {[
             { key: "Club", number: "01", title: "YOUR CLUB.\nYOUR PEOPLE.", label: "CLUB CULTURE", note: "The badge you grew up with.", tone: "club", image: "/collections/club-milan-kaka.webp", credit: "" },
             { key: "National", number: "02", title: "COLOURS\nOF A NATION.", label: "INTERNATIONAL", note: "Every flag. One feeling.", tone: "national", image: "/collections/national-england.webp", credit: "" },
@@ -494,7 +444,6 @@ export function Home() {
             </article>
           ))}
         </div>
-      </div>
       </section>
       <section className="manifesto">
         <div className="manifesto-photo">

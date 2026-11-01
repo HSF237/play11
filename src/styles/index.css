@@ -3021,30 +3021,25 @@ details p {
 .collection-recut .collection-recut-retro .collection-player-photo { object-position:50% 25%; }
 .collection-recut .collection-recut-limited .collection-player-photo { object-position:50% 45%; }
 
-/* Mobile: scroll-driven portrait card rail (page scroll moves cards sideways, then releases) */
+/* Mobile: collection cards as a plain 2-column grid (no sliding) */
 @media(max-width:620px) {
-  .collection-recut.is-pinned { padding:0 !important; overflow:visible !important; }
-  .collection-recut.is-pinned:before { display:none; }
-  .collection-recut.is-pinned .collection-pin {
-    position:sticky; top:0; height:100vh; height:100svh; overflow:hidden;
-    display:flex; flex-direction:column; justify-content:center; gap:22px;
-    padding:76px 16px 20px; box-sizing:border-box;
-  }
-  .collection-recut.is-pinned .collection-heading { margin:0; }
   .collection-recut .collection-recut-grid {
-    display:flex; flex-wrap:nowrap; grid-template-columns:none; grid-template-rows:none; grid-template-areas:none;
-    gap:12px; align-items:stretch; width:max-content; will-change:transform;
+    display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:none; grid-template-areas:none;
+    gap:10px; width:auto; align-items:stretch;
   }
   .collection-recut .collection-recut-card,
   .collection-recut .collection-recut-club,
   .collection-recut .collection-recut-limited {
-    flex:0 0 auto; width:auto; min-height:0; aspect-ratio:3 / 4.6;
-    height:clamp(330px, calc(100svh - 330px), 480px);
+    grid-area:auto; grid-column:auto; width:auto; height:auto; min-height:0; aspect-ratio:3 / 4.4;
   }
-  .collection-recut .collection-recut-copy { left:18px; right:16px; bottom:20px; }
-  .collection-recut .collection-recut-copy h3 { font-size:clamp(1.7rem,8vw,2.2rem); }
+  .collection-recut .collection-recut-top { top:12px; left:12px; right:10px; font-size:8px; }
+  .collection-recut .collection-recut-mark { display:none; }
+  .collection-recut .collection-recut-copy { left:12px; right:10px; bottom:14px; }
+  .collection-recut .collection-recut-copy h3 { font-size:1.3rem; margin-bottom:8px; }
+  .collection-recut .collection-player-overline,
+  .collection-recut .collection-recut-copy p { display:none; }
+  .collection-recut .collection-cta { font-size:7.5px; }
   .collection-recut .collection-recut-limited .collection-recut-copy { display:block; }
-  .collection-recut .collection-recut-limited .collection-cta { display:inline-flex; }
 }
 
 /* Story page: clean, readable long-form text whatever the admin enters */
