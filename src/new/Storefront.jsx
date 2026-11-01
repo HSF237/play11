@@ -1336,6 +1336,35 @@ export function Wishlist() {
     </div>
   );
 }
+
+/* Admin-entered story text can be one long block with ALL-CAPS labels inline
+   (e.g. "DRIVEN BY GAME. ... OUR STORY ..."). Split it into labelled sections. */
+const STORY_LABEL = /(\b[A-Z][A-Z&']+(?: [A-Z&']+)+\b[.:]?)/;
+function StoryText({ text }) {
+  const blocks = [];
+  String(text || "")
+    .replace(/\*\*/g, "")
+    .split(/\n+/)
+    .forEach((line) => {
+      line.split(STORY_LABEL).forEach((part, i) => {
+        const t = part.trim();
+        if (!t) return;
+        if (i % 2) blocks.push({ heading: t.replace(/[.:\u2013\u2014-]+$/, "").trim() });
+        else blocks.push({ body: t });
+      });
+    });
+  return (
+    <div className="story-text">
+      {blocks.map((b, i) =>
+        b.heading ? (
+          <h2 key={i}>{b.heading}</h2>
+        ) : (
+          <p key={i}>{b.body}</p>
+        ),
+      )}
+    </div>
+  );
+}
 export function Info({ page }) {
   const { settings: s } = useStore(),
     { hash } = useLocation();
@@ -1361,7 +1390,7 @@ export function Info({ page }) {
         <div className="story-layout">
           <img src="/team11-hero.jpg" alt="Football heritage" />
           <div>
-            <p className="story-text">{s.story}</p>
+            <StoryText text={s.story} />
             <span className="eyebrow">{s.location} / ALL INDIA DELIVERY</span>
             <Link className="btn btn-red" to="/shop">
               Find your colours →
