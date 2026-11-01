@@ -3021,30 +3021,25 @@ details p {
 .collection-recut .collection-recut-retro .collection-player-photo { object-position:50% 25%; }
 .collection-recut .collection-recut-limited .collection-player-photo { object-position:50% 45%; }
 
-/* Mobile: scroll-driven portrait card rail (page scroll moves cards sideways, then releases) */
+/* Mobile: collection cards as a plain 2-column grid (no sliding) */
 @media(max-width:620px) {
-  .collection-recut.is-pinned { padding:0 !important; overflow:visible !important; }
-  .collection-recut.is-pinned:before { display:none; }
-  .collection-recut.is-pinned .collection-pin {
-    position:sticky; top:0; height:100vh; height:100svh; overflow:hidden;
-    display:flex; flex-direction:column; justify-content:center; gap:22px;
-    padding:76px 16px 20px; box-sizing:border-box;
-  }
-  .collection-recut.is-pinned .collection-heading { margin:0; }
   .collection-recut .collection-recut-grid {
-    display:flex; flex-wrap:nowrap; grid-template-columns:none; grid-template-rows:none; grid-template-areas:none;
-    gap:12px; align-items:stretch; width:max-content; will-change:transform;
+    display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:none; grid-template-areas:none;
+    gap:10px; width:auto; align-items:stretch;
   }
   .collection-recut .collection-recut-card,
   .collection-recut .collection-recut-club,
   .collection-recut .collection-recut-limited {
-    flex:0 0 auto; width:auto; min-height:0; aspect-ratio:3 / 4.6;
-    height:clamp(330px, calc(100svh - 330px), 480px);
+    grid-area:auto; grid-column:auto; width:auto; height:auto; min-height:0; aspect-ratio:3 / 4.4;
   }
-  .collection-recut .collection-recut-copy { left:18px; right:16px; bottom:20px; }
-  .collection-recut .collection-recut-copy h3 { font-size:clamp(1.7rem,8vw,2.2rem); }
+  .collection-recut .collection-recut-top { top:12px; left:12px; right:10px; font-size:8px; }
+  .collection-recut .collection-recut-mark { display:none; }
+  .collection-recut .collection-recut-copy { left:12px; right:10px; bottom:14px; }
+  .collection-recut .collection-recut-copy h3 { font-size:1.3rem; margin-bottom:8px; }
+  .collection-recut .collection-player-overline,
+  .collection-recut .collection-recut-copy p { display:none; }
+  .collection-recut .collection-cta { font-size:7.5px; }
   .collection-recut .collection-recut-limited .collection-recut-copy { display:block; }
-  .collection-recut .collection-recut-limited .collection-cta { display:inline-flex; }
 }
 
 /* Story page: clean, readable long-form text whatever the admin enters */
@@ -3126,3 +3121,24 @@ details p {
   .hero-dots { top:auto; bottom:12px; left:6%; }
   .hero-image-top { top:16px; }
 }
+
+/* Club logo row: swipe sideways, 3 at a time on phones */
+.club-logos-section { padding-top:24px; padding-bottom:8px; }
+.club-logos-row {
+  display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+  scrollbar-width:none; overscroll-behavior-x:contain; padding-bottom:6px;
+}
+.club-logos-row::-webkit-scrollbar { display:none; }
+.club-logo {
+  flex:0 0 calc((100% - 28px) / 3); scroll-snap-align:start; display:flex; flex-direction:column; align-items:center; gap:10px;
+  color:inherit; text-decoration:none; min-width:0;
+}
+.club-logo-badge {
+  width:100%; max-width:130px; aspect-ratio:1 / 1; border-radius:50%; background:#f1f1ef; display:grid; place-items:center;
+  padding:11%; box-sizing:border-box; transition:transform .3s ease;
+}
+.club-logo-badge img { width:100%; height:100%; object-fit:contain; display:block; }
+.club-logo-badge[data-fallback]:after { content:attr(data-fallback); font-family:var(--display); font-weight:800; font-size:22px; letter-spacing:.04em; }
+a.club-logo:hover .club-logo-badge { transform:scale(1.06); }
+.club-logo-name { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; text-align:center; line-height:1.2; }
+@media(min-width:901px) { .club-logo { flex-basis:calc((100% - 70px) / 6); } }

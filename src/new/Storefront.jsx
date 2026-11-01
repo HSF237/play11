@@ -10,6 +10,7 @@ import { useCart } from "../context/CartContext.jsx";
 import { useWishlist } from "../context/WishlistContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import Logo from "../components/Logo.jsx";
+import { CLUB_LOGOS } from "./clubLogos.js";
 import {
   useStore,
   Icon,
@@ -110,6 +111,7 @@ export function Navbar() {
 }
 export function Footer() {
   const { settings: s } = useStore();
+  const { isAdmin } = useAuth();
   return (
     <footer className="footer">
       <div className="footer-top">
@@ -153,7 +155,7 @@ export function Footer() {
           >
             Instagram ↗
           </a>
-          <Link to="/admin">Store admin</Link>
+          {isAdmin && <Link to="/admin">Store admin</Link>}
         </div>
       </div>
       <div className="footer-word" aria-hidden="true">
@@ -224,51 +226,6 @@ function CatalogueError() {
   ) : null;
 }
 
-/* Mobile only: vertical page scroll drives the collection cards sideways, then releases. */
-function usePinnedRail(sectionRef, pinRef, railRef) {
-  useEffect(() => {
-    const section = sectionRef.current, pin = pinRef.current, rail = railRef.current;
-    if (!section || !pin || !rail) return;
-    const mq = window.matchMedia("(max-width: 620px)");
-    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let dist = 0, active = false;
-    const reset = () => {
-      active = false;
-      section.style.height = "";
-      section.classList.remove("is-pinned");
-      rail.style.transform = "";
-    };
-    const measure = () => {
-      if (!mq.matches || motion.matches) return reset();
-      const last = rail.lastElementChild;
-      rail.style.transform = "";
-      dist = Math.max(0, last.offsetLeft + last.offsetWidth + 16 - pin.clientWidth);
-      if (!dist) return reset();
-      active = true;
-      section.classList.add("is-pinned");
-      section.style.height = pin.offsetHeight + dist + "px";
-      update();
-    };
-    const update = () => {
-      if (!active) return;
-      const p = Math.min(1, Math.max(0, -section.getBoundingClientRect().top / dist));
-      rail.style.transform = "translate3d(" + -p * dist + "px,0,0)";
-    };
-    measure();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", measure);
-    window.addEventListener("load", measure);
-    mq.addEventListener("change", measure);
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", measure);
-      window.removeEventListener("load", measure);
-      mq.removeEventListener("change", measure);
-      reset();
-    };
-  }, [sectionRef, pinRef, railRef]);
-}
-
 const HERO_EXTRA_SLIDES = [
   "/collections/club-milan-kaka.webp",
   "/collections/national-england.webp",
@@ -286,57 +243,65 @@ function useAutoSlide(count, ms = 5000) {
   }, [count, ms, index]);
   return [index, setIndex];
 }
-function tileImage(p) {
-  /* Category tiles show the jersey itself (front view), never the model shot. */
-  const list = [p.image, ...(Array.isArray(p.images) ? p.images : [])].filter(Boolean);
+
+
+const plain = (t) =>
+  String(t || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+function ClubLogoRow({ products }) {
+  if (!CLUB_LOGOS.length) return null;
+  /* A logo links to the shop only when the catalogue really has jerseys for that club. */
+  const clubLink = (c) => {
+    const hit = products.find(
+      (p) => !p.isMock && c.match.some((w) => plain(p.club).includes(w)),
+    );
+    return hit ? "/shop?club=" + encodeURIComponent(hit.club) : null;
+  };
   return (
-    list.find((u) => /front/i.test(u)) ||
-    list.find((u) => !/model|back/i.test(u)) ||
-    ""
+    <section className="section club-logos-section" aria-label="Clubs">
+      <div className="club-logos-row">
+        {CLUB_LOGOS.map((c) => {
+          const inner = (
+            <>
+              <span className="club-logo-badge">
+                <img
+                  src={"/club-logos/" + c.logo}
+                  alt=""
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                    e.currentTarget.parentElement.dataset.fallback = c.name.slice(0, 3).toUpperCase();
+                  }}
+                />
+              </span>
+              <span className="club-logo-name">{c.name}</span>
+            </>
+          );
+          const to = clubLink(c);
+          return to ? (
+            <Link key={c.name} className="club-logo" to={to}>
+              {inner}
+            </Link>
+          ) : (
+            <div key={c.name} className="club-logo">
+              {inner}
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
-/* Category tiles are built from the live catalogue, so they follow whatever the admin publishes. */
-function buildCategoryTiles(products) {
-  const live = products.filter((p) => !p.isMock && tileImage(p));
-  /* Prefer photos hosted on this site: they always load, unlike some external links. */
-  const used = new Set();
-  const best = (list) => {
-    const local = list.filter((p) => tileImage(p).startsWith("/"));
-    const pick =
-      local.find((p) => !used.has(tileImage(p))) || local[0] || list[0];
-    if (pick) used.add(tileImage(pick));
-    return pick;
-  };
-  const tiles = [];
-  [["Club", "Club kits"], ["National", "National teams"]].forEach(([type, label]) => {
-    const first = best(live.filter((p) => p.type === type));
-    if (first) tiles.push({ label, image: tileImage(first), to: "/shop?collection=" + type });
-  });
-  const byClub = new Map();
-  live.forEach((p) => {
-    if (!p.club) return;
-    byClub.set(p.club, [...(byClub.get(p.club) || []), p]);
-  });
-  [...byClub.entries()]
-    .sort((a, b) => b[1].length - a[1].length)
-    .slice(0, 6)
-    .forEach(([club, list]) =>
-      tiles.push({ label: club, image: tileImage(best(list)), to: "/shop?club=" + encodeURIComponent(club) }),
-    );
-  return tiles;
-}
+
 export function Home() {
   const { products, settings: s, loading, isSampleCatalogue } = useStore(),
     latest = [...products]
       .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0))
       .slice(0, 10),
-    collSection = useRef(null),
-    collPin = useRef(null),
-    collRail = useRef(null),
     heroSlides = [...new Set([s.heroImage, ...HERO_EXTRA_SLIDES].filter(Boolean))],
-    [heroIndex, setHeroIndex] = useAutoSlide(heroSlides.length),
-    categoryTiles = buildCategoryTiles(products);
-  usePinnedRail(collSection, collPin, collRail);
+    [heroIndex, setHeroIndex] = useAutoSlide(heroSlides.length);
   return (
     <>
       <section className="hero">
@@ -412,27 +377,7 @@ export function Home() {
           <span>✳</span> CULTURE <span>✳</span>
         </div>
       </div>
-      {categoryTiles.length >= 4 && (
-        <section className="section category-section">
-          <div className="section-heading">
-            <div>
-              <span className="eyebrow">BROWSE / SHOP BY CATEGORY</span>
-              <h2>Pick your side.</h2>
-            </div>
-            <Link className="text-link" to="/shop">
-              All jerseys <Icon name="arrow" />
-            </Link>
-          </div>
-          <div className="category-grid">
-            {categoryTiles.slice(0, categoryTiles.length - (categoryTiles.length % 2)).map((t) => (
-              <Link key={t.label} className="category-tile" to={t.to}>
-                <img src={t.image} alt="" loading="lazy" />
-                <span>{t.label}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
+      <ClubLogoRow products={products} />
       <section className="section arrivals-section">
         <div className="section-heading">
           <div>
@@ -468,16 +413,15 @@ export function Home() {
           </Link>
         )}
       </section>
-      <section ref={collSection} className="collection-section collection-editorial collection-recut">
-        <div ref={collPin} className="collection-pin">
-        <div className="collection-heading">
+      <section className="collection-section collection-editorial collection-recut">
+                <div className="collection-heading">
           <div>
             <span className="eyebrow">03 / FOUR SIDES OF FOOTBALL</span>
             <h2>Find your <em>football identity.</em></h2>
           </div>
           <p>Old-school soul. New-season energy.<br />Choose the shirt that feels like you.</p>
         </div>
-        <div ref={collRail} className="collection-grid collection-player-grid collection-recut-grid">
+        <div className="collection-grid collection-player-grid collection-recut-grid">
           {[
             { key: "Club", number: "01", title: "YOUR CLUB.\nYOUR PEOPLE.", label: "CLUB CULTURE", note: "The badge you grew up with.", tone: "club", image: "/collections/club-milan-kaka.webp", credit: "" },
             { key: "National", number: "02", title: "COLOURS\nOF A NATION.", label: "INTERNATIONAL", note: "Every flag. One feeling.", tone: "national", image: "/collections/national-england.webp", credit: "" },
@@ -493,7 +437,6 @@ export function Home() {
             </article>
           ))}
         </div>
-      </div>
       </section>
       <section className="manifesto">
         <div className="manifesto-photo">
