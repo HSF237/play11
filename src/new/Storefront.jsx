@@ -329,7 +329,7 @@ export function Home() {
             { key: "Club", number: "01", title: "YOUR CLUB.\nYOUR PEOPLE.", label: "CLUB CULTURE", note: "The badge you grew up with.", tone: "club", image: "/collections/club-milan-kaka.webp", credit: "" },
             { key: "National", number: "02", title: "COLOURS\nOF A NATION.", label: "INTERNATIONAL", note: "Every flag. One feeling.", tone: "national", image: "/collections/national-england.webp", credit: "" },
             { key: "Retro", number: "03", title: "BACK WHEN\nIT ALL BEGAN.", label: "THE ARCHIVE", note: "Timeless shirts, forever stories.", tone: "retro", image: "/collections/retro-giggs.webp", credit: "" },
-            { key: "Limited", number: "04", title: "NOT MADE\nFOR EVERYONE.", label: "RARE DROPS", note: "For the fans who look closer.", tone: "limited", image: "/collections/limited-italy-mask.webp", credit: "" },
+            { key: "Limited", number: "04", title: "NOT MADE\nFOR EVERYONE.", label: "RARE DROPS", note: "For the fans who look closer.", tone: "limited", image: "/collections/limited-action.webp", credit: "" },
           ].map((card) => (
             <article className={`collection-tile collection-card-${card.tone} collection-player-card collection-recut-card collection-recut-${card.tone}`} key={card.key}>
               <img className="collection-player-photo" src={card.image} alt={card.label + " football photography"} loading="lazy" />
@@ -345,8 +345,8 @@ export function Home() {
         <div className="manifesto-photo">
           <img
             loading="lazy"
-            src="/team11-hero.jpg"
-            alt="A classic football moment"
+            src="/collections/maldini-italy-mask.webp"
+            alt="Maldini in the Italy colours and face mask"
           />
         </div>
         <div className="manifesto-copy">
