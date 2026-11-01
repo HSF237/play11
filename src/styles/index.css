@@ -3021,22 +3021,28 @@ details p {
 .collection-recut .collection-recut-retro .collection-player-photo { object-position:50% 25%; }
 .collection-recut .collection-recut-limited .collection-player-photo { object-position:50% 45%; }
 
-/* Mobile: swipeable portrait card rail */
+/* Mobile: scroll-driven portrait card rail (page scroll moves cards sideways, then releases) */
 @media(max-width:620px) {
-  .collection-recut .collection-recut-grid {
-    display:flex; grid-template-columns:none; grid-template-rows:none; grid-template-areas:none;
-    gap:12px; align-items:stretch;
-    overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
-    margin:0 -16px; padding:0 16px 14px; scroll-padding-left:16px; scrollbar-width:none;
+  .collection-recut.is-pinned { padding:0 !important; overflow:visible !important; }
+  .collection-recut.is-pinned:before { display:none; }
+  .collection-recut.is-pinned .collection-pin {
+    position:sticky; top:0; height:100vh; height:100svh; overflow:hidden;
+    display:flex; flex-direction:column; justify-content:center; gap:22px;
+    padding:76px 16px 20px; box-sizing:border-box;
   }
-  .collection-recut .collection-recut-grid::-webkit-scrollbar { display:none; }
+  .collection-recut.is-pinned .collection-heading { margin:0; }
+  .collection-recut .collection-recut-grid {
+    display:flex; flex-wrap:nowrap; grid-template-columns:none; grid-template-rows:none; grid-template-areas:none;
+    gap:12px; align-items:stretch; width:max-content; will-change:transform;
+  }
   .collection-recut .collection-recut-card,
   .collection-recut .collection-recut-club,
   .collection-recut .collection-recut-limited {
-    flex:0 0 80%; width:80%; height:auto; min-height:0; aspect-ratio:3 / 4.6; scroll-snap-align:start;
+    flex:0 0 auto; width:auto; min-height:0; aspect-ratio:3 / 4.6;
+    height:clamp(330px, calc(100svh - 330px), 480px);
   }
   .collection-recut .collection-recut-copy { left:18px; right:16px; bottom:20px; }
-  .collection-recut .collection-recut-copy h3 { font-size:clamp(1.9rem,9vw,2.4rem); }
+  .collection-recut .collection-recut-copy h3 { font-size:clamp(1.7rem,8vw,2.2rem); }
   .collection-recut .collection-recut-limited .collection-recut-copy { display:block; }
   .collection-recut .collection-recut-limited .collection-cta { display:inline-flex; }
 }
