@@ -358,7 +358,7 @@
   },
   {
     "key": "portugal-red-nike-ronaldo",
-    "name": "Portugal red Puma shirt with black polo collar \u2014 RONALDO 7",
+    "name": "Portugal red Puma shirt with black polo collar — RONALDO 7",
     "images": [
       {
         "view": "front",
@@ -565,7 +565,7 @@
   },
   {
     "key": "argentina-white-collar-messi",
-    "name": "Argentina blue-edged crew collar shirt \u2014 MESSI 10",
+    "name": "Argentina blue-edged crew collar shirt — MESSI 10",
     "images": [
       {
         "view": "front",
@@ -582,7 +582,7 @@
   },
   {
     "key": "brazil-button-collar-neymar",
-    "name": "Brazil yellow black crew collar shirt \u2014 NEYMAR JR 10",
+    "name": "Brazil yellow black crew collar shirt — NEYMAR JR 10",
     "images": [
       {
         "view": "front",
@@ -601,7 +601,7 @@
   },
   {
     "key": "argentina-blue-shoulder-messi",
-    "name": "Argentina white crew collar gradient stripes \u2014 MESSI 10",
+    "name": "Argentina white crew collar gradient stripes — MESSI 10",
     "images": [
       {
         "view": "front",
@@ -620,7 +620,7 @@
   },
   {
     "key": "argentina-floral-messi",
-    "name": "Argentina custom dragon and floral shirt \u2014 MESSI 10",
+    "name": "Argentina custom dragon and floral shirt — MESSI 10",
     "images": [
       {
         "view": "front",
@@ -633,6 +633,23 @@
     ],
     "missingViews": [
       "back"
+    ]
+  },
+  {
+    "key": "inter-third-forlan",
+    "name": "Inter Milan Third Forlan",
+    "images": [
+      {
+        "view": "front",
+        "url": "/products/jersey-collection/inter-third-forlan-front.webp"
+      },
+      {
+        "view": "back",
+        "url": "/products/jersey-collection/inter-third-forlan-back.webp"
+      }
+    ],
+    "missingViews": [
+      "model"
     ]
   }
 ]
