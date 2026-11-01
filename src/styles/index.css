@@ -3108,3 +3108,21 @@ details p {
   .arrivals-row { gap:12px; margin-right:-16px; padding-right:16px; }
   .arrivals-row > .product-card { flex-basis:46%; }
 }
+
+/* Mobile hero: the sliding photos sit at the very top; headline + button overlay them (no separate black block) */
+@media(max-width:620px) {
+  .hero { display:block; position:relative; }
+  .hero-image { height:min(76svh, 600px); min-height:420px; }
+  .hero-image > img { object-position:center 30%; filter:saturate(.9); }
+  .hero-image:after { background:linear-gradient(0deg,#000d 0%,#0006 38%,transparent 62%,#0004 100%); }
+  .hero-copy {
+    position:absolute; inset:0; z-index:3; background:transparent; pointer-events:none;
+    display:flex; flex-direction:column; justify-content:flex-end; padding:0 6% 30px;
+  }
+  .hero-copy > .btn, .hero-copy a { pointer-events:auto; align-self:flex-start; }
+  .hero-kicker, .hero-foot, .hero-image-bottom { display:none; }
+  .hero h1 { font-size:clamp(44px,14vw,70px); }
+  .hero-copy > p { margin:14px 0 18px; max-width:300px; font-size:12.5px; color:#e8e8e4; }
+  .hero-dots { top:auto; bottom:12px; left:6%; }
+  .hero-image-top { top:16px; }
+}
