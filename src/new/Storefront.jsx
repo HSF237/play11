@@ -241,6 +241,7 @@ const HERO_WIDE_SLIDES = [
   "/hero/wide-inter-milan-duel.jpg",
   "/hero/wide-kilmarnock.jpg",
   "/hero/wide-retro-bradford.jpg",
+  "/hero/wide-real-madrid-mbappe-vinicius.jpg",
 ];
 const HERO_EXTRA_SLIDES = [
   "/collections/club-milan-kaka.webp",
