@@ -1,5 +1,5 @@
 import { useEffect, Component, lazy, Suspense } from "react";
-import { Routes, Route, useLocation, Link } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate, Link } from "react-router-dom";
 import {
   Navbar,
   Footer,
@@ -38,6 +38,22 @@ class Boundary extends Component {
     );
   }
 }
+/* "Back" on every page except the home page and the admin area. */
+function BackButton() {
+  const navigate = useNavigate();
+  const goBack = () => {
+    // idx > 0 means there is an earlier page inside this site; otherwise go home.
+    if ((window.history.state?.idx ?? 0) > 0) navigate(-1);
+    else navigate("/");
+  };
+  return (
+    <div className="back-bar">
+      <button type="button" className="back-btn" onClick={goBack} aria-label="Go back">
+        <span aria-hidden="true">←</span> Back
+      </button>
+    </div>
+  );
+}
 function Shell() {
   const { pathname } = useLocation(),
     { settings } = useStore(),
@@ -52,6 +68,7 @@ function Shell() {
         Skip to content
       </a>
       {!admin && <Navbar />}
+      {!admin && pathname !== "/" && <BackButton />}
       <main id="main">
         <Suspense fallback={<div className="loading">Loading…</div>}>
           <Routes>
