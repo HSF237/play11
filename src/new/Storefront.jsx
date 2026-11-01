@@ -242,53 +242,14 @@ function useAutoSlide(count, ms = 5000) {
   }, [count, ms, index]);
   return [index, setIndex];
 }
-function tileImage(p) {
-  /* Category tiles show the jersey itself (front view), never the model shot. */
-  const list = [p.image, ...(Array.isArray(p.images) ? p.images : [])].filter(Boolean);
-  return (
-    list.find((u) => /front/i.test(u)) ||
-    list.find((u) => !/model|back/i.test(u)) ||
-    ""
-  );
-}
-/* Category tiles are built from the live catalogue, so they follow whatever the admin publishes. */
-function buildCategoryTiles(products) {
-  const live = products.filter((p) => !p.isMock && tileImage(p));
-  /* Prefer photos hosted on this site: they always load, unlike some external links. */
-  const used = new Set();
-  const best = (list) => {
-    const local = list.filter((p) => tileImage(p).startsWith("/"));
-    const pick =
-      local.find((p) => !used.has(tileImage(p))) || local[0] || list[0];
-    if (pick) used.add(tileImage(pick));
-    return pick;
-  };
-  const tiles = [];
-  [["Club", "Club kits"], ["National", "National teams"]].forEach(([type, label]) => {
-    const first = best(live.filter((p) => p.type === type));
-    if (first) tiles.push({ label, image: tileImage(first), to: "/shop?collection=" + type });
-  });
-  const byClub = new Map();
-  live.forEach((p) => {
-    if (!p.club) return;
-    byClub.set(p.club, [...(byClub.get(p.club) || []), p]);
-  });
-  [...byClub.entries()]
-    .sort((a, b) => b[1].length - a[1].length)
-    .slice(0, 6)
-    .forEach(([club, list]) =>
-      tiles.push({ label: club, image: tileImage(best(list)), to: "/shop?club=" + encodeURIComponent(club) }),
-    );
-  return tiles;
-}
+
 export function Home() {
   const { products, settings: s, loading, isSampleCatalogue } = useStore(),
     latest = [...products]
       .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0))
       .slice(0, 10),
     heroSlides = [...new Set([s.heroImage, ...HERO_EXTRA_SLIDES].filter(Boolean))],
-    [heroIndex, setHeroIndex] = useAutoSlide(heroSlides.length),
-    categoryTiles = buildCategoryTiles(products);
+    [heroIndex, setHeroIndex] = useAutoSlide(heroSlides.length);
   return (
     <>
       <section className="hero">
@@ -364,27 +325,6 @@ export function Home() {
           <span>✳</span> CULTURE <span>✳</span>
         </div>
       </div>
-      {categoryTiles.length >= 4 && (
-        <section className="section category-section">
-          <div className="section-heading">
-            <div>
-              <span className="eyebrow">BROWSE / SHOP BY CATEGORY</span>
-              <h2>Pick your side.</h2>
-            </div>
-            <Link className="text-link" to="/shop">
-              All jerseys <Icon name="arrow" />
-            </Link>
-          </div>
-          <div className="category-grid">
-            {categoryTiles.slice(0, categoryTiles.length - (categoryTiles.length % 2)).map((t) => (
-              <Link key={t.label} className="category-tile" to={t.to}>
-                <img src={t.image} alt="" loading="lazy" />
-                <span>{t.label}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
       <section className="section arrivals-section">
         <div className="section-heading">
           <div>
