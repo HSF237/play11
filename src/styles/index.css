@@ -3170,3 +3170,20 @@ a.club-logo:hover .club-logo-badge { transform:scale(1.06); }
   .hero-copy { padding-bottom:34px; }
   .hero-copy > .btn { min-height:44px; padding:12px 18px; }
 }
+
+/* Desktop/tablet hero: full-width sliding photo background behind the headline. Phones keep the portrait slider. */
+.hero-bg { display:none; }
+@media(min-width:621px) {
+  .hero { display:block; position:relative; min-height:clamp(560px, 78vh, 740px); background:#111; overflow:hidden; }
+  .hero-image { display:none; }
+  .hero-bg { display:block; position:absolute; inset:0; z-index:0; }
+  .hero-bg > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 30%; opacity:0; transition:opacity 1.2s ease; filter:saturate(.95); }
+  .hero-bg > img.is-active { opacity:1; }
+  .hero-bg:after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#000e 0%,#000b 34%,#0004 66%,#0006 100%), linear-gradient(0deg,#0009,transparent 40%); pointer-events:none; }
+  .hero-copy { position:relative; z-index:2; background:transparent; min-height:inherit; max-width:980px; box-sizing:border-box; padding-bottom:40px; }
+  .hero-copy > p { color:#d8d8d4; }
+  .hero-bg-dots { position:absolute; z-index:3; right:5%; bottom:30px; display:flex; gap:8px; }
+  .hero-bg-dots button { width:30px; height:3px; padding:0; border:0; background:#fff6; cursor:pointer; }
+  .hero-bg-dots button.is-active { background:#fff; }
+}
+@media(prefers-reduced-motion:reduce) { .hero-bg > img { transition:none; } }

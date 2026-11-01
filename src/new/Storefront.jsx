@@ -234,6 +234,14 @@ const HERO_FIRST_SLIDES = [
   "/hero/celebration-fifa.webp",
   "/hero/celebration-argentina.webp",
 ];
+/* Desktop hero background: five wide photos behind the headline (phones keep the portrait slider) */
+const HERO_WIDE_SLIDES = [
+  "/hero/wide-swansea-celebration.webp",
+  "/hero/wide-athletic-celebration.webp",
+  "/hero/wide-inter-milan-duel.webp",
+  "/hero/wide-kilmarnock.webp",
+  "/hero/wide-retro-bradford.webp",
+];
 const HERO_EXTRA_SLIDES = [
   "/collections/club-milan-kaka.webp",
   "/collections/national-england.webp",
@@ -364,10 +372,35 @@ export function Home() {
       .slice(0, 10),
     heroSlides = [...new Set([...HERO_FIRST_SLIDES, s.heroImage, ...HERO_EXTRA_SLIDES].filter(Boolean))],
     [heroIndex, setHeroIndex] = useAutoSlide(heroSlides.length),
+    [wideIndex, setWideIndex] = useAutoSlide(HERO_WIDE_SLIDES.length, 6000),
     categoryTiles = buildCategoryTiles(products);
   return (
     <>
       <section className="hero">
+        <div className="hero-bg">
+          {HERO_WIDE_SLIDES.map((src, i) => (
+            <img
+              key={src}
+              className={i === wideIndex ? "is-active" : ""}
+              src={src}
+              alt=""
+              aria-hidden="true"
+              fetchPriority={i === 0 ? "high" : undefined}
+              loading={i === 0 ? undefined : "lazy"}
+            />
+          ))}
+          <div className="hero-bg-dots">
+            {HERO_WIDE_SLIDES.map((src, i) => (
+              <button
+                key={src}
+                type="button"
+                aria-label={"Photo " + (i + 1)}
+                className={i === wideIndex ? "is-active" : ""}
+                onClick={() => setWideIndex(i)}
+              />
+            ))}
+          </div>
+        </div>
         <div className="hero-copy">
           <div className="hero-kicker">
             <span className="live-dot" />
