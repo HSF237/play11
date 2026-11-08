@@ -534,26 +534,90 @@ export function Home() {
         </section>
       )}
       <section className="collection-section collection-editorial collection-recut">
-                <div className="collection-heading">
+        <div className="collection-heading">
           <div>
             <span className="eyebrow">03 / FOUR SIDES OF FOOTBALL</span>
-            <h2>Find your <em>football identity.</em></h2>
+            <h2>
+              Find your <em>football identity.</em>
+            </h2>
           </div>
-          <p>Old-school soul. New-season energy.<br />Choose the shirt that feels like you.</p>
+          <p>
+            Old-school soul. New-season energy.
+            <br />
+            Choose the shirt that feels like you.
+          </p>
         </div>
         <div className="collection-grid collection-player-grid collection-recut-grid">
           {[
-            { key: "Club", number: "01", title: "YOUR CLUB.\nYOUR PEOPLE.", label: "CLUB CULTURE", note: "The badge you grew up with.", tone: "club", image: "/collections/club-milan-kaka.webp", credit: "" },
-            { key: "National", number: "02", title: "COLOURS\nOF A NATION.", label: "INTERNATIONAL", note: "Every flag. One feeling.", tone: "national", image: "/collections/national-england.webp", credit: "" },
-            { key: "Retro", number: "03", title: "BACK WHEN\nIT ALL BEGAN.", label: "THE ARCHIVE", note: "Timeless shirts, forever stories.", tone: "retro", image: "/collections/retro-giggs.webp", credit: "" },
-            { key: "Limited", number: "04", title: "NOT MADE\nFOR EVERYONE.", label: "RARE DROPS", note: "For the fans who look closer.", tone: "limited", image: "/collections/limited-action.webp", credit: "" },
+            {
+              key: "Club",
+              number: "01",
+              title: "CLUB",
+              label: "CLUB",
+              note: "The badge you grew up with.",
+              tone: "club",
+              image: "/collections/club-milan-kaka.webp",
+            },
+            {
+              key: "National",
+              number: "02",
+              title: "COUNTRY",
+              label: "COUNTRY",
+              note: "Every flag. One feeling.",
+              tone: "national",
+              image: "/collections/national-england.webp",
+            },
+            {
+              key: "Retro",
+              number: "03",
+              title: "RETRO",
+              label: "RETRO",
+              note: "Timeless shirts, forever stories.",
+              tone: "retro",
+              image: "/collections/retro-giggs.webp",
+            },
+            {
+              key: "Limited",
+              number: "04",
+              title: "RARE",
+              label: "RARE",
+              note: "For the fans who look closer.",
+              tone: "limited",
+              image: "/collections/limited-action.webp",
+            },
           ].map((card) => (
-            <article className={`collection-tile collection-card-${card.tone} collection-player-card collection-recut-card collection-recut-${card.tone}`} key={card.key}>
-              <img className="collection-player-photo" src={card.image} alt={card.label + " football photography"} loading="lazy" />
+            <article
+              className={`collection-tile collection-card-${card.tone} collection-player-card collection-recut-card collection-recut-${card.tone}`}
+              key={card.key}
+            >
+              <img
+                className="collection-player-photo"
+                src={card.image}
+                alt={`${card.label} football photography`}
+                loading="lazy"
+              />
               <div className="collection-player-shade" />
-              <div className="collection-recut-top"><span>{card.number} <i>/</i> {card.label}</span><span className="collection-recut-mark">P11®</span></div>
-              <div className="collection-recut-copy"><span className="collection-player-overline">PLAY11 — FOOTBALL, YOUR WAY</span><h3>{card.title.split("\\n").map((line, i) => <span key={i}>{line}</span>)}</h3><p>{card.note}</p><span className="collection-cta">DISCOVER COLLECTION <b>↗</b></span></div>
-              <Link className="collection-art-hitarea" to={`/shop?collection=${card.key}`} aria-label={`View ${card.label.toLowerCase()}`} />
+              <div className="collection-recut-top">
+                <span>
+                  {card.number} <i>/</i> {card.label}
+                </span>
+                <span className="collection-recut-mark">P11®</span>
+              </div>
+              <div className="collection-recut-copy">
+                <span className="collection-player-overline">
+                  PLAY11 — FOOTBALL, YOUR WAY
+                </span>
+                <h3>{card.title}</h3>
+                <p>{card.note}</p>
+                <span className="collection-cta">
+                  DISCOVER COLLECTION <b>↗</b>
+                </span>
+              </div>
+              <Link
+                className="collection-art-hitarea"
+                to={`/shop?collection=${card.key}`}
+                aria-label={`View ${card.label.toLowerCase()}`}
+              />
             </article>
           ))}
         </div>
