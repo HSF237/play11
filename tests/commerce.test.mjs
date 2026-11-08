@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import path from "node:path";
 import assert from "node:assert/strict";
 import { transform } from "esbuild";
 const source = fs.readFileSync("src/new/core.jsx", "utf8");
@@ -103,6 +104,28 @@ assert.equal(
 );
 console.log(
   "14 commerce checks passed: coupon types, scope, caps, expiry, minimum spend, disabled coupon, stock, size, current price, delivery boundary.",
+);
+
+const suppliedJerseys = JSON.parse(
+  fs.readFileSync("src/new/userJerseys.json", "utf8"),
+);
+assert.equal(suppliedJerseys.length, 26);
+assert.equal(new Set(suppliedJerseys.map((product) => product.id)).size, 26);
+assert.ok(suppliedJerseys.every((product) => product.price === 249));
+assert.ok(
+  suppliedJerseys.every((product) =>
+    product.images.every((image) =>
+      fs.existsSync(
+        path.join(
+          "public",
+          image.replace(/^\/+/, "").replaceAll("/", path.sep),
+        ),
+      ),
+    ),
+  ),
+);
+console.log(
+  "4 supplied jersey checks passed: 26 unique products, all priced at ₹249, all referenced photos exist.",
 );
 
 // Live inventory must never be hidden by the sample setting.
