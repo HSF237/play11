@@ -336,37 +336,8 @@
         "isMock":  false
     },
     {
-        "id":  "provided-j012",
-        "name":  "AC Milan Away - Ronaldo #7",
-        "club":  "AC Milan",
-        "type":  "Club",
-        "category":  "Regular",
-        "sleeve":  "Half Sleeve",
-        "price":  249,
-        "originalPrice":  null,
-        "sizes":  [
-                      "M",
-                      "L",
-                      "XL",
-                      "XXL"
-                  ],
-        "stock":  null,
-        "badge":  "",
-        "description":  "Black body with red side/sleeve panels; back only: RONALDO, number 7 white",
-        "fabric":  "",
-        "sizeChart":  "",
-        "images":  [
-                       "/products/user-collection/j012-back.jpg"
-                   ],
-        "image":  "/products/user-collection/j012-back.jpg",
-        "available":  true,
-        "published":  true,
-        "featured":  false,
-        "isMock":  false
-    },
-    {
         "id":  "provided-j013",
-        "name":  "Manchester United Away - AIG",
+        "name":  "Manchester United Away - AIG, Ronaldo #7",
         "club":  "Manchester United",
         "type":  "Club",
         "category":  "Regular",
@@ -381,11 +352,12 @@
                   ],
         "stock":  null,
         "badge":  "",
-        "description":  "Black body; Nike swoosh; United crest; white AIG in black box; Premier League sleeve patch; no back name/number",
+        "description":  "Black Manchester United away shirt with Nike swoosh, United crest, white AIG in a black box, and Premier League sleeve patch; supplied back photo reads RONALDO, number 7 white.",
         "fabric":  "",
         "sizeChart":  "",
         "images":  [
                        "/products/user-collection/j013-front.jpg",
+                       "/products/user-collection/j012-back.jpg",
                        "/products/user-collection/j013-model.jpg"
                    ],
         "image":  "/products/user-collection/j013-front.jpg",
@@ -395,37 +367,8 @@
         "isMock":  false
     },
     {
-        "id":  "provided-j014",
-        "name":  "Bayern Munich Red and Blue - #39",
-        "club":  "Bayern Munich",
-        "type":  "Club",
-        "category":  "Regular",
-        "sleeve":  "Half Sleeve",
-        "price":  249,
-        "originalPrice":  null,
-        "sizes":  [
-                      "M",
-                      "L",
-                      "XL",
-                      "XXL"
-                  ],
-        "stock":  null,
-        "badge":  "",
-        "description":  "Red body, blue sleeves/panels, white number 39; back only",
-        "fabric":  "",
-        "sizeChart":  "",
-        "images":  [
-                       "/products/user-collection/j014-back.jpg"
-                   ],
-        "image":  "/products/user-collection/j014-back.jpg",
-        "available":  true,
-        "published":  true,
-        "featured":  false,
-        "isMock":  false
-    },
-    {
         "id":  "provided-j015",
-        "name":  "Bayern Munich Red and Blue - T-Mobile",
+        "name":  "Bayern Munich Red and Blue - T-Mobile #39",
         "club":  "Bayern Munich",
         "type":  "Club",
         "category":  "Regular",
@@ -440,11 +383,12 @@
                   ],
         "stock":  null,
         "badge":  "",
-        "description":  "Red and blue split body; adidas shoulder stripes; T-Mobile chest sponsor; Bundesliga sleeve patch",
+        "description":  "Bayern Munich red and blue shirt with adidas shoulder stripes, T-Mobile chest sponsor, and Bundesliga sleeve patch; supplied back photo reads BAYERN MÜNCHEN, number 39.",
         "fabric":  "",
         "sizeChart":  "",
         "images":  [
                        "/products/user-collection/j015-front.jpg",
+                       "/products/user-collection/j014-back.jpg",
                        "/products/user-collection/j015-model.jpg"
                    ],
         "image":  "/products/user-collection/j015-front.jpg",
@@ -516,67 +460,9 @@
         "isMock":  false
     },
     {
-        "id":  "provided-j018",
-        "name":  "France Home - Zidane #10",
-        "club":  "France",
-        "type":  "National",
-        "category":  "Regular",
-        "sleeve":  "Half Sleeve",
-        "price":  249,
-        "originalPrice":  null,
-        "sizes":  [
-                      "M",
-                      "L",
-                      "XL",
-                      "XXL"
-                  ],
-        "stock":  null,
-        "badge":  "",
-        "description":  "Blue body; white/red collar and cuff trim; back only: ZIDANE, number 10 white with red outline",
-        "fabric":  "",
-        "sizeChart":  "",
-        "images":  [
-                       "/products/user-collection/j018-back.jpg"
-                   ],
-        "image":  "/products/user-collection/j018-back.jpg",
-        "available":  true,
-        "published":  true,
-        "featured":  false,
-        "isMock":  false
-    },
-    {
-        "id":  "provided-j019",
-        "name":  "Chelsea White and Black - Lampard #8",
-        "club":  "Chelsea",
-        "type":  "Club",
-        "category":  "Regular",
-        "sleeve":  "Half Sleeve",
-        "price":  249,
-        "originalPrice":  null,
-        "sizes":  [
-                      "M",
-                      "L",
-                      "XL",
-                      "XXL"
-                  ],
-        "stock":  null,
-        "badge":  "",
-        "description":  "White body; black raglan sleeves with chevron stripes; back only: LAMPARD, number 8 black",
-        "fabric":  "",
-        "sizeChart":  "",
-        "images":  [
-                       "/products/user-collection/j019-back.jpg"
-                   ],
-        "image":  "/products/user-collection/j019-back.jpg",
-        "available":  true,
-        "published":  true,
-        "featured":  false,
-        "isMock":  false
-    },
-    {
         "id":  "provided-j020",
-        "name":  "Black Ziggo Football Shirt",
-        "club":  "Unconfirmed",
+        "name":  "Ajax Black Ziggo - Antony #11",
+        "club":  "Ajax",
         "type":  "Club",
         "category":  "Regular",
         "sleeve":  "Half Sleeve",
@@ -590,11 +476,12 @@
                   ],
         "stock":  null,
         "badge":  "",
-        "description":  "Black body; red collar trim; adidas logo; Ziggo chest sponsor; red/yellow-green sleeve trim",
+        "description":  "Black Ajax shirt with red collar trim, adidas logo, red Ziggo chest sponsor, and red/yellow-green sleeve trim; supplied back photo reads ANTONY, number 11 yellow.",
         "fabric":  "",
         "sizeChart":  "",
         "images":  [
                        "/products/user-collection/j020-front.jpg",
+                       "/products/user-collection/j021-back.jpg",
                        "/products/user-collection/j020-model.jpg"
                    ],
         "image":  "/products/user-collection/j020-front.jpg",
@@ -604,37 +491,8 @@
         "isMock":  false
     },
     {
-        "id":  "provided-j021",
-        "name":  "Black Antony #11 Football Shirt",
-        "club":  "Unconfirmed",
-        "type":  "Club",
-        "category":  "Regular",
-        "sleeve":  "Half Sleeve",
-        "price":  249,
-        "originalPrice":  null,
-        "sizes":  [
-                      "M",
-                      "L",
-                      "XL",
-                      "XXL"
-                  ],
-        "stock":  null,
-        "badge":  "",
-        "description":  "Black body; red/yellow-green sleeve trim; adidas logo with round crest; back: ANTONY, number 11 yellow",
-        "fabric":  "",
-        "sizeChart":  "",
-        "images":  [
-                       "/products/user-collection/j021-back.jpg"
-                   ],
-        "image":  "/products/user-collection/j021-back.jpg",
-        "available":  true,
-        "published":  true,
-        "featured":  false,
-        "isMock":  false
-    },
-    {
         "id":  "provided-j022",
-        "name":  "France 1998 World Cup Home",
+        "name":  "France 1998 World Cup Home - Zidane #10",
         "club":  "France",
         "type":  "National",
         "category":  "Regular",
@@ -649,11 +507,12 @@
                   ],
         "stock":  null,
         "badge":  "",
-        "description":  "Royal blue body; red chest band; white horizontal stripes on the lower body; white/red collar and cuff trims; \u0027FIFA WORLD CUP FRANCE 98\u0027 chest text; adidas logo; France crest with star; France 98 tournament badge",
+        "description":  "France 1998 World Cup home shirt. Royal blue body; red chest band; white horizontal stripes on the lower body; white/red collar and cuff trims; FIFA WORLD CUP FRANCE 98 chest text; adidas logo; France crest with star; back reads ZIDANE, number 10 white with red outline.",
         "fabric":  "",
         "sizeChart":  "",
         "images":  [
                        "/products/user-collection/j022-front.jpg",
+                       "/products/user-collection/j018-back.jpg",
                        "/products/user-collection/j022-model.jpg"
                    ],
         "image":  "/products/user-collection/j022-front.jpg",
@@ -664,7 +523,7 @@
     },
     {
         "id":  "provided-j023",
-        "name":  "Liverpool White and Black Away",
+        "name":  "Liverpool White and Black Away - Lampard #8",
         "club":  "Liverpool",
         "type":  "Club",
         "category":  "Regular",
@@ -679,11 +538,12 @@
                   ],
         "stock":  null,
         "badge":  "",
-        "description":  "White body; black raglan sleeves; adidas; Liverpool crest; black Carlsberg",
+        "description":  "White body; black raglan sleeves; adidas; Liverpool crest; black Carlsberg; supplied back photo reads LAMPARD, number 8 black.",
         "fabric":  "",
         "sizeChart":  "",
         "images":  [
                        "/products/user-collection/j023-front.jpg",
+                       "/products/user-collection/j019-back.jpg",
                        "/products/user-collection/j023-model.jpg"
                    ],
         "image":  "/products/user-collection/j023-front.jpg",
