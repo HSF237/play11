@@ -109,8 +109,8 @@ console.log(
 const suppliedJerseys = JSON.parse(
   fs.readFileSync("src/new/userJerseys.json", "utf8"),
 );
-assert.equal(suppliedJerseys.length, 26);
-assert.equal(new Set(suppliedJerseys.map((product) => product.id)).size, 26);
+assert.equal(suppliedJerseys.length, 21);
+assert.equal(new Set(suppliedJerseys.map((product) => product.id)).size, 21);
 assert.ok(suppliedJerseys.every((product) => product.price === 249));
 assert.ok(
   suppliedJerseys.every((product) =>
@@ -124,8 +124,54 @@ assert.ok(
     ),
   ),
 );
+const productById = new Map(
+  suppliedJerseys.map((product) => [product.id, product]),
+);
+assert.deepEqual(
+  productById.get("provided-j022").images,
+  [
+    "/products/user-collection/j022-front.jpg",
+    "/products/user-collection/j018-back.jpg",
+    "/products/user-collection/j022-model.jpg",
+  ],
+);
+assert.deepEqual(
+  productById.get("provided-j023").images,
+  [
+    "/products/user-collection/j023-front.jpg",
+    "/products/user-collection/j019-back.jpg",
+    "/products/user-collection/j023-model.jpg",
+  ],
+);
+assert.deepEqual(
+  productById.get("provided-j020").images,
+  [
+    "/products/user-collection/j020-front.jpg",
+    "/products/user-collection/j021-back.jpg",
+    "/products/user-collection/j020-model.jpg",
+  ],
+);
+assert.deepEqual(
+  productById.get("provided-j015").images,
+  [
+    "/products/user-collection/j015-front.jpg",
+    "/products/user-collection/j014-back.jpg",
+    "/products/user-collection/j015-model.jpg",
+  ],
+);
+assert.deepEqual(
+  productById.get("provided-j013").images,
+  [
+    "/products/user-collection/j013-front.jpg",
+    "/products/user-collection/j012-back.jpg",
+    "/products/user-collection/j013-model.jpg",
+  ],
+);
+for (const duplicateId of [12, 14, 18, 19, 21]) {
+  assert.equal(productById.has(`provided-j${duplicateId}`), false);
+}
 console.log(
-  "4 supplied jersey checks passed: 26 unique products, all priced at ₹249, all referenced photos exist.",
+  "9 supplied jersey checks passed: 21 unique products, all priced at ₹249, all referenced photos exist, five split front/back pairs are merged.",
 );
 
 // Live inventory must never be hidden by the sample setting.
