@@ -1,0 +1,788 @@
+[
+    {
+        "id":  "provided-j001",
+        "name":  "Liverpool 2007-08 Away - Torres #9",
+        "club":  "Liverpool",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Black body; red-and-black geometric panels on sleeves/sides; crew neck; adidas logo centre chest; Liverpool crest; white Carlsberg wordmark; back: TORRES, number 9 white",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j001-front.jpg",
+                       "/products/user-collection/j001-back.jpg",
+                       "/products/user-collection/j001-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j001-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j002",
+        "name":  "AC Milan Third - Maldini #3",
+        "club":  "AC Milan",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Black body; two dark-red horizontal chest bands with white OPEL; adidas logo; Milan crest with gold star; back: MALDINI, number 3 white with red outline",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j002-front.jpg",
+                       "/products/user-collection/j002-back.jpg",
+                       "/products/user-collection/j002-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j002-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j003",
+        "name":  "Manchester United Home - Beckham #7",
+        "club":  "Manchester United",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Red body; black collar; black/red diamond pattern sleeves; white Umbro; United crest; white SHARP; back: BECKHAM, number 7 white",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j003-front.jpg",
+                       "/products/user-collection/j003-back.jpg",
+                       "/products/user-collection/j003-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j003-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j004",
+        "name":  "Barcelona Home - Messi #10",
+        "club":  "Barcelona",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Blue/red vertical stripes; white v-neck collar; Nike swoosh; Barca crest; LFP patch on right sleeve; back: MESSI, number 10 yellow with blue outline",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j004-front.jpg",
+                       "/products/user-collection/j004-back.jpg",
+                       "/products/user-collection/j004-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j004-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j005",
+        "name":  "Liverpool Home - Gerrard #8",
+        "club":  "Liverpool",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Red body with white piping; UCL starball sleeve patches; back only: GERRARD, number 8 in concentric white outline style",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j005-back.jpg"
+                   ],
+        "image":  "/products/user-collection/j005-back.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j006",
+        "name":  "Liverpool Athens 2007 Final",
+        "club":  "Liverpool",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Red body; adidas with three white shoulder stripes; white crew collar; UEFA Champions League starball + \u0027THE FINAL ATHENS 2007, 23RD MAY OLYMPIC STADIUM\u0027 embroidery; Carlsberg",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j006-front.jpg",
+                       "/products/user-collection/j006-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j006-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j007",
+        "name":  "Real Madrid Home - Ronaldo #7",
+        "club":  "Real Madrid",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "White body; orange adidas stripes and trim; grey side panels; UCL starball sleeve patches; black bwin; back: RONALDO, orange number 7",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j007-front.jpg",
+                       "/products/user-collection/j007-back.jpg",
+                       "/products/user-collection/j007-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j007-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j008",
+        "name":  "Paris Saint-Germain Home - Ibrahimovic #30",
+        "club":  "Paris Saint-Germain",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Navy body with red vertical panel on right chest and red lower flank; white collar and cuffs; Nike swoosh; PSG crest; white OPEL; Ligue 1 sleeve patches; back: IBRAHIMOVIC, number 30 white",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j008-front.jpg",
+                       "/products/user-collection/j008-back.jpg",
+                       "/products/user-collection/j008-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j008-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j009",
+        "name":  "Real Madrid Away - Roberto Carlos #3",
+        "club":  "Real Madrid",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Blue body with light-blue chevron/stripe pattern; white collar; back only: R.CARLOS, number 3 white",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j009-back.jpg"
+                   ],
+        "image":  "/products/user-collection/j009-back.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j010",
+        "name":  "AC Milan Home (Lotto) - Maldini #3",
+        "club":  "AC Milan",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Red body fading to black at sleeves and hem; narrow black vertical stripes; Lotto logo; Milan crest; white OPEL; back: MALDINI, number 3",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j010-front.jpg",
+                       "/products/user-collection/j010-back.jpg",
+                       "/products/user-collection/j010-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j010-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j011",
+        "name":  "Sporting CP Home - Cristiano Ronaldo #28",
+        "club":  "Sporting CP",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Green/white horizontal hoops; PT sponsor block on chest; back: C-RONALDO, number 28 black",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j011-front.jpg",
+                       "/products/user-collection/j011-back.jpg",
+                       "/products/user-collection/j011-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j011-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j012",
+        "name":  "AC Milan Away - Ronaldo #7",
+        "club":  "AC Milan",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Black body with red side/sleeve panels; back only: RONALDO, number 7 white",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j012-back.jpg"
+                   ],
+        "image":  "/products/user-collection/j012-back.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j013",
+        "name":  "Manchester United Away - AIG",
+        "club":  "Manchester United",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Black body; Nike swoosh; United crest; white AIG in black box; Premier League sleeve patch; no back name/number",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j013-front.jpg",
+                       "/products/user-collection/j013-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j013-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j014",
+        "name":  "Bayern Munich Red and Blue - #39",
+        "club":  "Bayern Munich",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Red body, blue sleeves/panels, white number 39; back only",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j014-back.jpg"
+                   ],
+        "image":  "/products/user-collection/j014-back.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j015",
+        "name":  "Bayern Munich Red and Blue - T-Mobile",
+        "club":  "Bayern Munich",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Red and blue split body; adidas shoulder stripes; T-Mobile chest sponsor; Bundesliga sleeve patch",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j015-front.jpg",
+                       "/products/user-collection/j015-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j015-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j016",
+        "name":  "Manchester United Away (Umbro) - Beckham #7",
+        "club":  "Manchester United",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Black body; white collar; white/red cuff trim; Umbro diamonds on sleeves; white SHARP; back: BECKHAM, number 7 white",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j016-front.jpg",
+                       "/products/user-collection/j016-back.jpg",
+                       "/products/user-collection/j016-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j016-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j017",
+        "name":  "England Home - Beckham #7",
+        "club":  "England",
+        "type":  "National",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Off-white/light grey body with fine pinstripes; navy/red side panels; Umbro + England crest; red number 7 front; back: BECKHAM, red number 7",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j017-front.jpg",
+                       "/products/user-collection/j017-back.jpg",
+                       "/products/user-collection/j017-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j017-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j018",
+        "name":  "France Home - Zidane #10",
+        "club":  "France",
+        "type":  "National",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Blue body; white/red collar and cuff trim; back only: ZIDANE, number 10 white with red outline",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j018-back.jpg"
+                   ],
+        "image":  "/products/user-collection/j018-back.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j019",
+        "name":  "Chelsea White and Black - Lampard #8",
+        "club":  "Chelsea",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "White body; black raglan sleeves with chevron stripes; back only: LAMPARD, number 8 black",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j019-back.jpg"
+                   ],
+        "image":  "/products/user-collection/j019-back.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j020",
+        "name":  "Black Ziggo Football Shirt",
+        "club":  "Unconfirmed",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Black body; red collar trim; adidas logo; Ziggo chest sponsor; red/yellow-green sleeve trim",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j020-front.jpg",
+                       "/products/user-collection/j020-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j020-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j021",
+        "name":  "Black Antony #11 Football Shirt",
+        "club":  "Unconfirmed",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Black body; red/yellow-green sleeve trim; adidas logo with round crest; back: ANTONY, number 11 yellow",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j021-back.jpg"
+                   ],
+        "image":  "/products/user-collection/j021-back.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j022",
+        "name":  "France 1998 World Cup Home",
+        "club":  "France",
+        "type":  "National",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Royal blue body; red chest band; white horizontal stripes on the lower body; white/red collar and cuff trims; \u0027FIFA WORLD CUP FRANCE 98\u0027 chest text; adidas logo; France crest with star; France 98 tournament badge",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j022-front.jpg",
+                       "/products/user-collection/j022-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j022-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j023",
+        "name":  "Liverpool White and Black Away",
+        "club":  "Liverpool",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "White body; black raglan sleeves; adidas; Liverpool crest; black Carlsberg",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j023-front.jpg",
+                       "/products/user-collection/j023-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j023-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j024",
+        "name":  "Bayern Munich Home - Schweinsteiger #31",
+        "club":  "Bayern Munich",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Dark red body with white horizontal band; adidas shoulder stripes; T-Home; Bayern crest; Bundesliga patch; back: SCHWEINSTEIGER, number 31 white",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j024-front.jpg",
+                       "/products/user-collection/j024-back.jpg",
+                       "/products/user-collection/j024-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j024-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j025",
+        "name":  "Inter Milan Away - Ibrahimovic #8",
+        "club":  "Inter Milan",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Black body; blue/white chevron across chest with Nike swooshes; white/blue sleeve bands; Pirelli; back: IBRAHIMOVIC, number 8 white",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j025-front.jpg",
+                       "/products/user-collection/j025-back.jpg",
+                       "/products/user-collection/j025-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j025-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    },
+    {
+        "id":  "provided-j026",
+        "name":  "AC Milan Home (Puma) - Maldini #3",
+        "club":  "AC Milan",
+        "type":  "Club",
+        "category":  "Regular",
+        "sleeve":  "Half Sleeve",
+        "price":  249,
+        "originalPrice":  null,
+        "sizes":  [
+                      "M",
+                      "L",
+                      "XL",
+                      "XXL"
+                  ],
+        "stock":  null,
+        "badge":  "",
+        "description":  "Red/black stripes with black patterned side panels; Puma; Milan crest with gold star; gold \u0027AC Milan\u0027 script; back: MALDINI, gold number 3",
+        "fabric":  "",
+        "sizeChart":  "",
+        "images":  [
+                       "/products/user-collection/j026-front.jpg",
+                       "/products/user-collection/j026-back.jpg",
+                       "/products/user-collection/j026-model.jpg"
+                   ],
+        "image":  "/products/user-collection/j026-front.jpg",
+        "available":  true,
+        "published":  true,
+        "featured":  false,
+        "isMock":  false
+    }
+]
